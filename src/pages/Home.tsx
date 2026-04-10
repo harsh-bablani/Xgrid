@@ -388,7 +388,7 @@ function AboutCompanySection() {
           {/* Right Side - Content */}
           <div className="space-y-4">
             <p className="uppercase tracking-widest text-sm text-blue-700 font-medium">About Company</p>
-            <h2 className="text-4xl font-semibold text-slate-900 leading-[1.1]">We Are The Best Enterprise Software Development Agency</h2>
+            <h2 className="text-4xl font-semibold text-slate-900 leading-[1.1]">Building Future-ready Software for Modern Enterprises</h2>
             <p className="text-lg text-slate-600 leading-relaxed font-body mt-2">At SlateBiz Softwares, we specialize in developing intelligent, scalable ERP solutions that transform businesses. With over a decade of experience, we've helped hundreds of companies across jewellery, healthcare, and retail industries streamline their operations and achieve remarkable growth.</p>
             <p className="text-lg text-slate-600 leading-relaxed font-body">Our expert team combines cutting-edge technology with deep industry knowledge to deliver custom software solutions that drive efficiency, reduce costs, and accelerate your business growth. From concept to deployment, we're your trusted partner in digital transformation.</p>
 
