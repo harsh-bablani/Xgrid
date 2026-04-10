@@ -25,7 +25,7 @@ export default function Contact() {
         </p>
 
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3555.6783542662724!2d75.6672222!3d26.977083300000007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDU4JzM3LjUiTiA3NcKwNDAnMDIuMCJF!5e0!3m2!1sen!2sin!4v1773410430612!5m2!1sen!2sin"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d222.2304730461025!2d75.6672628!3d26.9767916!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4d2f20964fa5%3A0x9e6e24ba9b015028!2sSlateBiz%20Softwares!5e0!3m2!1sen!2sin!4v1775850586187!5m2!1sen!2sin"
           className="w-full h-[400px] sm:h-[450px] rounded-lg border-0 mb-12"
           allowFullScreen
           loading="lazy"
