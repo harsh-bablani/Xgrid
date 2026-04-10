@@ -1,187 +1,248 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronDown, Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+  const isContact = location.pathname === '/contact/';
+  const isAbout = location.pathname === '/about-us/';
+  const isBlueHeader = isAbout || isContact;
 
-  const isActive = (path: string) => location.pathname === path;
+  const headerBgClass = isBlueHeader
+    ? "bg-[#166C96] border-none shadow-none"
+    : "bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800";
+
+  const navTextClass = isBlueHeader
+    ? "text-white hover:text-white/80"
+    : "text-gray-800 dark:text-gray-200 hover:text-indigo-600";
+
+  const btnClass = isBlueHeader
+    ? "bg-white text-[#166C96] hover:bg-gray-50 shadow-sm"
+    : "bg-[#5c6ee1] text-white hover:bg-[#4a58b8] shadow-sm";
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
+    <header className={`${headerBgClass} sticky top-0 z-50 transition-colors duration-200`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-<Link to="/" className="flex-shrink-0">
-            <img 
-              src="/logo.jpg" 
-              alt="SlateBiz Softwares" 
-              className="h-20 w-auto object-contain"
+        <div className="flex justify-between items-center h-24 md:h-[120px]">
+
+          {/* Logo - Clickable and redirects to home */}
+          <Link to="/" className="flex items-center">
+            <img
+              src={isBlueHeader ? "/Logo-White.png" : "/logo.jpg"}
+              alt="Slatebiz Logo"
+              className={`${isBlueHeader ? 'h-[18px] md:h-[28px]' : 'h-[70px] md:h-[110px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
+              style={{ display: "block" }}
             />
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-4">
+          {/* Right-aligned Navigation Items (Desktop) */}
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <Link
               to="/"
-              className={`px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium transition-all hover:shadow-sm ${
-                isActive('/')
-                  ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-800'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800'
-              }`}
+              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
             >
               Home
             </Link>
 
-            <Link
-              to="/about"
-              className={`px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium transition-all hover:shadow-sm ${
-                isActive('/about')
-                  ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-800'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800'
-              }`}
+            {/* Products Dropdown */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setIsProductsDropdownOpen(true)}
+              onMouseLeave={() => setIsProductsDropdownOpen(false)}
             >
-              About
-            </Link>
-
-            <div className="relative group">
               <button
-                className="flex items-center space-x-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800 transition-all hover:shadow-sm"
-                onClick={() => setIsProductsOpen(!isProductsOpen)}
+                onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
+                className={`flex items-center space-x-1 text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
               >
-                <span>Products</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isProductsOpen ? 'rotate-180' : ''}`} />
+                <span className={navTextClass}>Products</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${(isProductsDropdownOpen) ? 'rotate-180' : ''}`} />
               </button>
 
-              {isProductsOpen && (
-                <div
-                  className="absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 shadow-lg rounded-lg py-2"
-                >
-                  <Link
-                    to="/xjewel-erp"
-                    className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                    onClick={() => setIsProductsOpen(false)}
-                  >
-                    <div className="font-medium">JewelBiz</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Jewellery Management</div>
-                  </Link>
-                  <Link
-                    to="/xcura-hms"
-                    className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-primary-50 dark:hover:bg-gray-700 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-                    onClick={() => setIsProductsOpen(false)}
-                  >
-                    <div className="font-medium">CuraBiz</div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Hospital Management</div>
-                  </Link>
+              {/* Dropdown Menu */}
+              {isProductsDropdownOpen && (
+                <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-0 pt-4 w-64 z-50`}>
+                  <div className={`rounded-lg shadow-lg border bg-white border-gray-200 py-2 overflow-hidden`}>
+                    <Link
+                      to="/enterprise-resource-planning/jewelbiz/"
+                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
+                      onClick={() => setIsProductsDropdownOpen(false)}
+                    >
+                      Jewellery Management Software
+                    </Link>
+                    <Link
+                      to="/enterprise-resource-planning/curabiz/"
+                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
+                      onClick={() => setIsProductsDropdownOpen(false)}
+                    >
+                      Hospital Management Software
+                    </Link>
+                    <Link
+                      to="/enterprise-resource-planning/retailbiz/"
+                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
+                      onClick={() => setIsProductsDropdownOpen(false)}
+                    >
+                      Retail Management Software
+                    </Link>
+                    <Link
+                      to="/products"
+                      className="block px-4 py-2 text-sm font-medium text-blue-600 hover:bg-gray-100 transition-colors"
+                      onClick={() => setIsProductsDropdownOpen(false)}
+                    >
+                      Get Customised Erp System
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
 
             <Link
+              to="/services"
+              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+            >
+              Services
+            </Link>
+
+            <Link
+              to="/about-us/"
+              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+            >
+              About Us
+            </Link>
+
+            <Link
               to="/blogs"
-              className={`px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium transition-all hover:shadow-sm ${
-                isActive('/blogs')
-                  ? 'text-primary-500 dark:text-primary-400 bg-primary-50 dark:bg-gray-800'
-                  : 'text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800'
-              }`}
+              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
             >
               Blogs
             </Link>
 
             <Link
-              to="/#contact"
-              className="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 hover:border-primary-200 dark:hover:border-primary-800 transition-all hover:shadow-sm"
-              onClick={(e) => {
-                e.preventDefault();
-                if (location.pathname !== '/') {
-                  window.location.href = '/#contact';
-                } else {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              to="/contact/"
+              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
             >
               Contact
             </Link>
 
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            <Link
+              to="/contact/"
+              className={`flex items-center justify-center px-5 py-2 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
             >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+              Book A Demo
+            </Link>
           </nav>
 
-          <button
-            className="md:hidden p-2 text-gray-700 dark:text-gray-300"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden flex items-center">
+            <button
+              className={`p-2 transition-colors ${navTextClass}`}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
+        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
-            <Link
-              to="/"
-              className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </Link>
-            <div className="py-2">
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Products</div>
+          <div className={`md:hidden py-4 border-t ${isBlueHeader ? 'border-white/20' : 'border-gray-100 dark:border-gray-800'}`}>
+            <div className="space-y-4">
               <Link
-                to="/xjewel-erp"
-                className="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400"
+                to="/"
+                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                JewelBiz
+                Home
               </Link>
+
+              {/* Mobile Products Dropdown */}
+              <div className="px-4">
+                <button
+                  onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
+                  className={`flex items-center justify-between w-full text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                >
+                  <span>Products</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMobileProductsOpen && (
+                  <div className={`mt-2 ml-4 space-y-3 border-l-2 ${isBlueHeader ? 'border-white/30' : 'border-gray-100'} pl-4 py-2 animate-in slide-in-from-top-1 duration-200`}>
+                    <Link
+                      to="/enterprise-resource-planning/jewelbiz/"
+                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Jewellery ERP
+                    </Link>
+                    <Link
+                      to="/enterprise-resource-planning/curabiz/"
+                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Hospital HMS
+                    </Link>
+                    <Link
+                      to="/enterprise-resource-planning/retailbiz/"
+                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Retail ERP
+                    </Link>
+                    <Link
+                      to="/products"
+                      className={`block text-[12px] font-bold tracking-widest uppercase text-blue-500`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Custom Solutions
+                    </Link>
+                  </div>
+                )}
+              </div>
+
               <Link
-                to="/xcura-hms"
-                className="block pl-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400"
+                to="/services"
+                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                CuraBiz
+                Services
               </Link>
+
+              <Link
+                to="/about-us/"
+                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About Us
+              </Link>
+
+              <Link
+                to="/blogs/"
+                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blogs
+              </Link>
+
+              <Link
+                to="/contact/"
+                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
+
+              <div className="px-4 pt-4">
+                <Link
+                  to="/contact/"
+                  className={`block w-full text-center px-6 py-3 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Book A Demo
+                </Link>
+              </div>
             </div>
-            <Link
-              to="/blogs"
-              className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Blogs
-            </Link>
-            <a
-              href="#contact"
-              className="block py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </a>
-            <button
-              onClick={() => setIsDark(!isDark)}
-              className="flex items-center space-x-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
           </div>
         )}
       </div>

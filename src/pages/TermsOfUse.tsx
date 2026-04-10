@@ -2,19 +2,19 @@ export default function TermsOfUse() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Terms of Use</h1>
+        <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-8">Terms of Use</h1>
         
         <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
           
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">1. ACCEPTANCE OF TERMS</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. ACCEPTANCE OF TERMS</h2>
             <p>
               By accessing, viewing, installing, using the Software or clicking "Install" or "I agree", You agree to be bound by these Terms of Use. If you do not agree to these terms, please immediately discontinue the use of the Software. If You are entering into these Terms on behalf of an entity, You represent that You have authority to bind that entity.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">2. DEFINITIONS</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. DEFINITIONS</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>"Affiliate"</strong> means any entity that controls, is controlled by, or is under common control with a party.</li>
               <li><strong>"Company"</strong> refers to Slatebiz Software, a company incorporated under the law of India including its holding, subsidiary, affiliates, and associate companies</li>
@@ -29,7 +29,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">3. LICENSE GRANT AND SCOPE OF USE</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. LICENSE GRANT AND SCOPE OF USE</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>License:</strong> Subject to these Terms and payment of applicable fees, Company grants you a limited, non‑exclusive, non‑transferable, non‑sublicensable, revocable license to install and use the Software solely for your internal business purposes during the Term ("License").</li>
               <li><strong>Authorized Use:</strong> The License is granted only to the You and may not be used for the benefit of any third party unless expressly permitted in writing by Company.</li>
@@ -38,7 +38,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">4. RESTRICTION</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">4. RESTRICTION</h2>
             <p>You shall not, and shall not permit any third party to:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>copy, modify, translate, adapt, or create derivative works based on the Software;</li>
@@ -56,7 +56,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">5. DEPLOYMENT MODEL; ACCESS TO CUSTOMER DATA</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">5. DEPLOYMENT MODEL; ACCESS TO CUSTOMER DATA</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>On‑Premises Deployment:</strong> The Software is designed to be deployed on User‑controlled infrastructure ("On‑Premises"), unless otherwise agreed in writing (e.g., hosted deployment, managed services, or cloud add‑ons).</li>
               <li><strong>No Routine Access to Customer Data:</strong> Under an On‑Premises deployment, Company does not have routine access to Customer Data stored in your environment. You retain control over your databases, servers, systems, and access permissions.</li>
@@ -74,7 +74,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">6. CONFIDENTIALITY</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">6. CONFIDENTIALITY</h2>
             <p>
               "Confidential Information" means any information of any nature, form, medium and content whatsoever, disclosed by a party ("Disclosing Party") or received by the other ("Receiving Party") under these terms whether written, oral, visual, electronic, graphic, tangible or intangible (printed, software, models, technical data, specimens, prototype etc.) and designated as confidential or reasonably should be understood as confidential, including business information, product designs, roadmaps, trade secrets, source/object code, security information, and Personal Data (where applicable).
             </p>
@@ -94,7 +94,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">7. THIRDPARTY SERVICES & OPEN SOURCE COMPONENTS</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">7. THIRDPARTY SERVICES & OPEN SOURCE COMPONENTS</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>Third‑Party Components:</strong> The Software may include third‑party or open‑source components (e.g., Java, MySQL Community Server, Tomcat, libraries/JARs) ("Third‑Party Components").</li>
               <li><strong>Separate Licenses:</strong> Third‑Party Components are governed by their respective licenses. To the extent there is a conflict between these Terms and a third‑party license, the third‑party license governs for that component.</li>
@@ -103,7 +103,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">8. INTELLECTUAL PROPERTY (IP)</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">8. INTELLECTUAL PROPERTY (IP)</h2>
             <p>
               All intellectual property, including in relation to our services, including any software, techniques and processes used, and any trademarks, logos, images, material, content, designs, information and other content of ours belongs exclusively to us or is licensed to us. By no means is any proprietary right or license in any intellectual property is impliedly or expressly granted by us to you through your use of our services. Except for the License expressly granted herein, no rights are transferred.
             </p>
@@ -116,7 +116,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">9. SECURITY; CUSTOMER RESPONSIBILITIES</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">9. SECURITY; CUSTOMER RESPONSIBILITIES</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>Company Security Practices:</strong> Company will maintain commercially reasonable administrative, technical, and organizational measures appropriate for the nature of the Software and Services it provides.</li>
               <li><strong>User Responsibilities:</strong> You are responsible for:
@@ -133,14 +133,14 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">10. COMPLIANCE OF LAW</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">10. COMPLIANCE OF LAW</h2>
             <p>
               You agree to comply with all applicable laws and regulations, including (where applicable) the Information Technology Act, 2000, rules thereunder, and the Digital Personal Data Protection Act and rules thereunder. You shall not use the Software for unlawful purposes or in violation of any applicable regulation.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">11. WARRANTY</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">11. WARRANTY</h2>
             <p>
               The Software is provided on an "AS-IS" and "AS‑AVAILABLE" basis.
             </p>
@@ -153,7 +153,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">12. LIMITATION OF LIABILITY</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">12. LIMITATION OF LIABILITY</h2>
             <p>
               To the fullest extent permitted by law, Company's total aggregate liability arising out of or related to these Terms shall not exceed the fees actually paid by User to Company for the Software/Services giving rise to the claim in the twelve (12) months preceding the event giving rise to liability.
             </p>
@@ -166,7 +166,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">13. INDEMNIFICATION</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">13. INDEMNIFICATION</h2>
             <p>You agree to indemnify, defend, and hold harmless Company, its Affiliates, and their officers, directors, employees, and agents from and against all claims, damages, liabilities, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or related to:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>your breach of these Terms;</li>
@@ -177,7 +177,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">14. TERM AND TERMINATION</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">14. TERM AND TERMINATION</h2>
             
             <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-3">14.1 Term</h3>
             <p>These Terms shall commence on the date when the Software is activated and shall continue until License expires or is terminated.</p>
@@ -211,7 +211,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">15. CHANGES TO SOFTWARE AND TERMS</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">15. CHANGES TO SOFTWARE AND TERMS</h2>
             <ul className="list-disc list-inside space-y-3">
               <li><strong>Software Changes:</strong> Company may update features, security, or integrations, including by patches and updates. Where you have a paid maintenance term, Company will not materially reduce core functionality during the paid term except for legal, safety, or security reasons.</li>
               <li><strong>Terms Changes:</strong> Company may update these Terms by posting a revised version and notifying you via email or in‑product notice. Continued use after the effective date constitutes acceptance. Material changes will not apply retroactively to a current paid term unless required by law or for safety/security.</li>
@@ -219,21 +219,21 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">16. PUBLICITY</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">16. PUBLICITY</h2>
             <p>
               Company may use your name and logo on customer lists and marketing materials, subject to your brand guidelines, unless you opt out by written notice to info@slatebiz.com
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">17. GOVERNING LAW AND DISPUTE RESOLUTION</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">17. GOVERNING LAW AND DISPUTE RESOLUTION</h2>
             <p>
               These Terms and use of our services shall be governed by and constructed in accordance with the laws of India. The parties agree that any dispute arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of Courts of Jaipur, Rajasthan, India.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">18. FORCE MAJEURE</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">18. FORCE MAJEURE</h2>
             <p>
               Neither party is liable for failures due to events beyond reasonable control (e.g., acts of God, labor disputes, internet failures, war, epidemics), provided the affected party uses commercially reasonable efforts to mitigate.
             </p>
@@ -241,28 +241,28 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">19. ENTIRE AGREEMENT</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">19. ENTIRE AGREEMENT</h2>
             <p>
               These Terms constitute the entire agreement between the parties regarding the Software and supersede all prior or contemporaneous understandings relating to the subject matter. Any amendment must be as per clause 15 or in a mutually signed writing (as applicable).
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">20. SEVERABILITY</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">20. SEVERABILITY</h2>
             <p>
               If any provision is held invalid or unenforceable, the remainder will remain in effect, and the invalid provision will be replaced by a valid provision that most closely reflects the original intent.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">21. WAIVER</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">21. WAIVER</h2>
             <p>
               No waiver is effective unless in writing and signed by the waiving party. A waiver of one breach does not waive any other breach.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">22. NOTICES</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">22. NOTICES</h2>
             <p>
               All notices or other communications under these Terms of Use shall be in writing and shall be deemed served when delivered personally, sent by certified or registered mail, or sent by email, to the parties at below addresses or set forth in this Terms of Use, or to such other address as either party may designate by notice to the other party.
             </p>
@@ -284,7 +284,7 @@ export default function TermsOfUse() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">23. CONTACT</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">23. CONTACT</h2>
             <p>
               For questions, support, or complaints, contact <a href="mailto:info@slatebiz.com" className="text-primary-500 hover:text-primary-700">info@slatebiz.com</a>
             </p>

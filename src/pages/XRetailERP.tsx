@@ -1,8 +1,9 @@
-import { Globe, Users, Package, Receipt, BarChart3, Stethoscope, Building, Syringe, Pill, TestTube, Microscope, Ambulance, Calendar, TrendingUp, Shield } from 'lucide-react';
+import React from 'react';
+import { Shield, Database, Globe, FileText, Users, Package, ShoppingCart, Building2, Receipt, BarChart3, Store, TrendingUp, Smartphone, CreditCard } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function XCuraHMS() {
+export default function XRetailERP() {
   return (
     <div className="min-h-screen">
       <HeroSection />
@@ -31,10 +32,10 @@ function HeroSection() {
         {/* Text Section - Constrained for readability */}
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-            Hospital Management Software
+            Retail Management Software
           </h1>
           <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Next-gen healthcare ecosystems for clinics, diagnostic centers, and multi-specialty hospitals.
+            A complete suite of tools to scale your retail empire and unify operations.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact" className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-lg">
@@ -51,8 +52,8 @@ function HeroSection() {
           <div className="w-full p-2 md:p-3 bg-white rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
             <div className="w-full overflow-hidden rounded-[1.5rem] bg-gray-50">
               <iframe
-                src="/dashboards/hospital.html"
-                title="CuraBiz Hospital Dashboard"
+                src="/dashboards/retail.html"
+                title="RetailBiz Dashboard"
                 className="w-full border-none"
                 style={{
                   height: '850px',
@@ -75,46 +76,57 @@ function BusinessModelSection() {
         {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Built for Every Healthcare Model
+            Built for Every Retail Business Model
           </h2>
           <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Whether you run a multi-specialty hospital or a diagnostic lab, CuraBiz adapts to your workflow.
+            Whether you run a single boutique or a multi-chain retail empire, our software adapts to your workflow.
           </p>
         </div>
 
         {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
 
-          {/* Multi-Specialty Hospitals */}
+          {/* Multi-Chain Retailers */}
           <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Building className="w-5 h-5 text-white" />
+              <Store className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Multi-Specialty Hospitals</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Multi-Chain Retailers</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Centralized operations, multi-branch visibility, and clinical analytics for complex healthcare environments.
+              Centralized operations, multi-store visibility, and inventory analytics for complex retail environments.
             </p>
           </div>
 
-          {/* Diagnostic Labs */}
+          {/* E-commerce Stores */}
           <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Microscope className="w-5 h-5 text-white" />
+              <ShoppingCart className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Diagnostic Labs</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">E-commerce Stores</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Sample lifecycle, machine integration, reporting, and billing automation for laboratory operations.
+              Online inventory management, order processing, and integration with marketplaces and shipping platforms.
             </p>
           </div>
 
-          {/* Clinics & Day Care */}
+          {/* Boutiques & Specialty Stores */}
           <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Stethoscope className="w-5 h-5 text-white" />
+              <Package className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Clinics & Day Care</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Boutiques & Specialty Stores</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Fast OPD, smart queues, pharmacy, and diagnostics for outpatient care centers.
+              Fast POS, customer management, and specialized inventory for boutique retail operations.
+            </p>
+          </div>
+
+          {/* HR Consultancy Firms */}
+          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
+            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
+              <Users className="w-5 h-5 text-white" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">HR Consultancy Firms</h3>
+            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
+              Workforce management, payroll processing, and recruitment solutions for scaling retail networks.
             </p>
           </div>
 
@@ -134,30 +146,30 @@ function ComparisonSection() {
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
             The Old Way vs.{" "}
-            <span className="text-blue-600">The CuraBiz Way</span>
+            <span className="text-blue-600">The Modern Retail Way</span>
           </h2>
           <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing efficiency to operational chaos. Upgrade to a system that works as flawlessly as your healthcare facility.
+            Stop losing sales to operational chaos. Upgrade to a system that works as flawlessly as your retail business.
           </p>
         </div>
 
         {/* Comparison Box */}
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-xl overflow-hidden shadow-sm">
 
-          {/* LEFT - CuraBiz */}
+          {/* LEFT - Modern Retail */}
           <div className="bg-gradient-to-b from-[#1e5eff] to-[#0d3b75] text-white p-10">
             <h3 className="text-lg font-semibold mb-6 tracking-wide">
-              CURABIZ
+              MODERN RETAIL ERP
             </h3>
 
             <ul className="space-y-5 text-sm">
               {[
-                "Real-time, accurate patient tracking",
-                "Live appointment scheduling and queue management",
-                "Error-free billing and insurance processing",
-                "Centralized control across all departments",
-                "Fully integrated EMR, billing & pharmacy",
-                "Complete visibility into lab and radiology workflows",
+                "Real-time, accurate inventory tracking",
+                "Integrated POS and online sales channels",
+                "Automated reordering and stock alerts",
+                "Centralized customer management",
+                "Complete sales analytics and reporting",
+                "Multi-store inventory synchronization",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="bg-white text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
@@ -169,20 +181,20 @@ function ComparisonSection() {
             </ul>
           </div>
 
-          {/* RIGHT - Competitors */}
+          {/* RIGHT - Traditional */}
           <div className="bg-white p-10">
             <h3 className="text-lg font-semibold mb-6 text-gray-900 tracking-wide">
-              COMPETITORS
+              TRADITIONAL METHODS
             </h3>
 
             <ul className="space-y-5 text-sm text-gray-600">
               {[
-                "Manual patient records lead to data mismatches",
-                "Scheduling errors reduce patient satisfaction",
-                "No real-time visibility across departments",
-                "Disconnected tools for billing, EMR, and pharmacy",
-                "Limited control over lab and radiology workflows",
-                "No automated backup leading to data security risks",
+                "Manual inventory leads to stockouts and overstocking",
+                "Disconnected POS and online systems",
+                "No real-time visibility across stores",
+                "Limited customer insights and tracking",
+                "Manual reporting and data entry errors",
+                "Siloed operations across locations",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="bg-gray-200 text-gray-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
@@ -201,31 +213,31 @@ function ComparisonSection() {
 }
 
 function FeaturesSection() {
-  const [activeTab, setActiveTab] = useState("clinical");
+  const [activeTab, setActiveTab] = useState("operations");
 
-  const clinical = [
-    ["Patient Management", "Complete registration, EMR, vitals, pediatric growth charts, and visit history.", Users],
-    ["Appointment & Queue System", "Online booking, smart token management, patient portal, SMS & email alerts.", Calendar],
-    ["OPD Management", "Consultation billing, diagnostics, and daily transaction tracking.", Stethoscope],
-    ["IPD Management", "ADT (Admission-Discharge-Transfer), bed & ward control, package billing, insurance cycles.", Building],
-    ["Laboratory & Diagnostics", "Integrated LIS, sample tracking, automated PDF reports, and radiology workflows.", TestTube],
-    ["Pharmacy Management", "Inventory control, batch & expiry tracking, billing, and multi-store pharmacy operations.", Pill],
-    ["Emergency & Ambulance", "Emergency care management, ambulance tracking, and critical care workflows.", Ambulance],
-    ["Doctor Workflows", "Specialized workflows for different departments, prescription management, and clinical notes.", Syringe]
+  const operations = [
+    ["Point of Sale (POS)", "Fast, reliable POS system with barcode scanning, multiple payment methods, and receipt printing.", ShoppingCart],
+    ["Inventory Management", "Real-time stock tracking, automated reordering, and multi-location inventory control.", Package],
+    ["Customer Management", "Complete customer profiles, purchase history, loyalty programs, and targeted marketing.", Users],
+    ["Supplier Management", "Vendor relationships, purchase orders, and automated procurement workflows.", Building2],
+    ["Multi-Store Operations", "Manage multiple retail locations from a single dashboard with centralized control.", Store],
+    ["E-commerce Integration", "Seamless integration with online stores, marketplaces, and shipping platforms.", Globe],
+    ["Reporting & Analytics", "Sales reports, inventory analytics, customer insights, and business intelligence.", BarChart3],
+    ["Mobile App Support", "Access your retail operations on-the-go with our mobile management app.", Smartphone],
   ];
 
-  const administrative = [
-    ["Billing & Insurance", "Integrated billing, insurance claims, GST, receivables, and doctor payouts.", Receipt],
-    ["Financial Control", "Complete accounting, ledgers, expense tracking, and financial reporting.", TrendingUp],
-    ["Staff Management", "Employee records, scheduling, payroll, and performance tracking.", Users],
-    ["Inventory Management", "Medical supplies, equipment tracking, and automated reordering.", Package],
-    ["Compliance & Security", "HIPAA compliance, data security, audit trails, and regulatory reporting.", Shield],
-    ["Multi-Location Support", "Manage multiple facilities from a single platform with centralized control.", Building],
-    ["Analytics & Reporting", "Custom reports, dashboards, KPI tracking, and business intelligence.", BarChart3],
-    ["Integration APIs", "HL7, FHIR, and third-party system integrations for seamless data flow.", Globe]
+  const financial = [
+    ["Sales & Revenue Tracking", "Complete sales tracking, revenue analysis, and performance metrics across all channels.", Receipt],
+    ["Financial Control", "Expense management, profit analysis, and comprehensive financial reporting.", TrendingUp],
+    ["Tax Management", "Automated tax calculations, multi-tax support, and compliance reporting.", FileText],
+    ["Payroll Integration", "Staff scheduling, payroll processing, and performance management.", Users],
+    ["Cost Analysis", "Detailed cost tracking, margin analysis, and profitability insights.", BarChart3],
+    ["Budget Planning", "Annual budgeting, forecast planning, and financial goal tracking.", Database],
+    ["Audit Trails", "Complete transaction history, audit logs, and compliance documentation.", Shield],
+    ["Payment Processing", "Multiple payment gateways, secure transactions, and automated reconciliation.", CreditCard],
   ];
 
-  const data = activeTab === "clinical" ? clinical : administrative;
+  const data = activeTab === "operations" ? operations : financial;
 
   return (
     <section className="w-full bg-[#f8fafc] py-20 px-4">
@@ -234,7 +246,7 @@ function FeaturesSection() {
         {/* Heading */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            Powerful Features for Every Operation
+            Powerful Features for Every Retail Operation
           </h2>
           <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
             Stop losing efficiency to operational chaos. Upgrade to a system that works flawlessly.
@@ -245,23 +257,23 @@ function FeaturesSection() {
         <div className="flex justify-center mb-10">
           <div className="bg-gray-200 rounded-full p-1 flex">
             <button
-              onClick={() => setActiveTab("clinical")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "clinical"
+              onClick={() => setActiveTab("operations")}
+              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "operations"
                 ? "bg-white text-blue-600 shadow"
                 : "text-gray-500"
                 }`}
             >
-              Clinical & Patient Care
+              Operations & Sales
             </button>
 
             <button
-              onClick={() => setActiveTab("administrative")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "administrative"
+              onClick={() => setActiveTab("financial")}
+              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "financial"
                 ? "bg-white text-blue-600 shadow"
                 : "text-gray-500"
                 }`}
             >
-              Administrative & Financial
+              Financial & Analytics
             </button>
           </div>
         </div>
@@ -279,9 +291,9 @@ function FeaturesSection() {
               >
                 <div className="flex items-start gap-4">
 
-                  {/* ICON (FIXED) */}
+                  {/* ICON */}
                   <div className="w-10 h-10 bg-blue-50 flex items-center justify-center rounded-lg">
-                    <Icon className="w-5 h-5 text-blue-600" />
+                    {React.createElement(Icon, { className: "w-5 h-5 text-blue-600" })}
                   </div>
 
                   <div>
@@ -300,39 +312,37 @@ function FeaturesSection() {
   );
 }
 
-{/* ... redundant components removed for brevity ... */ }
-
 function FeaturesGridSection() {
   const features = [
     {
-      icon: "🏥",
-      title: "PATIENT MANAGEMENT",
-      desc: "Complete EMR system with patient registration, medical history, and visit tracking.",
+      icon: "🛍️",
+      title: "POINT OF SALE",
+      desc: "Advanced POS system with barcode scanning, multiple payment options, and instant receipt generation.",
     },
     {
-      icon: "📅",
-      title: "APPOINTMENT BOOKING",
-      desc: "Online appointment scheduling with smart queue management and patient portal.",
+      icon: "📦",
+      title: "INVENTORY CONTROL",
+      desc: "Real-time stock tracking, automated reordering, and multi-location inventory management.",
     },
     {
-      icon: "🧪",
-      title: "LABORATORY INTEGRATION",
-      desc: "Integrated LIS with sample tracking, automated reports, and machine connectivity.",
-    },
-    {
-      icon: "💊",
-      title: "PHARMACY MANAGEMENT",
-      desc: "Complete pharmacy operations with inventory, billing, and prescription management.",
-    },
-    {
-      icon: "🏢",
-      title: "MULTI-LOCATION SUPPORT",
-      desc: "Manage multiple hospitals and clinics from a single centralized platform.",
+      icon: "👥",
+      title: "CUSTOMER CRM",
+      desc: "Complete customer relationship management with loyalty programs and purchase history.",
     },
     {
       icon: "📊",
-      title: "ADVANCED ANALYTICS",
-      desc: "Real-time dashboards, custom reports, and KPI tracking for better decision making.",
+      title: "SALES ANALYTICS",
+      desc: "Comprehensive sales reporting, trend analysis, and business intelligence dashboard.",
+    },
+    {
+      icon: "🏪",
+      title: "MULTI-STORE SUPPORT",
+      desc: "Manage multiple retail locations from a single centralized platform.",
+    },
+    {
+      icon: "🌐",
+      title: "E-COMMERCE INTEGRATION",
+      desc: "Seamless integration with online stores and marketplace platforms.",
     },
   ];
 
@@ -343,10 +353,10 @@ function FeaturesGridSection() {
         {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Everything you need to run a HEALTHCARE EMPIRE
+            Everything you need to run a RETAIL EMPIRE
           </h2>
           <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            A complete suite of tools engineered for the unique complexities of the healthcare industry.
+            A complete suite of tools engineered for the unique complexities of the retail industry.
           </p>
         </div>
 
@@ -357,7 +367,7 @@ function FeaturesGridSection() {
               key={i}
               className="bg-white rounded-2xl p-8 shadow-md hover:shadow-lg transition hover:-translate-y-1"
             >
-              {/* ICON BOX (THIS IS IMPORTANT FIX) */}
+              {/* ICON BOX */}
               <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
                 <span className="text-blue-600 text-xl">
                   {item.icon}
@@ -395,7 +405,7 @@ function FeatureHighlightSection() {
 
           {/* Main Image */}
           <img
-            src="/H.jpeg"
+            src="/R.jpeg"
             alt="Dashboard"
             className="relative rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] w-full max-w-[500px]"
           />
@@ -405,7 +415,7 @@ function FeatureHighlightSection() {
             <span className="text-lg">📈</span>
             <div>
               <p className="text-xs opacity-80">Insight</p>
-              <p className="text-sm font-medium">40% Efficiency Gain</p>
+              <p className="text-sm font-medium">45% Sales Growth</p>
             </div>
           </div>
 
@@ -421,17 +431,17 @@ function FeatureHighlightSection() {
 
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-            Best Hospital Management Software in India
+            Best Retail Management Software in India
           </h2>
 
           {/* Description */}
-          <div className="text-gray-600 text-[15px] leading-relaxed">
-            <p className="mb-4">Managing a healthcare facility requires precision. From tracking patient records to maintaining secure medical data, generic hospital management systems fall short.</p>
-
-            <p className="mb-4">CuraBiz is engineered from the ground up to be the ultimate hospital ERP and management software. Whether you run a single clinic or a multi-city hospital chain, our cloud-based platform ensures your data is secure, accessible, and actionable.</p>
-
-            <p>Features like integrated EMR, laboratory management, and financial control make CuraBiz the preferred choice for modern healthcare providers looking to scale.</p>
-          </div>
+          <p className="text-gray-600 text-[15px] leading-relaxed">
+            Managing a retail business requires precision. From tracking inventory to managing customer relationships, generic retail systems fall short.
+            <br /><br />
+            Our Retail ERP is engineered from the ground up to be the ultimate retail management solution. Whether you run a single boutique or a multi-city retail chain, our cloud-based platform ensures your data is secure, accessible, and actionable.
+            <br /><br />
+            Features like integrated POS, inventory management, and customer CRM make our software the preferred choice for modern retailers looking to scale.
+          </p>
 
         </div>
 
@@ -440,35 +450,34 @@ function FeatureHighlightSection() {
   );
 }
 
-
 function CTAFAQSection() {
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {
-      q: "Is CuraBiz suitable for small clinics?",
-      a: "Yes, CuraBiz scales from single clinics to large multi-specialty hospitals with flexible modules and pricing.",
+      q: "Is your retail software suitable for small boutiques?",
+      a: "Yes, our software scales from single boutiques to large multi-chain retail stores with flexible modules and pricing.",
     },
-    { q: "Does it support laboratory integration?", a: "" },
-    { q: "What about data security and compliance?", a: "" },
-    { q: "Can it handle multiple locations?", a: "" },
+    { q: "Does it support e-commerce integration?", a: "" },
+    { q: "What about multi-store inventory management?", a: "" },
+    { q: "Can it handle multiple payment methods?", a: "" },
     { q: "Is training and support included?", a: "" },
-    { q: "Is there a mobile app for doctors?", a: "" },
+    { q: "Does it support barcode generation and scanning?", a: "" },
   ];
 
   return (
     <section className="w-full">
 
-      {/* 🔵 CTA SECTION */}
+      {/* CTA SECTION */}
       <div className="w-full bg-gradient-to-r from-[#0d3b75] to-[#1e5eff] py-20 px-4 text-center text-white">
         <div className="max-w-3xl mx-auto">
 
           <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-            Ready to Modernize Your Operations?
+            Ready to Modernize Your Retail Operations?
           </h2>
 
           <p className="text-blue-100 mb-8">
-            Join leading hospitals who have increased their efficiency by 40% with CuraBiz.
+            Join leading retailers who have increased their sales by 45% with our Retail ERP.
           </p>
 
           <Link to="/contact" className="bg-white text-[#0d3b75] px-6 py-3 rounded-md font-medium shadow hover:shadow-lg transition">
@@ -478,7 +487,7 @@ function CTAFAQSection() {
         </div>
       </div>
 
-      {/* ⚪ FAQ SECTION */}
+      {/* FAQ SECTION */}
       <div className="w-full bg-[#f3f6fb] py-20 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
 
@@ -489,7 +498,7 @@ function CTAFAQSection() {
             </h3>
 
             <p className="text-gray-500 mb-6">
-              Have any questions about our hospital management system? You're in the right place.
+              Have any questions about our retail management system? You're in the right place.
             </p>
 
             <Link to="/contact" className="bg-[#0d3b75] text-white px-5 py-2 rounded-md text-sm inline-block">

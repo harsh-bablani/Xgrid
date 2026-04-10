@@ -1,364 +1,390 @@
-import { useState, useEffect, useRef } from 'react';
-import { Target, Lightbulb, Heart, Shield, TrendingUp, Users, Globe, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Building2, Shield, Cloud, Zap, Users, Twitter, Linkedin, Layers } from 'lucide-react';
 
 export default function About() {
   return (
-    <div className="min-h-screen">
-      <HeroSection />
-      <StatsSection />
-      <WhoWeAreSection />
-      <FoundersSection />
-      <WhatWeDoSection />
-      <OurApproachSection />
-      <WhyChooseSection />
-      <VisionMissionSection />
-      <CommitmentSection />
-    </div>
-  );
-}
+    <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900 pb-12">
+      {/* Top Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-function HeroSection() {
-  return (
-    <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">About SlateBiz</h1>
-        <p className="text-xl md:text-2xl text-primary-100 max-w-3xl mx-auto">
-          Building intelligent digital ecosystems for modern businesses
-        </p>
-      </div>
-    </section>
-  );
-}
+          {/* Left Content */}
+          <div className="max-w-xl">
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[13px] font-medium text-gray-600 dark:text-gray-300 mb-8 shadow-sm tracking-wide uppercase">
+              About Us
+            </div>
 
-function StatsSection() {
-  return (
-    <section className="py-20 bg-primary-900 text-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-500 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-accent-500 rounded-full blur-3xl opacity-20"></div>
-      </div>
+            <h1 className="text-[38px] sm:text-[44px] lg:text-[50px] font-semibold text-gray-900 dark:text-white leading-[1.15] tracking-tight mb-8">
+              Building Intelligent Digital
+              Ecosystems for Modern
+              Businesses
+            </h1>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <StatCard end={10} label="Year-Old Company" />
-          <StatCard end={20} suffix="+" label="Years Client Experience in Jewellery Industry" />
-          <StatCard end={1.5} suffix=" Lakh+" decimals={1} label="Invoices Handled" />
-          <StatCard end={50} suffix="+" label="Business Users" />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StatCard({ end, suffix = '', decimals = 0, label }: { end: number, suffix?: string, decimals?: number, label: string }) {
-  return (
-    <div className="p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
-      <div className="text-4xl md:text-5xl font-bold text-white mb-3">
-        <CountUp end={end} suffix={suffix} decimals={decimals} />
-      </div>
-      <p className="text-primary-100 font-medium leading-relaxed">
-        {label}
-      </p>
-    </div>
-  );
-}
-
-function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: number, duration?: number, suffix?: string, decimals?: number }) {
-  const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (countRef.current) {
-      observer.observe(countRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTime: number | null = null;
-    let animationFrame: number;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = timestamp - startTime;
-      const percentage = Math.min(progress / duration, 1);
-      
-      const ease = 1 - Math.pow(1 - percentage, 4);
-      
-      setCount(end * ease);
-
-      if (progress < duration) {
-        animationFrame = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration, isVisible]);
-
-  return (
-    <span ref={countRef}>
-      {count.toFixed(decimals)}{suffix}
-    </span>
-  );
-}
-
-function FoundersSection() {
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12">Meet Our Founders</h2>
-        <div className="flex flex-wrap justify-center gap-16">
-          <div className="flex flex-col items-center">
-            <img
-              src="/Lokesh Sharma.png"
-              alt="Lokesh Sharma"
-              className="w-52 h-52 rounded-full object-cover shadow-lg mb-6 border-4 border-white"
-            />
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Lokesh Verma</h3>
-            <p className="text-lg text-primary-500 font-medium">Founder</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="/Umang Garg.jpeg"
-              alt="Umang Garg"
-              className="w-52 h-52 rounded-full object-cover shadow-lg mb-6 border-4 border-white"
-            />
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Umang Garg</h3>
-            <p className="text-lg text-primary-500 font-medium">Co-founder</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhoWeAreSection() {
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">Who We Are</h2>
-
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-            <p>
-              SlateBiz is a premium enterprise software and digital transformation company delivering intelligent, scalable, and secure technology solutions for modern businesses. We specialize in building industry-specific ERP systems and digital platforms that simplify operations, improve efficiency, and accelerate growth.
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 leading-relaxed max-w-lg">
+              SlateBiz is a premium enterprise software and digital
+              transformation company. We deliver intelligent, scalable, and
+              secure technology solutions designed to simplify your operations,
+              improve efficiency, and accelerate your growth.
             </p>
 
-            <p>
-              With a strong foundation in innovation and domain expertise, SlateBiz creates powerful software ecosystems that help organizations streamline workflows, manage data intelligently, and make faster, smarter business decisions.
-            </p>
-
-            <p>
-              Our solutions are trusted by enterprises across jewellery, healthcare, retail, manufacturing, and service industries.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhatWeDoSection() {
-  const services = [
-    'Enterprise Resource Planning (ERP) Systems',
-    'Jewellery Management Software (JewelBiz)',
-    'Hospital Management Systems (CuraBiz)',
-    'Custom Business Automation Platforms',
-    'Digital Transformation & Growth Solutions',
-  ];
-
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8">What We Do</h2>
-
-          <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-            At SlateBiz, we design and develop:
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="flex items-start space-x-3 bg-white p-4 rounded-lg shadow-sm"
+            <div className="flex gap-4">
+              <Link
+                to="/contact"
+                className="px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 font-semibold text-[14px] tracking-widest uppercase rounded-lg shadow-lg shadow-indigo-200/50 dark:shadow-none transition-all transform hover:-translate-y-1"
               >
-                <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span className="text-gray-700">{service}</span>
-              </div>
-            ))}
+                Get Started
+              </Link>
+            </div>
           </div>
 
-          <p className="text-lg text-gray-700 leading-relaxed">
-            Our platforms are built using modern technologies, cloud infrastructure, and enterprise-grade security to ensure high performance, reliability, and scalability.
-          </p>
+          <img
+            src="/ab.png"
+            alt="Business Ecosystem"
+            className="w-full h-full min-h-[450px] sm:min-h-[550px] lg:h-[600px] rounded-[2rem] shadow-sm object-cover object-center"
+          />
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function OurApproachSection() {
-  const steps = [
-    {
-      title: 'Understand the Industry',
-      description: 'Deep domain research and workflow analysis',
-      icon: Target,
-    },
-    {
-      title: 'Design Intelligent Systems',
-      description: 'User-friendly, automation-ready platforms',
-      icon: Lightbulb,
-    },
-    {
-      title: 'Build Secure & Scalable Solutions',
-      description: 'Enterprise-grade architecture',
-      icon: Shield,
-    },
-    {
-      title: 'Deliver Measurable Results',
-      description: 'Productivity, efficiency, and growth',
-      icon: TrendingUp,
-    },
-  ];
+      {/* Who We Are Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <img
+            src="/who.png"
+            alt="About Team"
+            className="w-full h-full min-h-[450px] sm:min-h-[550px] lg:h-[600px] rounded-[2rem] shadow-sm object-cover object-center"
+          />
 
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Approach</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We follow a consultative and innovation-driven approach
-          </p>
-        </div>
+          {/* Right Content */}
+          <div className="max-w-xl">
+            <h2 className="text-[32px] sm:text-[36px] font-semibold text-gray-900 dark:text-white leading-[1.2] mb-6 tracking-tight">
+              Who We Are
+            </h2>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, index) => (
-            <div key={index} className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 text-primary-500 rounded-full mb-4">
-                <step.icon className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                {step.title}
-              </h3>
-              <p className="text-gray-600">{step.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhyChooseSection() {
-  const reasons = [
-    {
-      icon: Award,
-      title: 'Industry-Specific ERP Expertise',
-      description: 'Deep domain knowledge across multiple sectors',
-    },
-    {
-      icon: Shield,
-      title: 'Secure & Compliance-Ready Architecture',
-      description: 'Enterprise-grade security standards',
-    },
-    {
-      icon: Globe,
-      title: 'Scalable Cloud-Based Solutions',
-      description: 'Built to grow with your business',
-    },
-    {
-      icon: TrendingUp,
-      title: 'High Performance & Real-Time Analytics',
-      description: 'Instant insights for faster decisions',
-    },
-    {
-      icon: Users,
-      title: 'Dedicated Support & Long-Term Partnership',
-      description: 'We are with you every step of the way',
-    },
-  ];
-
-  return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose SlateBiz</h2>
-          <div className="w-20 h-1 bg-primary-500 mx-auto"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reasons.map((reason, index) => (
-            <div
-              key={index}
-              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow"
-            >
-              <reason.icon className="w-12 h-12 text-primary-500 mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                {reason.title}
-              </h3>
-              <p className="text-gray-600">{reason.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function VisionMissionSection() {
-  return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-gradient-to-br from-primary-500 to-primary-700 text-white p-10 rounded-2xl">
-            <Target className="w-12 h-12 mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
-            <p className="text-lg leading-relaxed text-primary-50">
-              To become a global leader in intelligent enterprise software, enabling businesses to transform digitally and operate with speed, accuracy, and confidence.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-br from-accent-500 to-accent-700 text-white p-10 rounded-2xl">
-            <Heart className="w-12 h-12 mb-6" />
-            <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
-            <p className="text-lg leading-relaxed text-accent-50">
-              To deliver world-class ERP and digital solutions that empower organizations with automation, data intelligence, and seamless integration, driving sustainable business growth and operational excellence.
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+              We specialize in building industry-specific Enterprise Resource Planning (ERP) systems and digital platforms.
+              With a strong foundation in innovation and deep domain expertise, SlateBiz creates powerful software ecosystems.
+              We help organizations streamline their workflows, manage data intelligently, and make faster, smarter business decisions.
             </p>
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </section>
 
-function CommitmentSection() {
-  return (
-    <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl font-bold mb-6">Our Commitment</h2>
-        <p className="text-xl leading-relaxed text-gray-300">
-          SlateBiz is committed to building future-ready digital ecosystems that combine technology, innovation, and business intelligence. We aim to be a trusted technology partner for enterprises looking to modernize operations, enhance customer experience, and achieve long-term success in a digital-first world.
-        </p>
-      </div>
-    </section>
+      {/* Why Choose Us Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24 bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-sm my-8 border border-gray-100 dark:border-gray-700">
+        <div className="text-center mb-16 px-4">
+          <h2 className="text-[32px] sm:text-[36px] font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
+            Why Choose Us
+          </h2>
+          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-medium">
+            What makes SlateBiz different from the rest.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1240px] mx-auto">
+          {/* Card 1 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Building2 className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Industry-Specific ERP Expertise</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Deep domain knowledge tailored across multiple sectors.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Shield className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Secure & Compliance-Ready</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Built with enterprise-grade security standards you can trust.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Cloud className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Scalable Cloud Solutions</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Flexible platforms designed to grow seamlessly with your business.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Zap className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">High Performance & Analytics</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Instant, actionable insights for faster decision-making.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Users className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Dedicated Support</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Long-term partnership—we are committed to being with you every step of the way.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Layers className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Seamless Integration</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Effortlessly connect with your favorite third-party tools and platforms.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* The Founders Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+          {/* Left Images (Founders) */}
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
+            <div className="flex flex-col h-full">
+              <img
+                src="/Umang Garg.png"
+                alt="Umang Garg"
+                className="w-full h-full min-h-[400px] sm:min-h-[500px] object-cover rounded-2xl shadow-sm"
+                style={{ objectPosition: 'center top' }}
+              />
+              <div className="text-center mt-4">
+                <span className="text-lg font-medium text-gray-900 dark:text-white">Umang Garg</span>
+                <div className="flex justify-center items-center gap-4 mt-2">
+                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Twitter">
+                    <Twitter className="w-4 h-4" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/garg-umang/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-700 transition-colors" aria-label="LinkedIn">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col h-full">
+              <img
+                src="/Lokesh Sharma.png"
+                alt="Lokesh Verma"
+                className="w-full h-full min-h-[400px] sm:min-h-[500px] object-cover rounded-2xl shadow-sm"
+                style={{ objectPosition: 'center top' }}
+              />
+              <div className="text-center mt-4">
+                <span className="text-lg font-medium text-gray-900 dark:text-white">Lokesh Verma</span>
+                <div className="flex justify-center items-center gap-4 mt-2">
+                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors" aria-label="Twitter">
+                    <Twitter className="w-4 h-4" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/lokesh-verma01/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-700 transition-colors" aria-label="LinkedIn">
+                    <Linkedin className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content */}
+          <div className="max-w-xl">
+            <h2 className="text-[32px] sm:text-[38px] font-semibold text-gray-900 dark:text-white leading-[1.2] mb-6 tracking-tight">
+              The Founders.
+            </h2>
+
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-medium">
+              We specialize in building industry-specific Enterprise Resource Planning (ERP) systems and digital platforms. With a strong foundation in innovation and deep domain expertise, SlateBiz creates powerful software ecosystems. We help organizations streamline their workflows, manage data intelligently, and make faster, smarter business decisions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet Our Passionate Team Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-[32px] sm:text-[36px] font-semibold text-gray-900 dark:text-white leading-[1.2] mb-6 tracking-tight">
+            Meet Our Passionate Team
+          </h2>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed font-medium max-w-3xl mx-auto">
+            The talented individuals who drive our success and bring expertise to every project.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 max-w-[1240px] mx-auto">
+          {/* Team Member 1 */}
+          <div className="text-center">
+            <div className="flex flex-col items-center">
+              <img
+                src="/Anil Chaudhary.png"
+                alt="Anil Chaudhary"
+                className="w-48 h-48 rounded-2xl shadow-lg object-contain mb-6"
+              />
+              <h3 className="text-[20px] font-semibold text-gray-900 dark:text-white mb-2">
+                Anil Chaudhary
+              </h3>
+              <p className="text-base text-gray-600 dark:text-gray-400 font-medium">
+                Business Development Manager
+              </p>
+            </div>
+          </div>
+
+          {/* Team Member 2 */}
+          <div className="text-center">
+            <div className="flex flex-col items-center">
+              <img
+                src="/Kunal Mathur.png"
+                alt="Kuntal Mathur"
+                className="w-48 h-48 rounded-2xl shadow-lg object-contain mb-6"
+              />
+              <h3 className="text-[20px] font-semibold text-gray-900 dark:text-white mb-2">
+                Kuntal Mathur
+              </h3>
+              <p className="text-base text-gray-600 dark:text-gray-400 font-medium">
+                Project Manager
+              </p>
+            </div>
+          </div>
+
+          {/* Team Member 3 */}
+          <div className="text-center">
+            <div className="flex flex-col items-center">
+              <img
+                src="/Urja Ramanandi.png"
+                alt="Urja Ramanandi"
+                className="w-48 h-48 rounded-2xl shadow-lg object-contain mb-6"
+              />
+              <h3 className="text-[20px] font-semibold text-gray-900 dark:text-white mb-2">
+                Urja Ramanandi
+              </h3>
+              <p className="text-base text-gray-600 dark:text-gray-400 font-medium">
+                Project Manager
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Process Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 lg:py-24 bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-sm my-8 border border-gray-100 dark:border-gray-700">
+        <div className="text-center mb-16 px-4">
+          <h2 className="text-[32px] sm:text-[36px] font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
+            Our Process
+          </h2>
+          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-medium">
+            What makes SlateBiz different from the rest.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1240px] mx-auto">
+          {/* Card 1 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Building2 className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Industry-Specific ERP Expertise</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Deep domain knowledge tailored across multiple sectors.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Shield className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Secure & Compliance-Ready</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Built with enterprise-grade security standards you can trust.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Cloud className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Scalable Cloud Solutions</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Flexible platforms designed to grow seamlessly with your business.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Zap className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">High Performance & Analytics</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Instant, actionable insights for faster decision-making.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Users className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Dedicated Support</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Long-term partnership—we are committed to being with you every step of the way.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className="bg-[#fcfdfd] border border-gray-100 dark:border-gray-700 dark:bg-gray-900/50 p-8 rounded-2xl hover:shadow-md transition-shadow">
+            <div className="w-11 h-11 rounded-lg bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+              <Layers className="w-5 h-5 text-indigo-500" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Seamless Integration</h3>
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed font-medium">
+              Effortlessly connect with your favorite third-party tools and platforms.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-8 mb-16">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-black shadow-lg">
+          {/* Background image & overlay */}
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-60"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')" }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/80"></div>
+
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 text-center text-white py-24 sm:py-32">
+            <h2 className="text-[36px] sm:text-[42px] font-semibold mb-6 tracking-tight">
+              Ready to Transform Your Business?
+            </h2>
+            <p className="text-lg text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+              Partner with SlateBiz to modernize your operations, enhance your customer
+              experience, and achieve long-term success with a future-ready digital
+              ecosystem.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Link
+                to="/contact"
+                className="px-8 py-4 bg-white text-indigo-600 hover:bg-gray-50 font-semibold text-[14px] tracking-widest uppercase rounded-full shadow-xl transition-all transform hover:scale-105"
+              >
+                Get Started Today
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

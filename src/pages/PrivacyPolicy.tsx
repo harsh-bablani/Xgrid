@@ -2,12 +2,12 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
+        <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
         
         <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
           
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Our Commitment</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Our Commitment</h2>
             <p>
               At Slatebiz Softwares ("Company", "We", "Us", "Our"), we value your trust and are committed to protecting your privacy. Any information collected by us is used solely for legitimate business and operational purposes and is not shared with any third party except as described in this Privacy Policy. We do not sell, rent, or trade your personal information to any external entity.
             </p>
@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">2. Information We Collect</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Information We Collect</h2>
             <p>
               To deliver and improve our services, we may collect the following types of information:
             </p>
@@ -66,7 +66,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">3. Use of Cookies</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Use of Cookies</h2>
             <p>We may use cookies or similar technologies to:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>Identify and distinguish users</li>
@@ -82,14 +82,14 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">4. External Links</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">4. External Links</h2>
             <p>
               Our Software may contain links to third‑party websites. This Privacy Policy applies solely to our domain. We are not responsible for the privacy practices, security, or content of any external websites. We encourage you to review the privacy policies of external sites before providing any information.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">5. Information Sharing and Disclosure</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">5. Information Sharing and Disclosure</h2>
             <p>
               We do not disclose your personal or sensitive information to third parties except in the following circumstances:
             </p>
@@ -123,7 +123,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">6. Data Security</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">6. Data Security</h2>
             <p>We implement industry‑standard security practices, including:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>Regular internal and external security audits</li>
@@ -138,7 +138,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">7. Retention of Information</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">7. Retention of Information</h2>
             <p>We retain personal information only for as long as:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
               <li>Required for operational purposes</li>
@@ -151,7 +151,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">8. Updates to This Privacy Policy</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">8. Updates to This Privacy Policy</h2>
             <p>
               We may update this Privacy Policy periodically to comply with changes in technology, legal requirements, or business operations. Updates will be posted on our website or within the Software.
             </p>
