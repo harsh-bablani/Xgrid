@@ -78,25 +78,6 @@ function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: num
 }
 
 function HeroSection() {
-  const [displayedText, setDisplayedText] = useState('');
-  const titleRef = useRef<HTMLHeadingElement>(null);
-
-  const fullText = 'Secure Ecosystems. Seamless Operations. Scalable Growth.';
-
-  useEffect(() => {
-    let i = 0;
-    const timer = setInterval(() => {
-      setDisplayedText(fullText.slice(0, i));
-      // setCurrentIndex(i);
-      i++;
-      if (i > fullText.length) {
-        clearInterval(timer);
-      }
-    }, 80); // Typing speed
-
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section className="relative overflow-hidden bg-slate-50">
       <img
@@ -109,8 +90,8 @@ function HeroSection() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6 text-slate-900">
-            <h1 ref={titleRef} className="text-[32px] sm:text-[42px] lg:text-[54px] font-semibold leading-[1.1]">
-              {displayedText}
+            <h1 className="text-[32px] sm:text-[42px] lg:text-[54px] font-semibold leading-[1.1]">
+              Secure Ecosystems. Seamless Operations. Scalable Growth.
             </h1>
             <p className="text-lg sm:text-xl text-slate-600 max-w-xl font-body">
               We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
@@ -160,11 +141,6 @@ function HeroSection() {
 
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
 
-      {/* Scroll Down Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce cursor-pointer">
-        <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Scroll Down</span>
-        <div className="w-1 h-8 bg-gradient-to-b from-blue-600 to-transparent rounded-full" />
-      </div>
     </section>
   );
 }
