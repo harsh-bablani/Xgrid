@@ -27,14 +27,14 @@ export default function Header() {
   return (
     <header className={`${headerBgClass} sticky top-0 z-50 transition-colors duration-200`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-[110px] md:h-[160px]">
+        <div className="flex justify-between items-center h-[80px] md:h-[100px]">
 
           {/* Logo - Clickable and redirects to home */}
           <Link to="/" className="flex items-center">
             <img
               src={isBlueHeader ? "/Logo-White.png" : "/logo.jpg"}
               alt="Slatebiz Logo"
-              className={`${isBlueHeader ? 'h-[18px] md:h-[28px]' : 'h-[95px] md:h-[145px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
+              className={`${isBlueHeader ? 'h-[18px] md:h-[28px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
               style={{ display: "block" }}
             />
           </Link>
