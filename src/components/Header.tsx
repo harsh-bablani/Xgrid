@@ -34,7 +34,7 @@ export default function Header() {
             <img
               src={isBlueHeader ? "/Logo-White.png" : "/logo.jpg"}
               alt="Slatebiz Logo"
-              className={`${isBlueHeader ? 'h-[18px] md:h-[28px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
+              className={`${isBlueHeader ? 'h-[32px] md:h-[50px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
               style={{ display: "block" }}
             />
           </Link>
@@ -121,14 +121,22 @@ export default function Header() {
             </Link>
 
             <Link
-              to="/contact/"
+              to="/contact/#contact-form"
               className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+              onClick={() => {
+                setTimeout(() => {
+                  const element = document.getElementById('contact-form');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }, 100);
+              }}
             >
               Contact
             </Link>
 
             <Link
-              to="/contact/"
+              to="/contact/#contact-form"
               className={`flex items-center justify-center px-5 py-2 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
             >
               Book A Demo
@@ -226,18 +234,34 @@ export default function Header() {
               </Link>
 
               <Link
-                to="/contact/"
+                to="/contact/#contact-form"
                 className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setTimeout(() => {
+                    const element = document.getElementById('contact-form');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 100);
+                }}
               >
                 Contact
               </Link>
 
               <div className="px-4 pt-4">
                 <Link
-                  to="/contact/"
+                  to="/contact/#contact-form"
                   className={`block w-full text-center px-6 py-3 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    setTimeout(() => {
+                      const element = document.getElementById('contact-form');
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }, 100);
+                  }}
                 >
                   Book A Demo
                 </Link>

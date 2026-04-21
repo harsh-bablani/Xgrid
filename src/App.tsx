@@ -37,6 +37,25 @@ function App() {
         </main>
         <Footer />
       </div>
+      
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/919257373668"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center group transition-transform hover:scale-110 duration-300"
+        aria-label="Contact on WhatsApp"
+      >
+        <img 
+          src="/wa.png" 
+          alt="WhatsApp" 
+          className="w-20 h-20 object-contain drop-shadow-xl"
+        />
+
+        <span className="absolute bottom-full right-0 mb-3 px-3 py-1.5 bg-gray-900/90 backdrop-blur-sm text-white text-[12px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap translate-y-1 group-hover:translate-y-0">
+          Chat on WhatsApp
+        </span>
+      </a>
     </Router>
   );
 }

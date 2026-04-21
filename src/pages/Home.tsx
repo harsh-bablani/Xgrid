@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <HeroSection />
+      <CompanyLogosSection />
       <ProductsSection />
       <OutcomeSection />
       <LaunchStepsSection />
@@ -79,39 +80,57 @@ function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: num
 
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-slate-50">
-      <img
-        src="/herobg.png"
-        alt="Hero background"
-        className="absolute inset-0 w-full h-full object-cover opacity-80"
+    <section 
+      className="relative w-full overflow-hidden bg-[#f8faff] flex flex-col lg:block"
+    >
+      {/* Mobile Image: Shown first on small screens */}
+      <img 
+        src="/BGDB.png" 
+        alt="Hero Visual" 
+        className="w-full h-auto block lg:hidden"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/30" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="space-y-6 text-slate-900">
-            <h1 className="text-[32px] sm:text-[42px] lg:text-[54px] font-semibold leading-[1.1]">
-              Secure Ecosystems. Seamless Operations. Scalable Growth.
-            </h1>
-            <p className="text-lg sm:text-xl text-slate-600 max-w-xl font-body">
-              We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
-            </p>
+      {/* Desktop Background Image - Sets the aspect ratio and provides the backdrop */}
+      <img 
+        src="/BGDB.png" 
+        alt="Hero Background" 
+        className="hidden lg:block w-full h-auto select-none pointer-events-none"
+      />
+      
+      {/* Content Overlay - Static on mobile (below image), Absolute on desktop (over image) */}
+      <div className="relative lg:absolute lg:inset-0 z-20 flex items-center py-10 lg:py-0">
+        <div className="max-w-7xl mx-auto lg:ml-[5%] lg:mr-auto px-4 sm:px-6 lg:pl-0 lg:pr-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            
+            {/* Left-aligned Text content shifted more to the left edge */}
+            <div className="lg:col-span-5 space-y-4 lg:space-y-5 text-slate-900">
+              <h1 className="text-[28px] sm:text-[34px] lg:text-[42px] font-bold leading-[1.2] tracking-tight text-slate-900">
+                <span className="block">Secure Ecosystems.</span>
+                <span className="block">Seamless Operations.</span>
+                <span className="block">Scalable Growth.</span>
+              </h1>
+              <p className="text-sm sm:text-base text-slate-600 max-w-sm font-body leading-relaxed">
+                We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
+              </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Link to="/contact" className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-subtitle rounded-lg shadow-lg hover:bg-blue-700 transition">
-                Get Started
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative flex items-center justify-center">
-            <div className="relative w-full h-[400px] sm:h-[450px] lg:h-[550px] shadow-[0_32px_64px_-28px_rgba(0,0,0,0.35)] rounded-[36px] overflow-hidden border border-white/60 bg-white">
-              <img src="/Dashboard.png" alt="Dashboard" className="w-full h-full object-contain" />
+              <div className="pt-2">
+                <Link to="/contact" className="inline-flex items-center justify-center px-5 py-2.5 bg-[#3b82f6] text-white font-medium rounded-md shadow-md hover:bg-[#2563eb] transition-all font-subtitle text-xs tracking-wider uppercase">
+                  Get Started
+                </Link>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="mt-10 pt-4 overflow-hidden">
+function CompanyLogosSection() {
+  return (
+    <div className="relative z-20 py-12 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 w-full mx-auto">
+        <div className="overflow-hidden">
           <div className="company-marquee flex gap-12 items-center">
             {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png'].map((src, idx) => (
               <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 w-40 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-3">
@@ -138,10 +157,7 @@ function HeroSection() {
           will-change: transform;
         }
       `}</style>
-
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
-
-    </section>
+    </div>
   );
 }
 
