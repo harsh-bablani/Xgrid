@@ -99,22 +99,22 @@ function HeroSection() {
 
       {/* Content Overlay - Static on mobile (below image), Absolute on desktop (over image) */}
       <div className="relative lg:absolute lg:inset-0 z-20 flex items-center py-10 lg:py-0">
-        <div className="max-w-7xl mx-auto lg:ml-[5%] lg:mr-auto px-4 sm:px-6 lg:pl-0 lg:pr-8 w-full">
+        <div className="max-w-7xl mx-auto lg:ml-[9%] lg:mr-auto px-4 sm:px-6 lg:pl-0 lg:pr-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12">
 
-            {/* Left-aligned Text content shifted more to the left edge */}
-            <div className="lg:col-span-5 space-y-4 lg:space-y-5 text-slate-900">
-              <h1 className="text-[28px] sm:text-[34px] lg:text-[42px] font-bold leading-[1.2] tracking-tight text-slate-900">
+            {/* Left-aligned Text content shifted more to the right */}
+            <div className="lg:col-span-6 space-y-4 lg:space-y-6 text-slate-900">
+              <h1 className="text-[34px] sm:text-[41px] lg:text-[50px] font-bold leading-[1.2] tracking-tight text-slate-900">
                 <span className="block">Secure Ecosystems.</span>
                 <span className="block">Seamless Operations.</span>
                 <span className="block">Scalable Growth.</span>
               </h1>
-              <p className="text-sm sm:text-base text-slate-600 max-w-sm font-body leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-600 max-w-md font-body leading-relaxed">
                 We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
               </p>
 
               <div className="pt-2">
-                <Link to="/contact" className="inline-flex items-center justify-center px-5 py-2.5 bg-[#3b82f6] text-white font-medium rounded-md shadow-md hover:bg-[#2563eb] transition-all font-subtitle text-xs tracking-wider uppercase">
+                <Link to="/contact" className="inline-flex items-center justify-center px-7 py-3.5 bg-[#3b82f6] text-white font-medium rounded-md shadow-md hover:bg-[#2563eb] transition-all font-subtitle text-sm tracking-wider uppercase">
                   Get Started
                 </Link>
               </div>
