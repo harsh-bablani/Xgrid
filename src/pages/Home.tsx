@@ -80,28 +80,28 @@ function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: num
 
 function HeroSection() {
   return (
-    <section 
+    <section
       className="relative w-full overflow-hidden bg-[#f8faff] flex flex-col lg:block"
     >
       {/* Mobile Image: Shown first on small screens */}
-      <img 
-        src="/BGDB.png" 
-        alt="Hero Visual" 
+      <img
+        src="/BGDB.png"
+        alt="Hero Visual"
         className="w-full h-auto block lg:hidden"
       />
 
       {/* Desktop Background Image - Sets the aspect ratio and provides the backdrop */}
-      <img 
-        src="/BGDB.png" 
-        alt="Hero Background" 
+      <img
+        src="/BGDB.png"
+        alt="Hero Background"
         className="hidden lg:block w-full h-auto select-none pointer-events-none"
       />
-      
+
       {/* Content Overlay - Static on mobile (below image), Absolute on desktop (over image) */}
       <div className="relative lg:absolute lg:inset-0 z-20 flex items-center py-10 lg:py-0">
         <div className="max-w-7xl mx-auto lg:ml-[5%] lg:mr-auto px-4 sm:px-6 lg:pl-0 lg:pr-8 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12">
-            
+
             {/* Left-aligned Text content shifted more to the left edge */}
             <div className="lg:col-span-5 space-y-4 lg:space-y-5 text-slate-900">
               <h1 className="text-[28px] sm:text-[34px] lg:text-[42px] font-bold leading-[1.2] tracking-tight text-slate-900">

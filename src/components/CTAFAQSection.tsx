@@ -34,7 +34,7 @@ export default function CTAFAQSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* CTA Section */}
+        {/* CTA Secion */}
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900 mb-6">
             Ready to Transform Your Business?
@@ -42,7 +42,7 @@ export default function CTAFAQSection() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Let's discuss how our digital solutions can help you achieve your business goals and stay ahead of the competition.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
               <MessageCircle className="w-5 h-5 mr-2" />
@@ -64,11 +64,11 @@ export default function CTAFAQSection() {
             <p className="text-lg text-gray-600 mb-8">
               Have questions about our services? Find answers to common queries below.
             </p>
-            
+
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="bg-white rounded-xl border border-gray-200 overflow-hidden"
                 >
                   <button
@@ -99,7 +99,7 @@ export default function CTAFAQSection() {
             <p className="text-gray-600 mb-8">
               Have a specific question or project in mind? Reach out to us and we'll get back to you within 24 hours.
             </p>
-            
+
             <form className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -111,7 +111,7 @@ export default function CTAFAQSection() {
                   placeholder="John Doe"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email Address
@@ -122,7 +122,7 @@ export default function CTAFAQSection() {
                   placeholder="john@example.com"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Message
@@ -133,7 +133,7 @@ export default function CTAFAQSection() {
                   placeholder="Tell us about your project..."
                 />
               </div>
-              
+
               <button
                 type="submit"
                 className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center"
@@ -142,7 +142,7 @@ export default function CTAFAQSection() {
                 Send Message
               </button>
             </form>
-            
+
             <div className="mt-8 pt-8 border-t border-gray-200">
               <div className="flex items-center space-x-4 text-gray-600">
                 <Phone className="w-5 h-5" />
