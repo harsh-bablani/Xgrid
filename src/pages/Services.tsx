@@ -41,6 +41,11 @@ function WhyChooseSection() {
       title: "Dedicated Support",
       desc: "Long-term partnership—we are committed to being with you every step of the way.",
     },
+    {
+      icon: Truck,
+      title: "End-to-End Implementation",
+      desc: "Comprehensive lifecycle management from initial planning to final deployment.",
+    },
   ];
 
   return (
@@ -188,23 +193,6 @@ function ServicesAboutSection() {
             />
           </div>
 
-          {/* FLOATING CARD */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-lg px-6 py-5 flex flex-col items-center text-center w-[220px]">
-            
-            {/* Icon */}
-            <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center mb-3">
-              <Truck className="w-5 h-5 text-white" />
-            </div>
-
-            {/* Text */}
-            <h4 className="font-semibold text-gray-900 text-sm">
-              Seamless
-            </h4>
-            <p className="text-gray-500 text-xs mt-1">
-              Unified
-            </p>
-
-          </div>
 
         </div>
 
