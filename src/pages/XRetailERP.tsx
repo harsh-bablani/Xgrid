@@ -54,9 +54,8 @@ function HeroSection() {
               <iframe
                 src="/dashboards/retail.html"
                 title="RetailBiz Dashboard"
-                className="w-full border-none"
+                className="w-full border-none h-[1200px] md:h-[850px]"
                 style={{
-                  height: '850px',
                   display: 'block'
                 }}
               />

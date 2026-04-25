@@ -148,14 +148,67 @@ body {
 @media (max-width: 1024px) {
   .row2, .row3 { grid-template-columns: 1fr; }
 }
+@media (max-width: 768px) {
+  .topbar { height: 70px; padding: 0 16px; }
+  .logo img { height: 40px !important; }
+  .dept-badge { display: none; }
+  .topbar-right { gap: 8px; }
+  
+  .sidebar {
+    position: fixed;
+    left: -240px;
+    top: 70px;
+    bottom: 0;
+    z-index: 50;
+    transition: left 0.3s ease;
+    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  .sidebar.open { left: 0; }
+  
+  .content { padding: 16px; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+  .page-title { font-size: 20px; }
+  
+  .kpi-grid { grid-template-columns: 1fr; }
+  .kpi { padding: 16px; }
+  .kpi-val { font-size: 22px; }
+  
+  .quick-grid { grid-template-columns: repeat(2, 1fr); }
+  
+  .menu-toggle {
+    display: flex !important;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+.menu-toggle { display: none; }
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 40;
+}
+.overlay.open { display: block; }
 </style>
 </head>
 <body>
 
 <div class="shell">
+  <div class="overlay" id="overlay"></div>
   <div class="topbar">
-    <div class="logo">
-      <img src="/logo.jpg" alt="CuraBiz Software Logo" style="height: 76px; width: auto; object-fit: contain;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="menu-toggle" id="menuToggle">
+        <svg class="svg-icon" style="width:20px; height:20px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </div>
+      <div class="logo">
+        <img src="/logo.jpg" alt="CuraBiz Software Logo" style="height: 76px; width: auto; object-fit: contain;">
+      </div>
     </div>
     <div class="topbar-right">
       <div class="dept-badge">Administration Level 1</div>
@@ -168,7 +221,7 @@ body {
   </div>
 
   <div class="main">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="nav-section">Command Center</div>
       <div class="nav-item active">
         <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -507,6 +560,24 @@ function switchChart(mode, el) {
   flowChart.data.datasets[1].data = chartData[mode].discharges;
   flowChart.update();
 }
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+function toggleMenu() {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+menuToggle.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', toggleMenu);
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    if (window.innerWidth <= 768) toggleMenu();
+  });
+});
 </script>
 </body>
 </html>

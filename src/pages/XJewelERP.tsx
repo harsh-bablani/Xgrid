@@ -54,9 +54,8 @@ function HeroSection() {
               <iframe
                 src="/dashboards/jewel.html"
                 title="JewelBiz Dashboard"
-                className="w-full border-none"
+                className="w-full border-none h-[1200px] md:h-[850px]"
                 style={{
-                  height: '850px',
                   display: 'block'
                 }}
               />

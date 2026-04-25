@@ -53,9 +53,8 @@ function HeroSection() {
               <iframe
                 src="/dashboards/hospital.html"
                 title="CuraBiz Hospital Dashboard"
-                className="w-full border-none"
+                className="w-full border-none h-[1200px] md:h-[850px]"
                 style={{
-                  height: '850px',
                   display: 'block'
                 }}
               />
