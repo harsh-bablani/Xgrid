@@ -132,14 +132,14 @@ function CompanyLogosSection() {
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 w-full mx-auto">
         <div className="overflow-hidden">
           <div className="company-marquee flex gap-12 items-center">
-            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png'].map((src, idx) => (
-              <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 w-40 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-3">
-                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png', '/Bhagwati.png', '/Parmeshwari.png', '/SkyHigh.png'].map((src, idx) => (
+              <div key={`logo-a-${idx}`} className={`flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 ${src === '/SkyHigh.png' ? 'w-48 h-24' : 'w-40 h-20'}`}>
+                <img src={src} alt="Client logo" className={`${src === '/SkyHigh.png' ? 'w-auto h-auto max-w-[120px] max-h-[80px]' : 'max-w-full max-h-full'} object-contain mix-blend-multiply`} />
               </div>
             ))}
-            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png'].map((src, idx) => (
-              <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 w-40 h-20 bg-white rounded-xl shadow-sm border border-slate-100 p-3">
-                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png', '/Bhagwati.png', '/Parmeshwari.png', '/SkyHigh.png'].map((src, idx) => (
+              <div key={`logo-b-${idx}`} className={`flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 ${src === '/SkyHigh.png' ? 'w-48 h-24' : 'w-40 h-20'}`}>
+                <img src={src} alt="Client logo" className={`${src === '/SkyHigh.png' ? 'w-auto h-auto max-w-[120px] max-h-[80px]' : 'max-w-full max-h-full'} object-contain mix-blend-multiply`} />
               </div>
             ))}
           </div>
