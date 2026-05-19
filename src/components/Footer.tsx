@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { Linkedin, Instagram, Facebook } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -8,14 +8,6 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4">
           {/* Social Media Icons */}
           <div className="flex items-center gap-4">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
-            >
-              <Twitter className="w-5 h-5" />
-            </a>
             <a
               href="https://www.linkedin.com/company/slatebiz/posts/?feedView=all"
               target="_blank"
@@ -49,6 +41,9 @@ export default function Footer() {
             </Link>
             <Link to="/terms-of-use" className="hover:text-primary-400 transition-colors">
               User Policy
+            </Link>
+            <Link to="/careers" className="hover:text-primary-400 transition-colors">
+              Careers
             </Link>
           </div>
 

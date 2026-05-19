@@ -659,7 +659,7 @@ function FAQSection() {
                 <br />
                 You're in the right place.
               </p>
-              <Link to="/contact" className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors duration-200">
+              <Link to="/faq" className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors duration-200">
                 VIEW ALL FAQ
               </Link>
             </div>

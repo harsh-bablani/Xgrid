@@ -12,6 +12,8 @@ import Services from './pages/Services';
 import Blogs from './pages/Blogs';
 import TermsOfUse from './pages/TermsOfUse';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Careers from './pages/Careers';
+import FAQ from './pages/FAQ';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
             <Route path="/blogs/" element={<Blogs />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
         <Footer />
