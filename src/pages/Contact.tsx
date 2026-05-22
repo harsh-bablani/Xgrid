@@ -1,9 +1,59 @@
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { MapPin, Phone, Mail, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzOCEjlBOkstShveVk9E_bDU2_99SmlC3UWznAlQ77v29jDH5UvNWngHTGqGHyPNc5_/exec';
+
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function Contact() {
+  const [form, setForm] = useState({
+    firstName: '',
+    product: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: '',
+  });
+  const [status, setStatus] = useState<SubmitStatus>('idle');
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.startsWith('PASTE_')) {
+      setStatus('error');
+      console.warn('Google Script URL not set in Contact.tsx');
+      return;
+    }
+
+    setStatus('submitting');
+
+    try {
+      const body = new URLSearchParams();
+      Object.entries(form).forEach(([k, v]) => body.append(k, v));
+
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
+      });
+
+      setStatus('success');
+      setForm({ firstName: '', product: '', email: '', phone: '', company: '', message: '' });
+    } catch (err) {
+      console.error(err);
+      setStatus('error');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Blue Hero Section */}
       <section className="bg-gradient-to-r from-[#003B91] to-[#0071C5] text-white py-16 sm:py-20 text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-[32px] sm:text-[40px] font-semibold mb-4 tracking-tight uppercase">
@@ -15,7 +65,6 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Form Section - MOVED ABOVE */}
       <section id="contact-form" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="bg-[#D3E1E8] rounded-2xl p-8 sm:p-12 text-center">
           <h2 className="text-[24px] sm:text-[28px] font-semibold text-black uppercase tracking-tight mb-4">
@@ -25,12 +74,15 @@ export default function Contact() {
             Fill out our general enquiry form and we'll get your message to the right people. due to large amount of inquiries, please give our team 48 hours to respond.
           </p>
 
-          <form className="space-y-6 text-left max-w-3xl mx-auto">
+          <form onSubmit={handleSubmit} className="space-y-6 text-left max-w-3xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">First Name *</label>
                 <input
                   type="text"
+                  name="firstName"
+                  value={form.firstName}
+                  onChange={handleChange}
                   className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C]"
                   required
                 />
@@ -38,16 +90,18 @@ export default function Contact() {
               <div>
                 <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">Which Product? *</label>
                 <select
+                  name="product"
+                  value={form.product}
+                  onChange={handleChange}
                   className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C] cursor-pointer"
                   required
-                  defaultValue=""
                 >
                   <option value="" disabled>Select a product</option>
-                  <option value="xcurabiz-hms">XCuraBiz HMS</option>
-                  <option value="xjewel-erp">XJewel ERP</option>
-                  <option value="xretail-erp">XRetail ERP</option>
-                  <option value="custom">Custom Solution</option>
-                  <option value="other">Other</option>
+                  <option value="XCuraBiz HMS">CuraBiz</option>
+                  <option value="XJewel ERP">JewelBiz</option>
+                  <option value="XRetail ERP">RetailBiz</option>
+                  <option value="Custom Solution">Custom Solution</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
             </div>
@@ -57,6 +111,9 @@ export default function Contact() {
                 <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">Email *</label>
                 <input
                   type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
                   className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C]"
                   required
                 />
@@ -65,6 +122,9 @@ export default function Contact() {
                 <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">Phone *</label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
                   className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C]"
                   required
                 />
@@ -75,6 +135,9 @@ export default function Contact() {
               <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">Company/Organization</label>
               <input
                 type="text"
+                name="company"
+                value={form.company}
+                onChange={handleChange}
                 className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C]"
               />
             </div>
@@ -82,24 +145,41 @@ export default function Contact() {
             <div>
               <label className="block text-[11px] font-medium text-gray-800 uppercase tracking-wide mb-2">Is there any additional information you would like to add?</label>
               <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
                 rows={3}
                 className="w-full bg-white border-none rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#1A2F4C] resize-none"
               ></textarea>
             </div>
 
+            {status === 'success' && (
+              <div className="flex items-center gap-2 justify-center text-green-700 bg-green-50 border border-green-200 rounded px-4 py-3 text-sm font-medium">
+                <CheckCircle2 className="w-4 h-4" />
+                Thanks! Your message has been recorded. We&apos;ll get back to you within 48 hours.
+              </div>
+            )}
+            {status === 'error' && (
+              <div className="flex items-center gap-2 justify-center text-red-700 bg-red-50 border border-red-200 rounded px-4 py-3 text-sm font-medium">
+                <AlertCircle className="w-4 h-4" />
+                Something went wrong. Please try again or email us at info@slatebiz.com.
+              </div>
+            )}
+
             <div className="pt-4 flex justify-center">
               <button
                 type="submit"
-                className="bg-[#1A2F4C] text-white px-10 py-3 text-[12px] font-medium tracking-widest uppercase rounded hover:bg-[#112035] transition-colors"
+                disabled={status === 'submitting'}
+                className="bg-[#1A2F4C] text-white px-10 py-3 text-[12px] font-medium tracking-widest uppercase rounded hover:bg-[#112035] transition-colors disabled:opacity-60 disabled:cursor-not-allowed inline-flex items-center gap-2"
               >
-                Visit Us
+                {status === 'submitting' && <Loader2 className="w-4 h-4 animate-spin" />}
+                {status === 'submitting' ? 'Sending...' : 'Submit Enquiry'}
               </button>
             </div>
           </form>
         </div>
       </section>
 
-      {/* Get In Touch Section - MOVED DOWN */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h2 className="text-[26px] sm:text-[32px] font-semibold text-black mb-4 uppercase tracking-tight">
           Get In Touch
@@ -116,7 +196,6 @@ export default function Contact() {
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
 
-        {/* Contact Info (Icons properly stacked with centered text below) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-20 text-center">
           <div className="flex flex-col items-center">
             <Phone className="w-6 h-6 text-[#1A2F4C] mb-4" />
