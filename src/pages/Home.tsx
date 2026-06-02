@@ -127,19 +127,31 @@ function HeroSection() {
 }
 
 function CompanyLogosSection() {
+  const logos = [
+    '/hissaria gems private limited.jpeg',
+    '/Mahalaxmi.png',
+    '/BTR.png',
+    '/GS Bihani Jeweller.jpeg',
+    '/b l hissaria jewellers.png',
+    '/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg',
+    '/Parmeshwari Newborn & Children Hospital - Abohar.jpeg',
+    '/Skyy High Placement.jpeg',
+    '/Shiv General Store.jpeg',
+  ];
+
   return (
     <div className="relative z-20 py-12 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 w-full mx-auto">
         <div className="overflow-hidden">
           <div className="company-marquee flex gap-12 items-center">
-            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png', '/Bhagwati.png', '/Parmeshwari.png', '/SkyHigh.png'].map((src, idx) => (
-              <div key={`logo-a-${idx}`} className={`flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 ${src === '/SkyHigh.png' ? 'w-48 h-24' : 'w-40 h-20'}`}>
-                <img src={src} alt="Client logo" className={`${src === '/SkyHigh.png' ? 'w-auto h-auto max-w-[120px] max-h-[80px]' : 'max-w-full max-h-full'} object-contain mix-blend-multiply`} />
+            {logos.map((src, idx) => (
+              <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 w-40 h-20">
+                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
               </div>
             ))}
-            {['/hissaria gems private limited.jpeg', '/Mahalaxmi.png', '/BTR.png', '/GS Bihani Jeweller.jpeg', '/b l hissaria jewellers.png', '/Bhagwati.png', '/Parmeshwari.png', '/SkyHigh.png'].map((src, idx) => (
-              <div key={`logo-b-${idx}`} className={`flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 ${src === '/SkyHigh.png' ? 'w-48 h-24' : 'w-40 h-20'}`}>
-                <img src={src} alt="Client logo" className={`${src === '/SkyHigh.png' ? 'w-auto h-auto max-w-[120px] max-h-[80px]' : 'max-w-full max-h-full'} object-contain mix-blend-multiply`} />
+            {logos.map((src, idx) => (
+              <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 w-40 h-20">
+                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
               </div>
             ))}
           </div>
@@ -153,7 +165,7 @@ function CompanyLogosSection() {
         }
         .company-marquee {
           display: inline-flex;
-          animation: marquee 18s linear infinite;
+          animation: marquee 22s linear infinite;
           will-change: transform;
         }
       `}</style>
@@ -730,6 +742,30 @@ function ReviewsSection() {
       text: "Excellent support and a robust platform. It handles our complex billing requirements effortlessly.",
       name: "Aditya Hissaria",
       brand: "Hissaria Art Palace Pvt Ltd"
+    },
+    {
+      text: "Managing patient records, appointments, and pharmacy has become effortless. The CuraBiz platform truly understands the needs of an Ayurvedic practice.",
+      name: "Dr. Amit Sharma",
+      brand: "Bhagwati Ayurveda & Panchakarma Research Centre",
+      logo: "/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg"
+    },
+    {
+      text: "From OPD to billing and discharge summaries, everything runs smoothly. It has greatly improved our hospital's day-to-day efficiency.",
+      name: "Dr. Saabram",
+      brand: "Parmeshwari Newborn & Children Hospital - Abohar",
+      logo: "/Parmeshwari Newborn & Children Hospital - Abohar.jpeg"
+    },
+    {
+      text: "Tracking candidates, clients, and placements is now incredibly simple. The team's support has been outstanding throughout our journey.",
+      name: "Ms. Preeti",
+      brand: "Skyy High Placement",
+      logo: "/Skyy High Placement.jpeg"
+    },
+    {
+      text: "Inventory, billing, and daily reports are all in one place now. Running our store has become much easier and faster than before.",
+      name: "Mr. Kanhaiya Lal",
+      brand: "Shiv General Store",
+      logo: "/Shiv General Store.jpeg"
     }
   ];
 
