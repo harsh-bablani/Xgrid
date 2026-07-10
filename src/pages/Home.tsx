@@ -179,19 +179,19 @@ function ProductsSection() {
       title: 'Jewellery Management Software',
       description: 'End-to-end jewellery ERP: inventory, billing, karigar management, and retail analytics to scale your jewellery business.',
       image: '/JM.png',
-      href: '/enterprise-resource-planning/jewelbiz/',
+      href: '/jewelbiz/',
     },
     {
       title: 'Hospital Management Software',
       description: 'Complete hospital & clinic management with patient records, pharmacy, billing, appointments, and operational dashboards.',
       image: '/HM.png',
-      href: '/enterprise-resource-planning/curabiz/',
+      href: '/curabiz/',
     },
     {
       title: 'Retail Management Software',
       description: 'Retail-centric ERP for omni-channel stores with stock control, POS integration, customer loyalty and analytics.',
       image: '/RM.png',
-      href: '/enterprise-resource-planning/retailbiz/',
+      href: '/retailbiz/',
     },
   ];
 

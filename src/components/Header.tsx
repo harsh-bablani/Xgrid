@@ -67,21 +67,21 @@ export default function Header() {
                 <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-0 pt-4 w-64 z-50`}>
                   <div className={`rounded-lg shadow-lg border bg-white border-gray-200 py-2 overflow-hidden`}>
                     <Link
-                      to="/enterprise-resource-planning/jewelbiz/"
+                      to="/jewelbiz/"
                       className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
                       onClick={() => setIsProductsDropdownOpen(false)}
                     >
                       Jewellery Management Software
                     </Link>
                     <Link
-                      to="/enterprise-resource-planning/curabiz/"
+                      to="/curabiz/"
                       className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
                       onClick={() => setIsProductsDropdownOpen(false)}
                     >
                       Hospital Management Software
                     </Link>
                     <Link
-                      to="/enterprise-resource-planning/retailbiz/"
+                      to="/retailbiz/"
                       className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
                       onClick={() => setIsProductsDropdownOpen(false)}
                     >
@@ -178,21 +178,21 @@ export default function Header() {
                 {isMobileProductsOpen && (
                   <div className={`mt-2 ml-4 space-y-3 border-l-2 ${isBlueHeader ? 'border-white/30' : 'border-gray-100'} pl-4 py-2 animate-in slide-in-from-top-1 duration-200`}>
                     <Link
-                      to="/enterprise-resource-planning/jewelbiz/"
+                      to="/jewelbiz/"
                       className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Jewellery ERP
                     </Link>
                     <Link
-                      to="/enterprise-resource-planning/curabiz/"
+                      to="/curabiz/"
                       className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Hospital HMS
                     </Link>
                     <Link
-                      to="/enterprise-resource-planning/retailbiz/"
+                      to="/retailbiz/"
                       className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >

@@ -29,9 +29,10 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/about-us/" element={<About />} />
             <Route path="/contact/" element={<Contact />} />
-            <Route path="/enterprise-resource-planning/jewelbiz/" element={<XJewelERP />} />
-            <Route path="/enterprise-resource-planning/curabiz/" element={<XCuraHMS />} />
-            <Route path="/enterprise-resource-planning/retailbiz/" element={<XRetailERP />} />
+            <Route path="/jewelbiz/" element={<XJewelERP />} />
+            <Route path="/curabiz/" element={<XCuraHMS />} />
+            <Route path="/retailbiz/" element={<XRetailERP />} />
+
             <Route path="/blogs/" element={<Blogs />} />
             <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
