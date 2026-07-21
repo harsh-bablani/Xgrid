@@ -131,7 +131,6 @@ function CompanyLogosSection() {
     '/hissaria gems private limited.jpeg',
     '/Mahalaxmi.png',
     '/BTR.png',
-    '/GS Bihani Jeweller.jpeg',
     '/b l hissaria jewellers.png',
     '/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg',
     '/Parmeshwari Newborn & Children Hospital - Abohar.jpeg',
