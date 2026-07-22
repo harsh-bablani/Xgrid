@@ -1,11 +1,16 @@
-# TODO - JewelBiz blog page update
+# TODO: Blogs Page Redesign
 
-- [x] Inspect current `src/pages/Blogs.tsx` structure and routing
-- [x] Replace the existing blog listing/categories with the single JewelBiz article layout (done, but needs refactor)
-- [ ] Refactor `/blogs/` into category listing with clickable cards (All / JewelBiz / Curabiz / Retailbiz)
-- [ ] Add separate blog reader route/page for full reading
-- [ ] Update image rendering to avoid cropping (preserve original size; no fixed heights/object-cover)
-- [ ] Keep design mobile responsive and match existing brand card styles
-- [ ] Run TypeScript build/lint to verify no errors
+## Changes to src/pages/Blogs.tsx
 
+- [x] Plan approved by user
+- [x] 1. Add `searchQuery` state variable
+- [x] 2. Update `filteredPosts` to also filter by search query
+- [x] 3. Replace hero section with blue gradient banner (matches Contact page)
+- [x] 4. Replace category filter buttons with inline clickable style
+- [x] 5. Add search input box below category buttons
+- [x] 6. Verify changes work correctly
+
+## Done
+
+All changes implemented successfully in `src/pages/Blogs.tsx`
 
