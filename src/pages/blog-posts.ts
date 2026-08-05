@@ -8,6 +8,8 @@ export type BlogPost = {
   title: string;
   description: string;
   heroImage: string;
+  date: string;
+  readTime: string;
 };
 
 export const POSTS: BlogPost[] = [
@@ -19,6 +21,8 @@ export const POSTS: BlogPost[] = [
     title: 'The Real Cost of Cheap Jewellery Software',
     description: 'A 2026 Total Cost of Ownership breakdown built on real GST, HUID and compliance reality — plus the hidden costs most calculators miss.',
     heroImage: '/blogs/jewelbiz/FAQ.png',
+    date: '24 JUN 2026',
+    readTime: '2 MIN READ',
   },
   {
     id: 'jewelbiz-jewellery-erp-transforms-business',
@@ -28,6 +32,8 @@ export const POSTS: BlogPost[] = [
     title: 'How the Right Jewellery ERP Transforms Your Business',
     description: 'A Complete Guide to Inventory, Billing, GST Compliance, and Karigar Management for Indian Jewellers',
     heroImage: '/blogs/jewelbiz/Hero.png',
+    date: '24 JUN 2026',
+    readTime: '2 MIN READ',
   },
   // ... more posts can be added here later
 ];

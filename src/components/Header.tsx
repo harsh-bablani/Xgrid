@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
-  const location = useLocation();
-
-  const isContact = location.pathname === '/contact/';
-  const isAbout = location.pathname === '/about-us/';
-  const isBlueHeader = isAbout || isContact;
+  const isBlueHeader = false;
 
   const headerBgClass = isBlueHeader
     ? "bg-[#166C96] border-none shadow-none"
@@ -137,7 +133,8 @@ export default function Header() {
 
             <Link
               to="/contact/#contact-form"
-              className={`flex items-center justify-center px-5 py-2 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
+              className={`flex items-center justify-center px-5 py-2 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase !text-white ${btnClass}`}
+              style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}
             >
               Book A Demo
             </Link>
@@ -252,7 +249,8 @@ export default function Header() {
               <div className="px-4 pt-4">
                 <Link
                   to="/contact/#contact-form"
-                  className={`block w-full text-center px-6 py-3 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase ${btnClass}`}
+                  className={`block w-full text-center px-6 py-3 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase !text-white ${btnClass}`}
+                  style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}
                   onClick={() => {
                     setIsMenuOpen(false);
                     setTimeout(() => {

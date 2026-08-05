@@ -75,21 +75,24 @@ export default function Blogs() {
               <Link
                 key={post.slug}
                 to={`/blogs/${post.brand}/${post.slug}`}
-                className="group flex flex-col bg-white"
+                className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition hover:shadow-md"
               >
-                <div className="overflow-hidden border border-gray-200">
+                <div className="overflow-hidden rounded-2xl m-3 border border-gray-100">
                   <img src={post.heroImage} alt={post.title} className="w-full h-auto block" />
                 </div>
-                <div className="flex flex-col flex-1 pt-4">
-                  <h2 className="text-base font-bold text-gray-900 uppercase tracking-tight leading-snug">
+                <div className="flex flex-col flex-1 p-5 pt-0">
+                  <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                    {post.date} | {post.readTime} | {post.brand.toUpperCase()}
+                  </p>
+                  <h2 className="text-lg font-bold text-gray-900 uppercase tracking-tight leading-snug">
                     {post.title}
                   </h2>
                   <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">
                     {post.description}
                   </p>
-                  <div className="mt-3">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 uppercase tracking-wider">
-                      Read More <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  <div className="mt-4">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors group-hover:text-blue-700">
+                      Read More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
                 </div>

@@ -6,9 +6,9 @@ import { POSTS, Brand } from '../pages/blog-posts';
 function SectionHeader({ kicker, title, desc }: { kicker?: string; title: string; desc?: string }) {
   void kicker;
   return (
-    <div className="text-center mb-10">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">{title}</h2>
-      {desc ? <p className="mt-4 text-gray-600 max-w-3xl mx-auto leading-relaxed text-[15px]">{desc}</p> : null}
+    <div className="mb-10">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 leading-tight uppercase tracking-wide">{title}</h2>
+      {desc ? <p className="mt-4 text-gray-600 leading-relaxed text-[15px]">{desc}</p> : null}
     </div>
   );
 }
@@ -35,7 +35,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
   return (
     <>
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="THE MOST EXPENSIVE LIE IN INDIAN JEWELLERY RETAIL"
             title="It is already paid for"
@@ -55,7 +55,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
 
       {/* Cost Sections */}
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader kicker="TOTAL COST OF OWNERSHIP" title="The 5 Hidden Costs of 'Cheap' Software" />
 
           <div className="space-y-16">
@@ -63,7 +63,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             <div className="flex flex-col gap-8">
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Cost 1: The Manual GST and E-Invoicing Penalty</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Cost 1: The Manual GST and E-Invoicing Penalty</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     Legacy jewellery software that does not auto-push invoices to the IRP, or Invoice Registration Portal, forces your accountant to manually scrape GSTR-2B data, reconcile ITC, and chase missing IRNs. One mismatch on a high-value gold bullion entry can block lakhs in input tax credit for an entire quarter.
                   </p>
@@ -80,7 +80,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
                 </div>
               </div>
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/Cost 1.png" alt="GST e-invoice IRN reconciliation flow for jewellery billing software India" className="w-full h-auto" />
                 </div>
               </div>
@@ -89,13 +89,13 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             {/* Cost 2 */}
             <div className="flex flex-col gap-8">
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/Cost 2.png" alt="Dead stock analysis in jewellery inventory management" className="w-full h-auto" />
                 </div>
               </div>
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Cost 2: Opportunity Loss from Dead Inventory</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Cost 2: Opportunity Loss from Dead Inventory</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     Old jewellery software treats a 24 karat bangle and a 22 karat bangle as identical line items. They see stock. They do not analyse velocity, holding cost, or melt value spread.
                   </p>
@@ -111,7 +111,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             <div className="flex flex-col gap-8">
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Cost 3: The Grandfather Hardware Trap</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Cost 3: The Grandfather Hardware Trap</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     That old jewellery billing software was likely installed on a single Windows 7 PC in 2010. It depends on a specific local server in the back office, a specific printer driver that no longer ships with current Windows, and a specific accountant who knows the workaround for the year-end roll-over.
                   </p>
@@ -124,7 +124,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
                 </div>
               </div>
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/Cost 3.png" alt="Cloud jewellery ERP vs single-PC dependency" className="w-full h-auto" />
                 </div>
               </div>
@@ -133,13 +133,13 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             {/* Cost 4 */}
             <div className="flex flex-col gap-8">
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/Cost 4.png" alt="Customer experience at a jewellery counter" className="w-full h-auto" />
                 </div>
               </div>
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Cost 4: Customer Experience Leakage</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Cost 4: Customer Experience Leakage</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     If your jewellery retail software takes 15 seconds to pull up a customer gold scheme history at the counter, your VIP customer feels like a burden, not a regular.
                   </p>
@@ -157,7 +157,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             <div className="flex flex-col gap-8">
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Cost 5: The 2026 Compliance Penalty Cliff</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Cost 5: The 2026 Compliance Penalty Cliff</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     This is the cost most TCO calculators miss entirely.
                   </p>
@@ -173,7 +173,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
                 </div>
               </div>
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/Cost 5.png" alt="BIS HUID compliance penalty risk 2026 for Indian jewellers" className="w-full h-auto" />
                 </div>
               </div>
@@ -183,14 +183,14 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
       </section>
 
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="CLOUD SAAS VS PERPETUAL LICENCE: THE HONEST MATH"
             title="Old desktop vendors love the one-time payment pitch. But you are buying a frozen snapshot of compliance that will be obsolete inside 18 months."
             desc="Here is the real 3-year TCO comparison for a typical mid-sized jewellery showroom with 4 to 8 crore turnover and 4 billing counters:"
           />
 
-          <div className="rounded-[2rem] overflow-hidden">
+          <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
             <div className="overflow-auto">
               <table className="w-full min-w-[760px]">
                 <thead className="bg-gradient-to-r from-blue-700 to-blue-900 text-white">
@@ -227,13 +227,13 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
 
           <div className="mt-12 flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Support Features.png" alt="JewelBiz error prevention features" className="w-full h-auto" />
               </div>
             </div>
             <div className="w-full order-last">
               <div className="py-4">
-                <h3 className="text-2xl font-bold text-gray-900">Why JewelBiz Comes In 40 Percent Lower on Support Spend</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Why JewelBiz Comes In 40 Percent Lower on Support Spend</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   Cloud is not the only thing keeping JewelBiz's TCO low. The architecture is built to prevent errors at the point of entry, not catch them at the point of audit:
                 </p>
@@ -258,7 +258,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
 
       {/* FAQ */}
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="FREQUENTLY ASKED"
             title="Questions jewellers ask before upgrading"
@@ -278,7 +278,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
           </div>
 
           <div className="mt-10 py-6">
-            <h3 className="text-2xl font-bold text-gray-900 text-center">Stop Paying for a System That Has Already Cost You More Than It Saved</h3>
+            <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide text-center">Stop Paying for a System That Has Already Cost You More Than It Saved</h3>
             <p className="mt-4 text-gray-600 text-center leading-relaxed">
               The cheapest jewellery software in your showroom is the one that catches a billing error before it leaves the counter, files a compliant GSTR-1 without manual cleanup, and tells you which 22 karat bangle has been sitting in the case for 14 months.
             </p>
@@ -288,7 +288,7 @@ function TCOContent({ faqs, openFaq, setOpenFaq }: { faqs: { q: string; a: strin
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 to="/contact/#contact-form"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0C69B6] border-2 border-[#0C69B6] font-bold shadow-sm hover:bg-blue-50 transition"
               >
                 Run your free 5-minute TCO comparison with JewelBiz
               </Link>
@@ -310,7 +310,7 @@ function TransformsBusinessContent() {
   return (
     <>
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="WHY JEWELLERY BUSINESSES NEED SPECIALISED SOFTWARE"
             title="Running a jewellery business in India is unlike any other retail operation"
@@ -326,7 +326,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="WHY JEWELLERY BUSINESSES NEED SPECIALISED SOFTWARE, NOT GENERIC ERP"
             title="Ask any jeweller who has tried using generic accounting software or a basic POS system, and you will hear the same frustration: it simply does not understand jewellery."
@@ -342,7 +342,7 @@ function TransformsBusinessContent() {
               </div>
             </div>
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Problem Statement.png" alt="Problem Statement" className="w-full h-auto" />
               </div>
             </div>
@@ -350,28 +350,28 @@ function TransformsBusinessContent() {
 
           <div className="mt-12 space-y-12">
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Dynamic Gold Rate Management</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Dynamic Gold Rate Management</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 Gold prices change multiple times a day. The rate at 10 AM when the customer places an order is different from the rate at 6 PM when they collect it. A proper jewellery billing software in India must lock the gold rate at order time, calculate provisional billing, adjust for rate differences at delivery, and maintain a clear audit trail. Without this, either the customer or the business loses money on every sale.
               </p>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Karigar and Job Work Management</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Karigar and Job Work Management</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 Your karigar is not an employee punching a clock. They are an independent craftsman who takes raw gold, creates a masterpiece, and returns it with a specific wastage allowance. You need to track gold issued by weight and purity, expected versus actual return weight, wastage percentage, making charges, design specifications, and delivery deadlines. A generic ERP has no concept of a karigar. Jewellery ERP software like JewelBiz treats karigar management as a core module because, for most Indian jewellers, this is where the majority of inventory originates.
               </p>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">HUID Compliance and Hallmarking</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">HUID Compliance and Hallmarking</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 Since BIS mandated HUID for all gold jewellery sold in India, compliance is non-negotiable. Every piece must carry a unique six-digit alphanumeric HUID code linked to the BIS database. Your jewellery management software must generate HUID labels, link them to inventory records, and ensure every sale includes correct HUID documentation. Failure to comply can result in heavy penalties.
               </p>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Multi-Component Pricing</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Multi-Component Pricing</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 A single necklace might include 22K gold, uncut diamonds, ruby stones, and enamel work. Each component has different GST rates and valuation methods. The jewellery accounting software must break down every component, calculate GST correctly at 3% on gold value with separate rates for stones and making charges, and present a clear bill to the customer.
               </p>
@@ -381,7 +381,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="WHAT A JEWELLERY ERP ACTUALLY DOES: BREAKING DOWN THE CORE MODULES"
             title="A jewellery-specific ERP is an integrated system where every module talks to every other module."
@@ -392,35 +392,35 @@ function TransformsBusinessContent() {
             <div className="flex flex-col gap-8">
               <div className="w-full order-last">
                 <div className="py-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Inventory Management: Beyond Basic Stock Counts</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Inventory Management: Beyond Basic Stock Counts</h3>
                   <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                     Jewellery inventory is categorised by metal type, purity, category, weight, stone details, design code, and location. A jewellery inventory management system maintains real-time stock across all branches with SKU-level tracking, auto-alerts for low stock, dead stock identification, and automatic gold rate revaluation. The key difference from generic software is weight-based tracking. Jewellers track grams, milligrams, and carats. The system must handle fractional weights, purity conversions, and metal rate fluctuations without rounding errors that can cost lakhs over a financial year.
                   </p>
                 </div>
               </div>
               <div className="w-full order-first">
-                <div className="rounded-[2rem] overflow-hidden">
+                <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                   <img src="/blogs/jewelbiz/FAQ.png" alt="Jewellery ERP dashboard for Indian jewellery businesses" className="w-full h-auto" />
                 </div>
               </div>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Billing and Invoicing: GST-Compliant by Design</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Billing and Invoicing: GST-Compliant by Design</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 GST for jewellery is notoriously complex. Gold attracts 3% GST, but making charges may be taxed differently. Diamonds and precious stones have separate HSN codes and rates. A proper GST compliant jewellery software automates all of this. It calculates GST line by line, generates e-invoices with QR codes, produces GSTR-1 and GSTR-3B reports ready for filing, and maintains an audit trail that satisfies any tax inspection. For B2B transactions, the system handles GST-exclusive pricing, reverse charge mechanisms, and interstate IGST calculations. For B2C retail, it generates detailed bills with clear breakdowns of gold value, stone value, making charges, and GST.
               </p>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Karigar Management: From Chaos to Control</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Karigar Management: From Chaos to Control</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 The karigar module is where jewellery ERPs truly differentiate themselves. You create a job work order specifying the design, gold to be issued, expected weight, wastage percentage, and deadline. The system issues gold to the karigar with a digital receipt. When the finished piece returns, you record actual weight, calculate wastage, and compare against the allowed percentage. If wastage exceeds norms, the system flags it for review. Over time, this data becomes incredibly valuable. You know which karigars deliver on time, whose wastage is high, which designs are profitable, and where quality issues originate.
               </p>
             </div>
 
             <div className="py-4">
-              <h3 className="text-2xl font-bold text-gray-900">Customer Relationship and Order Management</h3>
+              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Customer Relationship and Order Management</h3>
               <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                 Jewellery purchases are deeply personal. A customer buying an engagement ring or wedding necklace is creating a memory, not just making a transaction. The CRM module in a jewellery ERP captures customer preferences, purchase history, family occasions, and order status for custom pieces. Custom order management tracks every stage from design approval to gold issuance to karigar, crafting progress, quality check, polishing, and delivery. The staff should know exactly where every custom order stands without phone calls or checking physical files.
               </p>
@@ -430,14 +430,14 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="CLOUD-BASED VS ON-PREMISE: WHAT WORKS FOR JEWELLERS IN 2026"
             title="This is a question we hear constantly from jewellery business owners"
             desc="Particularly those who have been in the industry for decades and are understandably cautious about technology. Let us address the concerns directly."
           />
 
-          <div className="rounded-[2rem] overflow-hidden">
+          <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
             <div className="overflow-auto">
               <table className="w-full min-w-[760px]">
                 <thead className="bg-gradient-to-r from-blue-700 to-blue-900 text-white">
@@ -469,13 +469,13 @@ function TransformsBusinessContent() {
 
           <div className="mt-12 flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Cost 3.png" alt="Cloud vs on-premise jewellery ERP comparison for Indian jewellers" className="w-full h-auto" />
               </div>
             </div>
             <div className="w-full order-last">
               <div className="py-4">
-                <h3 className="text-2xl font-bold text-gray-900">The Case for Cloud-Based Jewellery ERP</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">The Case for Cloud-Based Jewellery ERP</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   Cloud-based jewellery ERP software has become the standard for good reason. Your data is backed up automatically across multiple secure servers. You can access your business dashboard from anywhere, whether at a trade show in Dubai or checking inventory at your second branch. Updates happen automatically. For multi-branch jewellers, cloud is essential. When a customer walks into your Jaipur store asking about a piece in your Delhi branch, staff can check availability in real time and arrange delivery without a phone call. The owner sees consolidated sales, inventory, and profit reports across all branches from one dashboard.
                 </p>
@@ -490,14 +490,14 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="HOW TO CHOOSE THE RIGHT JEWELLERY ERP: A PRACTICAL CHECKLIST"
             title="After speaking with hundreds of jewellers across India, we have distilled the selection process into a practical framework."
             desc="Do not get distracted by fancy features you will never use. Focus on what actually matters for your business."
           />
 
-          <div className="rounded-[2rem] overflow-hidden">
+          <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
             <div className="overflow-auto">
               <table className="w-full min-w-[760px]">
                 <thead className="bg-gradient-to-r from-blue-700 to-blue-900 text-white">
@@ -526,13 +526,13 @@ function TransformsBusinessContent() {
 
           <div className="mt-12 flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Cost 4.png" alt="Business types for jewellery ERP" className="w-full h-auto" />
               </div>
             </div>
             <div className="w-full order-last">
               <div className="py-4">
-                <h3 className="text-2xl font-bold text-gray-900">For Single-Store Retail Jewellers</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">For Single-Store Retail Jewellers</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   Your priorities are billing speed, accurate GST calculation, simple inventory tracking, and customer management for repeat business. Look for jewellery retail software that your staff can learn in a day. The system should work during internet outages with offline mode and sync when connectivity returns.
                 </p>
@@ -549,7 +549,7 @@ function TransformsBusinessContent() {
           </div>
 
           <div className="mt-12 py-4">
-            <h3 className="text-2xl font-bold text-gray-900">The Vendor Evaluation Checklist</h3>
+            <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">The Vendor Evaluation Checklist</h3>
             <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
               Before committing to any jewellery ERP in India, ask: How many jewellers use your software? Can you provide references from businesses like mine? What happens to my data if I stop? How often do you release updates? What is your support response time? Do you offer on-site training? Is there a lock-in contract? Beware of vendors who cannot provide specific jewellery industry references or who sell generic ERP with jewellery customisation. Jewellery is too complex for workarounds.
             </p>
@@ -558,7 +558,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="REAL RESULTS: WHAT JEWELBIZ CUSTOMERS ACHIEVE"
             title="Let us move from theory to reality."
@@ -567,32 +567,32 @@ function TransformsBusinessContent() {
 
           <div className="flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Cost 5.png" alt="Results achieved by JewelBiz customers" className="w-full h-auto" />
               </div>
             </div>
             <div className="w-full order-last">
               <div className="py-4">
-                <h3 className="text-2xl font-bold text-gray-900">Inventory Accuracy Above 99 Percent</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">Inventory Accuracy Above 99 Percent</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   Manual inventory tracking in jewellery typically carries an error rate of 3 to 5 percent. When your inventory is worth crores, that is lakhs of rupees in discrepancies. JewelBiz customers report inventory accuracy above 99 percent after implementation, eliminating stock mismatches and recording errors.
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-6">GST Filing Time Reduced by Up to 80 Percent</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide mt-6">GST Filing Time Reduced by Up to 80 Percent</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   Instead of spending 3 to 4 days every month compiling data for GST returns, JewelBiz customers generate automated reports in minutes. GSTR-1, GSTR-3B, and HSN summary reports are ready to export and file.
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-6">Customer Wait Times Cut in Half</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide mt-6">Customer Wait Times Cut in Half</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   JewelBiz customers using barcode scanning and the platform's billing interface report completing a sale in under two minutes, including GST invoice generation, compared to manual billing where staff flip through rate books and calculate on paper.
                 </p>
-                <h3 className="text-2xl font-bold text-gray-900 mt-6">Data-Driven Business Decisions</h3>
+                <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide mt-6">Data-Driven Business Decisions</h3>
                 <p className="mt-4 text-gray-700 leading-relaxed text-[15px] prose prose-slate">
                   One JewelBiz multi-branch customer discovered through the platform's analytics that 60 percent of their inventory investment was tied up in designs accounting for only 15 percent of sales. Reallocating that inventory increased turnover by 40 percent in the following quarter.
                 </p>
                 <div className="mt-8">
                   <Link
                     to="/contact/#contact-form"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0C69B6] border-2 border-[#0C69B6] font-bold shadow-sm hover:bg-blue-50 transition"
                   >
                     See what these results could look like for your store
                   </Link>
@@ -604,7 +604,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="GETTING STARTED: IMPLEMENTATION WITHOUT DISRUPTION"
             title="The biggest fear jewellers have is implementation disrupting their business."
@@ -613,7 +613,7 @@ function TransformsBusinessContent() {
 
           <div className="flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Support Features.png" alt="Implementation process for jewellery ERP" className="w-full h-auto" />
               </div>
             </div>
@@ -635,7 +635,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="THE BOTTOM LINE"
             title="The Indian jewellery industry is at an inflection point."
@@ -652,7 +652,7 @@ function TransformsBusinessContent() {
             <div className="mt-8">
               <Link
                 to="/blogs/jewelbiz/blog1"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0C69B6] border-2 border-[#0C69B6] font-bold shadow-sm hover:bg-blue-50 transition"
               >
                 See our full 2026 jewellery software cost breakdown
               </Link>
@@ -662,7 +662,7 @@ function TransformsBusinessContent() {
       </section>
 
       <section className="py-10 md:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader
             kicker="ABOUT JEWELBIZ BY SLATEBIZ SOFTWARE"
             title="JewelBiz by SlateBiz Software is a jewellery ERP platform trusted by 1,485+ jewellers across India."
@@ -671,7 +671,7 @@ function TransformsBusinessContent() {
 
           <div className="flex flex-col gap-8">
             <div className="w-full order-first">
-              <div className="rounded-[2rem] overflow-hidden">
+              <div className="max-w-4xl mx-auto rounded-2xl overflow-hidden">
                 <img src="/blogs/jewelbiz/Support Features.png" alt="Support Features" className="w-full h-auto" />
               </div>
             </div>
@@ -683,7 +683,7 @@ function TransformsBusinessContent() {
                 <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
                   <Link
                     to="/contact/#contact-form"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-white text-[#0C69B6] border-2 border-[#0C69B6] font-bold shadow-sm hover:bg-blue-50 transition"
                   >
                     Book a free demo
                   </Link>
@@ -797,16 +797,25 @@ export default function BlogPost() {
           <img src="/herobg.png" alt="background" className="w-full h-full object-cover" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 leading-tight tracking-tight">
-            {post.title}
-          </h1>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 className="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight tracking-tight text-center md:whitespace-nowrap">
+          {post.title}
+        </h1>
 
-          <div className="mt-8 rounded-[2rem] overflow-hidden">
-            {/* Preserve image sizing: no fixed heights; allow natural ratio */}
-            <img src={post.heroImage} alt={post.title} className="w-full h-auto block" />
-          </div>
+        <div className="mt-4 flex items-center justify-between text-sm">
+          <span className="text-gray-500 font-medium tracking-wide">
+            {post.date} | {post.readTime}
+          </span>
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider">
+            {post.categoryLabel}
+          </span>
         </div>
+
+        <div className="mt-8 rounded-2xl overflow-hidden">
+          {/* Preserve image sizing: no fixed heights; allow natural ratio */}
+          <img src={post.heroImage} alt={post.title} className="w-full h-auto block" />
+        </div>
+      </div>
       </section>
 
       {/* Content blocks reuse same assets; images preserve natural size */}
@@ -819,7 +828,7 @@ export default function BlogPost() {
       {/* Related Articles */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 uppercase tracking-tight">
+          <h2 className="text-2xl font-bold text-gray-900 uppercase tracking-wide mb-8">
             Related Articles
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -827,21 +836,24 @@ export default function BlogPost() {
               <Link
                 key={p.slug}
                 to={`/blogs/${p.brand}/${p.slug}`}
-                className="group flex flex-col bg-white"
+                className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition hover:shadow-md"
               >
-                <div className="overflow-hidden border border-gray-200">
-                  <img src={p.heroImage} alt={p.title} className="w-full h-auto block" />
+                <div className="overflow-hidden rounded-2xl m-3 border border-gray-100">
+                  <img src={p.heroImage} alt={p.title} className="w-full h-48 object-cover" />
                 </div>
-                <div className="flex flex-col flex-1 pt-4">
-                  <h3 className="text-base font-bold text-gray-900 uppercase tracking-tight leading-snug">
+                <div className="flex flex-col flex-1 p-5 pt-0">
+                  <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                    {p.date} | {p.readTime} | {p.brand.toUpperCase()}
+                  </p>
+                  <h3 className="text-lg font-bold text-gray-900 uppercase tracking-tight leading-snug">
                     {p.title}
                   </h3>
                   <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">
                     {p.description}
                   </p>
-                  <div className="mt-3">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 uppercase tracking-wider">
-                      Read More <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                  <div className="mt-4">
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors group-hover:text-blue-700">
+                      Read More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
                 </div>

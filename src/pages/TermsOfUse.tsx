@@ -1,9 +1,18 @@
 export default function TermsOfUse() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-8">Terms of Use</h1>
-        
+    <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900 pb-16">
+      <section className="bg-gradient-to-r from-[#003B91] to-[#0071C5] text-white py-16 sm:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-[32px] sm:text-[44px] font-semibold mb-5 tracking-tight leading-tight">
+            Terms of Use
+          </h1>
+          <p className="text-[15px] sm:text-[17px] text-blue-100 max-w-2xl mx-auto leading-relaxed font-medium">
+            Please review these terms carefully before using our software and services.
+          </p>
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto -mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
         <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
           
           <section>

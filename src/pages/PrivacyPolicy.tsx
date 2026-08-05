@@ -1,12 +1,64 @@
+import { useState } from 'react';
+
 export default function PrivacyPolicy() {
+  const [activeTab, setActiveTab] = useState('our-commitment');
+
+  const tabs = [
+    { id: 'our-commitment', label: 'Our Commitment' },
+    { id: 'information-we-collect', label: 'Information We Collect' },
+    { id: 'use-of-cookies', label: 'Use of Cookies' },
+    { id: 'external-links', label: 'External Links' },
+    { id: 'information-sharing', label: 'Information Sharing and Disclosure' },
+    { id: 'data-security', label: 'Data Security' },
+    { id: 'retention', label: 'Retention of Information' },
+    { id: 'updates', label: 'Updates to This Privacy Policy' },
+  ];
+
+  const scrollToSection = (id: string) => {
+    setActiveTab(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
-        <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-8">Privacy Policy</h1>
-        
+    <div className="min-h-screen bg-[#F8F9FA] dark:bg-gray-900 pb-16">
+      <section className="bg-gradient-to-r from-[#003B91] to-[#0071C5] text-white py-16 sm:py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-[32px] sm:text-[44px] font-semibold mb-5 tracking-tight leading-tight uppercase">
+            Privacy
+          </h1>
+          <p className="text-[15px] sm:text-[17px] text-blue-100 max-w-2xl mx-auto leading-relaxed font-medium">
+            Explore strategies, guides, and insights on business automation, inventory management, SaaS tools, and scaling operations with modern technology.
+          </p>
+        </div>
+      </section>
+
+      <div className="border-b border-gray-200 bg-white dark:bg-gray-800">
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12">
+          <nav className="flex overflow-x-auto gap-6 py-4" aria-label="Privacy Policy sections">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => scrollToSection(tab.id)}
+                className={`whitespace-nowrap text-xs sm:text-sm font-semibold uppercase tracking-wider border-b-2 pb-2 transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-blue-600 text-blue-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+
+      <section className="max-w-5xl mx-auto px-4 sm:px-8 lg:px-12 py-12">
         <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
           
-          <section>
+          <section id="our-commitment" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Our Commitment</h2>
             <p>
               At Slatebiz Softwares ("Company", "We", "Us", "Our"), we value your trust and are committed to protecting your privacy. Any information collected by us is used solely for legitimate business and operational purposes and is not shared with any third party except as described in this Privacy Policy. We do not sell, rent, or trade your personal information to any external entity.
@@ -22,7 +74,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="information-we-collect" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Information We Collect</h2>
             <p>
               To deliver and improve our services, we may collect the following types of information:
@@ -65,7 +117,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="use-of-cookies" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">3. Use of Cookies</h2>
             <p>We may use cookies or similar technologies to:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
@@ -81,14 +133,14 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="external-links" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">4. External Links</h2>
             <p>
               Our Software may contain links to third‑party websites. This Privacy Policy applies solely to our domain. We are not responsible for the privacy practices, security, or content of any external websites. We encourage you to review the privacy policies of external sites before providing any information.
             </p>
           </section>
 
-          <section>
+          <section id="information-sharing" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">5. Information Sharing and Disclosure</h2>
             <p>
               We do not disclose your personal or sensitive information to third parties except in the following circumstances:
@@ -122,7 +174,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="data-security" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">6. Data Security</h2>
             <p>We implement industry‑standard security practices, including:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
@@ -137,7 +189,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="retention" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">7. Retention of Information</h2>
             <p>We retain personal information only for as long as:</p>
             <ul className="list-disc list-inside space-y-2 mt-3">
@@ -150,7 +202,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
+          <section id="updates" className="scroll-mt-32">
             <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">8. Updates to This Privacy Policy</h2>
             <p>
               We may update this Privacy Policy periodically to comply with changes in technology, legal requirements, or business operations. Updates will be posted on our website or within the Software.
@@ -164,7 +216,7 @@ export default function PrivacyPolicy() {
           </section>
 
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,5 +1,63 @@
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Building2, Shield, Cloud, Zap, Users, Twitter, Linkedin, Layers } from 'lucide-react';
+
+function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: number, duration?: number, suffix?: string, decimals?: number }) {
+  const [count, setCount] = useState(0);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let startTime: number | null = null;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
+
+      const ease = 1 - Math.pow(1 - percentage, 4);
+
+      setCount(end * ease);
+
+      if (progress < duration) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration, isVisible]);
+
+  return (
+    <span ref={countRef} style={{ fontSize: 'inherit', fontWeight: 'inherit', lineHeight: 'inherit' }}>
+      {count.toFixed(decimals)}{suffix}
+    </span>
+  );
+}
 
 export default function About() {
   return (
@@ -10,30 +68,37 @@ export default function About() {
 
           {/* Left Content */}
           <div className="max-w-xl">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-[13px] font-medium text-gray-600 dark:text-gray-300 mb-8 shadow-sm tracking-wide uppercase">
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-300 text-[11px] font-semibold text-gray-900 uppercase tracking-widest mb-8">
               About Us
             </div>
 
-            <h1 className="text-[38px] sm:text-[44px] lg:text-[50px] font-semibold text-gray-900 dark:text-white leading-[1.15] tracking-tight mb-8">
-              Building Intelligent Digital
-              Ecosystems for Modern
-              Businesses
+            <h1 className="text-[38px] sm:text-[44px] lg:text-[50px] font-semibold text-gray-900 dark:text-white leading-[1.1] tracking-tight mb-8">
+              Building Intelligent Digital Ecosystems for Modern Businesses
             </h1>
 
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 leading-relaxed max-w-lg">
-              SlateBiz is a premium enterprise software and digital
-              transformation company. We deliver intelligent, scalable, and
-              secure technology solutions designed to simplify your operations,
-              improve efficiency, and accelerate your growth.
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 pb-6 leading-relaxed border-b border-gray-200">
+              SlateBiz is a premium enterprise software and digital transformation company. We deliver intelligent, scalable, and secure technology solutions designed to simplify your operations, improve efficiency, and accelerate your growth.
             </p>
 
-            <div className="flex gap-4">
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 font-semibold text-[14px] tracking-widest uppercase rounded-lg shadow-lg shadow-indigo-200/50 dark:shadow-none transition-all transform hover:-translate-y-1"
-              >
-                Get Started
-              </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+              <div>
+                <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white leading-none">
+                  <CountUp end={10} suffix="+" />
+                </h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Year Old Company</p>
+              </div>
+              <div>
+                <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white leading-none">
+                  <CountUp end={20} suffix="+" />
+                </h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Years Client Experience in Jewellery</p>
+              </div>
+              <div>
+                <h3 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white leading-none">
+                  <CountUp end={1.5} suffix="L+" decimals={1} />
+                </h3>
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Invoices Handled</p>
+              </div>
             </div>
           </div>
 
@@ -56,6 +121,10 @@ export default function About() {
 
           {/* Right Content */}
           <div className="max-w-xl">
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-300 text-[11px] font-semibold text-gray-900 dark:text-gray-200 uppercase tracking-widest mb-4">
+              Who We Are
+            </div>
+
             <h2 className="text-[32px] sm:text-[36px] font-semibold text-gray-900 dark:text-white leading-[1.2] mb-6 tracking-tight">
               Who We Are
             </h2>
@@ -355,33 +424,31 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-8 mb-16">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-black shadow-lg">
-          {/* Background image & overlay */}
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-60"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')" }}
-          ></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/80"></div>
+      <section className="relative w-full bg-black overflow-hidden">
+        {/* Background image & overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80')" }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/80"></div>
 
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 text-center text-white py-24 sm:py-32">
-            <h2 className="text-[36px] sm:text-[42px] font-semibold mb-6 tracking-tight">
-              Ready to Transform Your Business?
-            </h2>
-            <p className="text-lg text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
-              Partner with SlateBiz to modernize your operations, enhance your customer
-              experience, and achieve long-term success with a future-ready digital
-              ecosystem.
-            </p>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-8 lg:px-12 text-center text-white py-24 sm:py-32">
+          <h2 className="text-[36px] sm:text-[42px] font-semibold mb-6 tracking-tight">
+            Ready to Transform Your Business?
+          </h2>
+          <p className="text-lg text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
+            Partner with SlateBiz to modernize your operations, enhance your customer
+            experience, and achieve long-term success with a future-ready digital
+            ecosystem.
+          </p>
 
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-white text-indigo-600 hover:bg-gray-50 font-semibold text-[14px] tracking-widest uppercase rounded-full shadow-xl transition-all transform hover:scale-105"
-              >
-                Get Started Today
-              </Link>
-            </div>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Link
+              to="/contact"
+              className="px-8 py-4 bg-white text-[#0C69B6] border-2 border-[#0C69B6] hover:bg-blue-50 font-semibold text-[14px] tracking-widest uppercase rounded-lg shadow-sm transition-all transform hover:-translate-y-1"
+            >
+              Get Started Today
+            </Link>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Rocket, Zap, ShieldCheck, BarChart3, Users, Link as LinkIcon, Settings, ChevronRight } from 'lucide-react';
+import { Rocket, Zap, ShieldCheck, BarChart3, Users, Link as LinkIcon, Settings, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -114,7 +114,7 @@ function HeroSection() {
               </p>
 
               <div className="pt-2">
-                <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-[#3b82f6] text-white font-medium rounded-md shadow-md hover:bg-[#2563eb] transition-all font-subtitle text-[13px] tracking-wider uppercase">
+                <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-md shadow-md transition-all font-subtitle text-[13px] tracking-wider uppercase" style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}>
                   Get Started
                 </Link>
               </div>
@@ -139,21 +139,22 @@ function CompanyLogosSection() {
   ];
 
   return (
-    <div className="relative z-20 py-12 bg-white max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-gray-100 w-full mx-auto">
-        <div className="overflow-hidden">
-          <div className="company-marquee flex gap-12 items-center">
-            {logos.map((src, idx) => (
-              <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 w-40 h-20">
-                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
-              </div>
-            ))}
-            {logos.map((src, idx) => (
-              <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 bg-white rounded-xl shadow-sm border border-slate-100 p-3 w-40 h-20">
-                <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
-              </div>
-            ))}
-          </div>
+    <div className="relative z-20 py-12 bg-white w-full overflow-hidden">
+      <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
+        TRUSTED BY INNOVATIVE TEAMS WORLDWIDE
+      </p>
+      <div className="overflow-hidden">
+        <div className="company-marquee gap-12 items-center">
+          {logos.map((src, idx) => (
+            <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
+              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            </div>
+          ))}
+          {logos.map((src, idx) => (
+            <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
+              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            </div>
+          ))}
         </div>
       </div>
 
@@ -208,12 +209,16 @@ function ProductsSection() {
           {cards.map((card) => (
             <Link to={card.href} key={card.title} className="group block rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-shadow overflow-hidden">
               <div className="h-64 bg-slate-100 relative">
-                <img src={card.image} alt={card.title} className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${card.title === 'Jewellery Management Software' ? 'object-cover' : 'object-contain'}`}
+                />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-subtitle text-slate-900 mb-3">{card.title}</h3>
+                <h3 className="text-base font-subtitle text-slate-900 mb-3 uppercase whitespace-nowrap">{card.title}</h3>
                 <p className="text-slate-600 mb-5 text-sm leading-relaxed font-body">{card.description}</p>
-                <span className="font-subtitle text-blue-600 group-hover:text-blue-700">Learn More →</span>
+                <span className="font-subtitle text-blue-600 group-hover:text-blue-700">Learn More {'>'}</span>
               </div>
             </Link>
           ))}
@@ -236,19 +241,19 @@ function OutcomeSection() {
   return (
     <section className="py-16 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl sm:text-5xl font-semibold text-slate-900">Engineered For Outcome</h2>
-        <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">Everything you need to automate a modern enterprise without enterprise pricing.</p>
+        <h2 className="text-4xl sm:text-5xl font-semibold text-slate-900">Engineered for Outcome</h2>
+        <p className="mt-4 text-base text-slate-600 whitespace-nowrap">Everything you need to automate a modern enterprise, without the enterprise price tag.</p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="relative rounded-3xl border border-slate-200 p-6 bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 hover:scale-[1.01] transition-all duration-300 flex flex-col items-center text-center">
-                <div className="mb-5 h-14 w-14 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm">
+              <div key={item.title} className="rounded-2xl bg-white p-6 shadow-md border border-slate-100 text-left">
+                <div className="mb-5 h-14 w-14 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                   <Icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-xl font-subtitle text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed font-body">{item.description}</p>
+                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-2">{item.title}</h3>
+                <p className="text-sm text-slate-600 leading-relaxed font-body">{item.description}</p>
               </div>
             );
           })}
@@ -315,18 +320,18 @@ function LaunchStepsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-semibold text-slate-900">From Idea To Launch In 5 Steps</h2>
-          <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto font-body">
+          <p className="mt-4 text-sm sm:text-base text-slate-600 whitespace-normal sm:whitespace-nowrap font-body">
             Speed is your unfair advantage. Stop waiting on developers and start running your business.
           </p>
         </div>
 
-        <div className="relative h-[500px] lg:h-[600px]">
+        <div className="relative h-[620px] sm:h-[660px] md:h-[500px] lg:h-[600px]">
           {steps.map((step, index) => {
             const position = getPosition(index);
-            const common = 'absolute w-full h-[460px] lg:h-[560px] rounded-3xl shadow-2xl transition-all duration-500 ease-in-out transform overflow-hidden';
+            const common = 'absolute w-full h-[580px] sm:h-[620px] md:h-[460px] lg:h-[560px] rounded-3xl shadow-2xl transition-all duration-500 ease-in-out transform overflow-hidden';
 
             const props = {
-              front: 'top-0 left-0 z-30 bg-blue-600 text-white scale-100 opacity-100 translate-x-0',
+              front: 'top-0 left-0 z-30 text-white scale-100 opacity-100 translate-x-0',
               next: 'top-4 left-6 z-20 bg-slate-100 text-slate-900 scale-95 opacity-80 translate-x-10',
               back1: 'top-8 left-12 z-10 bg-slate-100 text-slate-600 scale-90 opacity-50 translate-x-20',
               back2: 'top-12 left-16 z-0 bg-slate-100 text-slate-500 scale-85 opacity-20 translate-x-28',
@@ -338,29 +343,28 @@ function LaunchStepsSection() {
               <div
                 key={step.title}
                 className={`${common} ${props[position]} ${animationClass}`}
+                style={position === 'front' ? { background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' } : undefined}
               >
                 <div className="h-full grid grid-cols-1 md:grid-cols-2">
                   {/* Left Side - Text Content */}
-                  <div className="relative z-10 p-10 flex flex-col justify-between bg-gradient-to-r from-black/90 via-black/70 to-transparent">
+                  <div className="relative z-10 p-6 md:p-10 flex flex-col justify-between">
                     <div>
-                      <h3 className="mt-3 text-3xl font-semibold leading-snug">{step.title}</h3>
-                      <p className="mt-4 text-base leading-relaxed text-white/95 md:text-lg font-body">{step.description}</p>
+                      <h3 className="mt-3 text-2xl md:text-3xl font-semibold leading-snug">{step.title}</h3>
+                      <p className="mt-4 text-sm md:text-base leading-relaxed text-white/95 md:text-lg font-body">{step.description}</p>
                     </div>
                     <div className="mt-6 flex items-center gap-3">
-                      <span className="px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-subtitle border border-white/30">Advanced</span>
-                      <span className="text-sm text-white/80 font-body">Progressing...</span>
+                      <span className="px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs md:text-sm font-subtitle border border-white/30">Advanced</span>
+                      <span className="text-xs md:text-sm text-white/80 font-body">Progressing...</span>
                     </div>
                   </div>
 
                   {/* Right Side - Image */}
-                  <div className="relative">
+                  <div className="relative p-6 md:p-10 flex items-center justify-center">
                     <img
                       src={step.image}
                       alt={step.title}
-                      className="w-full h-full object-contain"
+                      className="max-w-full h-auto max-h-[200px] sm:max-h-[260px] md:max-h-full object-contain rounded-2xl"
                     />
-                    {/* Subtle overlay on right side */}
-                    <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-black/20"></div>
                   </div>
                 </div>
               </div>
@@ -399,54 +403,58 @@ function AboutCompanySection() {
           <div className="relative">
             {/* Main Image */}
             <div className="relative overflow-hidden rounded-3xl shadow-lg">
-              <img src="/H1.jpeg" alt="About company main" className="w-full h-[400px] object-cover" />
+              <img src="/H1.jpeg" alt="About company main" className="w-full h-[400px] object-cover object-center" />
             </div>
 
             {/* Floating Secondary Image */}
-            <div className="absolute -bottom-8 -left-4 w-2/3 overflow-hidden rounded-2xl shadow-lg border-4 border-white">
+            <div className="absolute bottom-4 -left-4 w-1/2 overflow-hidden rounded-2xl shadow-2xl border-4 border-white">
               <img src="/H2.jpeg" alt="About company secondary" className="w-full h-[200px] object-cover" />
-              {/* Purple Badge Overlay */}
-              <div className="absolute bottom-3 right-3 bg-purple-600 text-white rounded-full px-3 py-1 text-sm font-semibold">
-                1,485 + Trusted Clients
-              </div>
+            </div>
+
+            {/* Purple Badge Overlay */}
+            <div className="absolute bottom-4 left-[calc(50%-1rem)] -translate-x-1/2 z-30 bg-purple-600 text-white rounded-full w-24 h-24 flex flex-col items-center justify-center text-xs font-semibold shadow-lg text-center leading-tight">
+              <span>1,485 +</span>
+              <span>Trusted Clients</span>
             </div>
           </div>
 
           {/* Right Side - Content */}
-          <div className="space-y-4">
-            <p className="uppercase tracking-widest text-sm text-blue-700 font-medium">About Company</p>
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 text-purple-600 text-sm font-medium uppercase tracking-widest">
+              <span className="w-2 h-2 rounded-full bg-purple-600"></span>
+              About Company
+            </div>
             <h2 className="text-4xl font-semibold text-slate-900 leading-[1.1]">Building Future-Ready Software for Modern Enterprises</h2>
-            <p className="text-lg text-slate-600 leading-relaxed font-body mt-2">At SlateBiz Softwares, we specialize in developing intelligent, scalable ERP solutions that transform businesses. With over a decade of experience, we've helped hundreds of companies across jewellery, healthcare, and retail industries streamline their operations and achieve remarkable growth.</p>
-            <p className="text-lg text-slate-600 leading-relaxed font-body">Our expert team combines cutting-edge technology with deep industry knowledge to deliver custom software solutions that drive efficiency, reduce costs, and accelerate your business growth. From concept to deployment, we're your trusted partner in digital transformation.</p>
+            <p className="text-lg text-slate-600 leading-relaxed font-body">At SlateBiz Softwares, we specialize in developing intelligent, scalable ERP solutions that transform businesses. With over a decade of experience, we've helped hundreds of companies across jewellery, healthcare, and retail industries streamline their operations and achieve remarkable growth.</p>
 
             {/* Feature Blocks */}
-            <div className="space-y-4">
+            <div className="space-y-5 pt-2">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                  <ShieldCheck className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900">Trusted Partner</h3>
+                  <h3 className="text-base font-semibold text-slate-900">Trusted Partner</h3>
                   <p className="text-sm text-slate-600 mt-1 font-body">500+ businesses trust us for their critical operations</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900">Fast Implementation</h3>
+                  <h3 className="text-base font-semibold text-slate-900">Fast Implementation</h3>
                   <p className="text-sm text-slate-600 mt-1 font-body">Go live in weeks, not months with our rapid deployment</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <BarChart3 className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                  <BarChart3 className="w-6 h-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900">Proven Results</h3>
+                  <h3 className="text-base font-semibold text-slate-900">Proven Results</h3>
                   <p className="text-sm text-slate-600 mt-1 font-body">Average 45% efficiency improvement for our clients</p>
                 </div>
               </div>
@@ -455,19 +463,13 @@ function AboutCompanySection() {
         </div>
 
         {/* Bottom - Horizontal Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-16">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-16 text-center">
           {stats.map((item) => (
-            <div
-              key={item.label}
-              className="bg-gray-100 rounded-2xl shadow-md p-6 text-center hover:shadow-lg transition"
-            >
-              {/* NUMBER */}
-              <h3 className="text-5xl lg:text-6xl font-semibold text-blue-800 leading-none">
+            <div key={item.label}>
+              <h3 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-none">
                 <CountUp end={item.value} suffix={item.suffix} decimals={item.decimals || 0} />
               </h3>
-
-              {/* LABEL */}
-              <p className="mt-3 text-gray-700 text-lg font-medium">
+              <p className="mt-3 text-base text-slate-500">
                 {item.subLabel && (
                   <span className="mr-1">
                     {item.subLabel}
@@ -503,52 +505,72 @@ function ConnectSection() {
 }
 
 function FeatureShowcaseSection() {
+  const badgeGradient = { background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' };
+
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* First Feature Block */}
-        <div className="lg:flex lg:items-center lg:justify-between mb-24">
-          <div className="lg:w-1/2 relative flex justify-center items-center">
-            <div className="relative w-full max-w-md rounded-3xl shadow-2xl bg-slate-800 p-4 transform transition-transform duration-500 hover:scale-105">
+        <div className="grid gap-12 lg:grid-cols-2 items-center mb-28">
+          <div className="relative flex justify-center items-center">
+            <div className="relative w-full max-w-md rounded-3xl shadow-2xl bg-slate-900 p-4 transform transition-transform duration-500 hover:scale-105">
               <img src="/V1.png" alt="Product Workflow" className="w-full h-auto object-contain rounded-2xl" />
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-5 py-2 rounded-full shadow-lg flex items-center space-x-2">
-                <Settings className="w-5 h-5" />
-                <span className="font-subtitle">Workflow Automate Everything</span>
+            </div>
+            <div className="absolute -top-4 -right-2 sm:-right-4 text-white rounded-2xl shadow-xl px-4 py-2.5 flex items-center gap-2.5 z-10" style={badgeGradient}>
+              <Settings className="w-5 h-5" />
+              <div className="flex flex-col leading-none">
+                <span className="text-[10px] opacity-80 font-medium">Workflow</span>
+                <span className="text-sm font-semibold">Automate Everything</span>
               </div>
             </div>
           </div>
-          <div className="mt-16 lg:mt-0 lg:w-1/2 lg:pl-16">
-            <h3 className="mt-2 text-3xl leading-8 font-semibold tracking-tight text-slate-900 sm:text-4xl">
+
+          <div className="lg:pl-12">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#0C69B6] via-[#1570BD] to-[#4B96E9]">Product Power</p>
+            <h3 className="text-3xl sm:text-4xl font-semibold text-slate-900 leading-[1.15]">
               Visualize and manage your entire lifecycle.
             </h3>
-            <p className="mt-4 text-lg text-slate-600 font-body">
+            <p className="mt-2 text-lg text-slate-600 font-body leading-relaxed">
               From the first lead to the final invoice, every touchpoint is captured and optimized. No more guessing where your business stands.
             </p>
+            <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="rounded-xl bg-slate-50 p-4 border-l-4 border-blue-600">
+                <p className="text-sm font-semibold text-slate-900">Track</p>
+                <p className="text-xs text-slate-500 mt-1 font-body">Real-time performance metrics</p>
+              </div>
+              <div className="rounded-xl bg-slate-50 p-4 border-l-4 border-blue-600">
+                <p className="text-sm font-semibold text-slate-900">Manage</p>
+                <p className="text-xs text-slate-500 mt-1 font-body">Global resource allocation</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Second Feature Block */}
-        <div className="lg:flex lg:items-center lg:justify-between">
-          <div className="lg:w-1/2 lg:pr-16">
-            <h3 className="mt-2 text-3xl leading-8 font-semibold tracking-tight text-slate-900 sm:text-4xl">
+        <div className="grid gap-12 lg:grid-cols-2 items-center">
+          <div className="order-2 lg:order-1 lg:pr-12">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#0C69B6] via-[#1570BD] to-[#4B96E9]">Smart Intelligence</p>
+            <h3 className="text-3xl sm:text-4xl font-semibold text-slate-900 leading-[1.15]">
               Actionable insights, zero manual work.
             </h3>
-            <p className="mt-4 text-lg text-slate-600 font-body">
+            <p className="mt-2 text-lg text-slate-600 font-body leading-relaxed">
               Our AI agents monitor your system for bottlenecks and suggest optimizations before problems occur.
             </p>
-            <div className="mt-8">
-              <Link to="/contact" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-subtitle rounded-md text-white bg-purple-600 hover:bg-purple-700 transition-colors duration-200">
-                Explore Services
-                <ChevronRight className="ml-2 w-5 h-5" />
-              </Link>
-            </div>
+            <Link to="/contact" className="inline-flex items-center mt-8 text-base font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200 group">
+              Explore Services
+              <ArrowRight className="ml-1.5 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
-          <div className="mt-16 lg:mt-0 lg:w-1/2 relative flex justify-center items-center">
-            <div className="relative w-full max-w-md rounded-3xl shadow-2xl bg-slate-800 p-4 transform transition-transform duration-500 hover:scale-105">
+
+          <div className="relative flex justify-center items-center order-1 lg:order-2">
+            <div className="relative w-full max-w-md rounded-3xl shadow-2xl bg-slate-900 p-4 transform transition-transform duration-500 hover:scale-105">
               <img src="/V2.png" alt="Smart Intelligence" className="w-full h-auto object-contain rounded-2xl" />
-              <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-5 py-2 rounded-full shadow-lg flex items-center space-x-2">
-                <BarChart3 className="w-5 h-5" />
-                <span className="font-subtitle">Insight 24% Efficiency Gain</span>
+            </div>
+            <div className="absolute -bottom-4 -left-2 sm:-left-4 text-white rounded-2xl shadow-xl px-4 py-2.5 flex items-center gap-2.5 z-10" style={badgeGradient}>
+              <BarChart3 className="w-5 h-5" />
+              <div className="flex flex-col leading-none">
+                <span className="text-[10px] opacity-80 font-medium">Insight</span>
+                <span className="text-sm font-semibold">24% Efficiency Gain</span>
               </div>
             </div>
           </div>
@@ -601,7 +623,7 @@ function GrowthSection() {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"></div>
               <div className="absolute bottom-0 left-0 p-6 text-white">
-                <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">
+                <span className="inline-block bg-slate-800 text-white text-[10px] font-bold uppercase tracking-wider px-4 py-1 rounded-full border border-slate-600 shadow-sm mb-2">
                   {stage.category}
                 </span>
                 <h3 className="text-xl font-semibold mb-2">{stage.title}</h3>
@@ -670,7 +692,7 @@ function FAQSection() {
                 <br />
                 You're in the right place.
               </p>
-              <Link to="/faq" className="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors duration-200">
+              <Link to="/faq" className="text-white px-6 py-3 rounded-md font-semibold transition-colors duration-200" style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}>
                 VIEW ALL FAQ
               </Link>
             </div>
