@@ -7,13 +7,16 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden">
       <HeroSection />
       <CompanyLogosSection />
+      <WhyWeExistSection />
       <ProductsSection />
+      <FoundationSection />
+      <TechnicalSection />
+      <ClientTestimonialsSection />
       <OutcomeSection />
       <LaunchStepsSection />
       <AboutCompanySection />
       <ConnectSection />
       <FeatureShowcaseSection />
-      <ReviewsSection />
       <GrowthSection />
       <FAQSection />
     </div>
@@ -81,45 +84,41 @@ function CountUp({ end, duration = 2000, suffix = '', decimals = 0 }: { end: num
 function HeroSection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#f8faff] flex flex-col lg:block"
+      className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[540px] md:min-h-[600px] flex items-center justify-center"
     >
-      {/* Mobile Image: Shown first on small screens */}
-      <img
-        src="/BGDB.png"
-        alt="Hero Visual"
-        className="w-full h-auto block lg:hidden"
-      />
+      <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <span className="inline-block mb-7 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
+          ERP SOFTWARE - PAN INDIA
+        </span>
 
-      {/* Desktop Background Image - Sets the aspect ratio and provides the backdrop */}
-      <img
-        src="/BGDB.png"
-        alt="Hero Background"
-        className="hidden lg:block w-full h-auto select-none pointer-events-none"
-      />
+        <h1 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
+            The technology large enterprises run on.
+          </span>
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
+            Built for the businesses that power India.
+          </span>
+        </h1>
 
-      {/* Content Overlay - Static on mobile (below image), Absolute on desktop (over image) */}
-      <div className="relative lg:absolute lg:inset-0 z-20 flex items-center py-10 lg:py-0">
-        <div className="max-w-7xl mx-auto lg:ml-[5%] lg:mr-auto px-4 sm:px-6 lg:pl-0 lg:pr-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12">
+        <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
+          SlateBiz builds purpose-built ERP software for jewellers, hospitals, and specialist retailers — the
+          industries that form the backbone of India's economy. Robust, secure, and engineered on
+          enterprise-grade technology.
+        </p>
 
-            {/* Left-aligned Text content shifted more to the right */}
-            <div className="lg:col-span-6 space-y-3.5 lg:space-y-5 text-slate-900">
-              <h1 className="text-[31px] sm:text-[37px] lg:text-[45px] font-bold leading-[1.2] tracking-tight text-slate-900">
-                <span className="block">Secure Ecosystems.</span>
-                <span className="block">Seamless Operations.</span>
-                <span className="block">Scalable Growth.</span>
-              </h1>
-              <p className="text-[14.5px] sm:text-[16.5px] text-slate-600 max-w-md font-body leading-relaxed">
-                We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
-              </p>
-
-              <div className="pt-2">
-                <Link to="/contact" className="inline-flex items-center justify-center px-6 py-3 text-white font-medium rounded-md shadow-md transition-all font-subtitle text-[13px] tracking-wider uppercase" style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}>
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <Link
+            to="/contact/#contact-form"
+            className="w-full sm:w-[182px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+          >
+            Get 14 Days Free Trial
+          </Link>
+          <Link
+            to="/contact/#contact-form"
+            className="w-full sm:w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white border border-slate-900 text-slate-900 text-[14px] font-semibold hover:bg-slate-50 transition-colors"
+          >
+            Book A Free Demo
+          </Link>
         </div>
       </div>
     </section>
@@ -139,9 +138,9 @@ function CompanyLogosSection() {
   ];
 
   return (
-    <div className="relative z-20 py-12 bg-white w-full overflow-hidden">
+    <div className="relative z-20 py-12 bg-slate-100 w-full overflow-hidden">
       <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
-        TRUSTED BY INNOVATIVE TEAMS WORLDWIDE
+        Trusted by 17,000+ founders & business owners
       </p>
       <div className="overflow-hidden">
         <div className="company-marquee gap-12 items-center">
@@ -173,56 +172,478 @@ function CompanyLogosSection() {
   );
 }
 
-function ProductsSection() {
-  const cards = [
-    {
-      title: 'Jewellery Management Software',
-      description: 'End-to-end jewellery ERP: inventory, billing, karigar management, and retail analytics to scale your jewellery business.',
-      image: '/JM.png',
-      href: '/jewelbiz/',
-    },
-    {
-      title: 'Hospital Management Software',
-      description: 'Complete hospital & clinic management with patient records, pharmacy, billing, appointments, and operational dashboards.',
-      image: '/HM.png',
-      href: '/curabiz/',
-    },
-    {
-      title: 'Retail Management Software',
-      description: 'Retail-centric ERP for omni-channel stores with stock control, POS integration, customer loyalty and analytics.',
-      image: '/RM.png',
-      href: '/retailbiz/',
-    },
-  ];
-
+function WhyWeExistSection() {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-[#F7F7F5] pt-14 pb-16">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-[465px_1fr] gap-10 items-start">
+          <img
+            src="/Exist.png"
+            alt="Why we exist"
+            className="w-full h-auto md:w-[465px] md:h-[550px] object-cover rounded-xl"
+          />
+
+          <div className="pt-1 w-full max-w-[560px]">
+            <span className="block text-[#FF641F] text-[11px] font-semibold tracking-[1px] uppercase font-sans mb-10">
+              Why We Exist
+            </span>
+
+            <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+              <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+                The small business is the Indian economy.
+              </span>
+              <span className="block text-[30px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+                It deserves the same tools the enterprise has.
+              </span>
+            </h2>
+
+            <p className="mt-8 text-[14px] leading-[1.6] text-[#4B5563] max-w-[550px]">
+              Large retail chains, hospital groups, and jewellery conglomerates run on systems worth crores. The independent jeweller, the clinic, the specialty retailer compete with those players every day. SlateBiz gives them the same backbone.
+            </p>
+
+            <div className="mt-12 flex flex-col gap-5">
+              <div className="relative overflow-hidden bg-[#F5F6F7] rounded-xl py-5 px-6 pl-[26px]">
+                <div className="absolute left-0 top-0 h-full w-[3px] bg-[#FF641F]" />
+                <span className="block font-sans text-[11px] font-normal tracking-[0.15em] uppercase text-[#0C69B6] mb-3">
+                  Vision
+                </span>
+                <h3 className="text-[14px] font-semibold leading-[1.3] text-[#171717] mb-2">
+                  Put enterprise technology in every Indian business's hands
+                </h3>
+                <p className="text-[12px] leading-[1.4] text-[#4B5563]">
+                  We build software that is purpose-built — not a generic platform with a skin on top. JewelBiz cannot be run as a hospital system. CuraBiz cannot manage a karigar workshop. That is not a limitation. That is the point.
+                </p>
+              </div>
+
+              <div className="relative overflow-hidden bg-[#F5F6F7] rounded-xl py-5 px-6 pl-[26px]">
+                <div className="absolute left-0 top-0 h-full w-[3px] bg-[#FF641F]" />
+                <span className="block font-sans text-[11px] font-normal tracking-[0.15em] uppercase text-[#0C69B6] mb-3">
+                  Mission
+                </span>
+                <h3 className="text-[14px] font-semibold leading-[1.3] text-[#171717] mb-2">
+                  Put enterprise technology in every Indian business's hands
+                </h3>
+                <p className="text-[12px] leading-[1.4] text-[#4B5563]">
+                  We build software that is purpose-built — not a generic platform with a skin on top. JewelBiz cannot be run as a hospital system. CuraBiz cannot manage a karigar workshop. That is not a limitation. That is the point.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductsSection() {
+  return (
+    <section className="w-full bg-[#EBF0F1] pt-14 pb-16">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h2 className="text-4xl sm:text-5xl font-semibold text-slate-900">Our Products</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-600">
-            We engineer scalable software, cloud infrastructure, and interconnected systems for modern companies ready to scale.
+          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+            Why we exist
+          </span>
+          <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+              Three ERPs.
+            </span>
+            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+              One standard of engineering.
+            </span>
+          </h2>
+          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
+            Each product is built from the ground up for its industry — not a generic ERP retrofitted with a template.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          {cards.map((card) => (
-            <Link to={card.href} key={card.title} className="group block rounded-3xl border border-slate-200 bg-white shadow-sm hover:shadow-xl transition-shadow overflow-hidden">
-              <div className="h-64 bg-slate-100 relative">
+        <div className="flex flex-col gap-4">
+          {/* JewelBiz */}
+          <div className="bg-white rounded-[10px] p-8 md:p-10">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="order-2 md:order-1">
+                <div className="flex items-center gap-2 mb-4">
+                  <h3 className="text-[22px] font-bold text-[#171717]">JewelBiz ERP</h3>
+                  <span className="bg-[#FF641F] text-white text-[10px] font-semibold tracking-wide uppercase px-2 py-1 rounded">
+                    Primary Product
+                  </span>
+                </div>
+                <p className="text-[#0C69B6] italic text-[14px] mb-3">
+                  “Your karigar, your stock, your GST. One system. Nothing missed.”
+                </p>
+                <p className="text-[#4B5563] text-[13px] leading-[1.5] mb-5">
+                  One system for the retail counter, the wholesale desk, and the karigar workshop. Sales, stock, manufacturing, accounts, and compliance on a single ledger — from metal purchase to a signed GST invoice.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {['HUID and BIS compliance', 'Karigar WIP tracking', 'MCX live gold rates', 'GSTR-1 and 3B auto-ready', 'Old gold exchange', 'Ohm / pawn register', 'Multi-branch real-time sync', 'On-premise and cloud'].map((tag) => (
+                    <span key={tag} className="bg-[#FFF7ED] text-[#9A3412] text-[11px] font-medium px-3 py-1.5 rounded-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <Link to="/jewelbiz/" className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors">
+                  Explore JewelBiz
+                </Link>
+              </div>
+              <div className="order-1 md:order-2">
                 <img
-                  src={card.image}
-                  alt={card.title}
-                  className={`w-full h-full transition-transform duration-300 group-hover:scale-105 ${card.title === 'Jewellery Management Software' ? 'object-cover' : 'object-contain'}`}
+                  src="/JM.png"
+                  alt="JewelBiz ERP"
+                  className="w-full h-[380px] md:h-[460px] object-contain rounded-2xl"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-base font-subtitle text-slate-900 mb-3 uppercase whitespace-nowrap">{card.title}</h3>
-                <p className="text-slate-600 mb-5 text-sm leading-relaxed font-body">{card.description}</p>
-                <span className="font-subtitle text-blue-600 group-hover:text-blue-700">Learn More {'>'}</span>
+            </div>
+          </div>
+
+          {/* CuraBiz */}
+          <div className="bg-white rounded-[10px] p-8 md:p-10">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="order-1">
+                <img
+                  src="/HM.png"
+                alt="CuraBiz HIMS"
+                className="w-full h-[380px] md:h-[460px] object-contain rounded-2xl"
+              />
               </div>
-            </Link>
+              <div className="order-2">
+                <div className="flex items-center gap-2 mb-4">
+                  <h3 className="text-[22px] font-bold text-[#171717]">CuraBiz HIMS</h3>
+                  <span className="bg-[#FF641F] text-white text-[10px] font-semibold tracking-wide uppercase px-2 py-1 rounded">
+                    Primary Product
+                  </span>
+                </div>
+                <p className="text-[#0C69B6] italic text-[14px] mb-3">
+                  “Every patient. Every prescription. Every rupee. One system.”
+                </p>
+                <p className="text-[#4B5563] text-[13px] leading-[1.5] mb-5">
+                  Full hospital information management with integrated pharmacy, OPD, IPD, e-prescriptions, and patient records. Built for clinics and hospitals — including Ayurveda practices with Panchkarma scheduling and WhatsApp patient communication.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {['OPD and IPD', 'Integrated pharmacy', 'e-Prescription', 'Panchkarma scheduler', 'ABDM readiness', 'WhatsApp API'].map((tag) => (
+                    <span key={tag} className="bg-[#DBEAFE] text-[#1E40AF] text-[11px] font-medium px-3 py-1.5 rounded-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <Link to="/curabiz/" className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors">
+                  Explore CuraBiz
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* RetailBiz */}
+          <div className="bg-white rounded-[10px] p-8 md:p-10">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="order-2 md:order-1">
+                <div className="flex items-center gap-2 mb-4">
+                  <h3 className="text-[22px] font-bold text-[#171717]">RetailBiz ERP</h3>
+                </div>
+                <p className="text-[#0C69B6] italic text-[14px] mb-3">
+                  “Built for your retail. Not adapted from someone else's.”
+                </p>
+                <p className="text-[#4B5563] text-[13px] leading-[1.5] mb-5">
+                  Specialized ERP for retail verticals where generic software cannot be forced to fit. Built around your industry rules, compliance needs, and operational workflows.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {['Specialized vertical ERP', 'GST-compliant billing', 'Multi-branch support', 'Industry-specific workflows'].map((tag) => (
+                    <span key={tag} className="bg-[#F1F5F9] text-[#334155] text-[11px] font-medium px-3 py-1.5 rounded-md">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <Link to="/retailbiz/" className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors">
+                  Explore RetailBiz ERP
+                </Link>
+              </div>
+              <div className="order-1 md:order-2">
+                <img
+                  src="/RM%20(2).png"
+                  alt="RetailBiz ERP"
+                  className="w-full h-[380px] md:h-[460px] object-contain rounded-2xl"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FoundationSection() {
+  const cards = [
+    { image: '/streamline.png', title: 'Industry-specific ERP', desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.' },
+    { image: '/streamline.png', title: 'Data migration', desc: 'Opening stock, party ledgers, and historical records migrated before go-live.' },
+    { image: '/empowering.png', title: 'On-site training', desc: 'Counter staff, accountant, and manager trained by role — included in every deployment.' },
+    { image: '/always.png', title: 'Dedicated support', desc: 'Named account support over phone, email, and WhatsApp when operations cannot wait.' },
+    { image: '/stay.png', title: 'Compliance updates', desc: 'GST, e-invoice, and HUID regulatory changes tracked and pushed into your system.' },
+    { image: '/built.png', title: 'Industry-specific ERP', desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.' },
+  ];
+
+  return (
+    <section className="w-full bg-white pt-16 pb-20">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+            Technical foundation
+          </span>
+          <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+              Built on the same stack
+            </span>
+            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+              India&apos;s banks use
+            </span>
+          </h2>
+          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
+            Buying a licence is not the same as going live successfully. Every SlateBiz deployment includes end-to-end support from setup to steady-state operations.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {cards.map((card, i) => (
+            <div key={i}>
+              <img
+                src={card.image}
+                alt={card.title}
+                className="w-full h-[280px] md:h-[340px] object-contain rounded-2xl"
+              />
+              <h3 className="mt-5 text-[14px] font-bold text-[#171717]">{card.title}</h3>
+              <p className="mt-2 text-[12px] leading-[1.5] text-[#4B5563]">{card.desc}</p>
+            </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function TechnicalSection() {
+  return (
+    <section className="w-full bg-[#F7F7F5] pt-16 pb-10">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-[#F1F5F9] text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+            Technical foundation
+          </span>
+          <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+              Built on the same stack
+            </span>
+            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+              India&apos;s banks use
+            </span>
+          </h2>
+        </div>
+
+        <div className="bg-white rounded-2xl border border-slate-100 p-6 md:p-10 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-[16px] font-bold text-[#171717] mb-3">
+                Bank-grade security architecture
+              </h3>
+              <p className="text-[12px] leading-[1.5] text-[#4B5563]">
+                Java and Oracle with SHA-256 encryption. On-premise keeps your data on your premises.
+              </p>
+            </div>
+            <div>
+              <img
+                src="/technical.png"
+                alt="Bank-grade security"
+                className="w-full h-[260px] md:h-[320px] object-contain rounded-2xl"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+            <h3 className="text-[14px] font-bold text-[#171717] mb-2">
+              Full offline capability
+            </h3>
+            <p className="text-[12px] leading-[1.5] text-[#4B5563]">
+              Billing, POS, stock, and ledger operations run without internet on peak days.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+            <h3 className="text-[14px] font-bold text-[#171717] mb-2">
+              Government-ready compliance
+            </h3>
+            <p className="text-[12px] leading-[1.5] text-[#4B5563]">
+              GST, HUID, e-invoice and medicines are recorded with digital IRN and QR at the point of sale.
+            </p>
+          </div>
+          <div className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
+            <h3 className="text-[14px] font-bold text-[#171717] mb-2">
+              Mobile and WhatsApp API
+            </h3>
+            <p className="text-[12px] leading-[1.5] text-[#4B5563]">
+              Member transactions and confirmations with customers or patients from the workflows you already use.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClientTestimonialsSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth : clientWidth;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const testimonials = [
+    {
+      text: "From procurement to sales, everything is streamlined. Highly recommended for any growing jewellery business.",
+      name: "Kalpit Hissaria",
+      brand: "Hissaria Art Palace Pvt Ltd"
+    },
+    {
+      text: "The reporting features give us deep insights into our business performance. A must-have tool for modern jewellers.",
+      name: "Mudit Hissaria",
+      brand: "Hissaria Gems Private Limited",
+      logo: "/hissaria gems private limited.jpeg"
+    },
+    {
+      text: "JewelBiz is intuitive and powerful. It has significantly reduced our manual errors and improved operational efficiency.",
+      name: "Abhishek Jain",
+      brand: "BTR & SONS",
+      logo: "/BTR.png"
+    },
+    {
+      text: "Security and reliability were our top priorities, and JewelBiz delivers on both fronts perfectly.",
+      name: "Manoj Bansal",
+      brand: "Mahalaxmi Refinery",
+      logo: "/Mahalaxmi.png"
+    },
+    {
+      text: "JewelBiz has revolutionized our inventory tracking. The precision and ease of use are unmatched in the industry.",
+      name: "Rajesh Hissaria",
+      brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
+      logo: "/b l hissaria jewellers.png"
+    },
+    {
+      text: "Managing multiple branches has never been easier. Real-time data synchronization keeps us ahead of the competition.",
+      name: "Sandeep Hissaria",
+      brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
+      logo: "/b l hissaria jewellers.png"
+    },
+    {
+      text: "The karigar management module is a game-changer. We now have complete visibility over our gold wastage and job work.",
+      name: "Sachin Hissaria",
+      brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
+      logo: "/b l hissaria jewellers.png"
+    },
+    {
+      text: "Excellent support and a robust platform. It handles our complex billing requirements effortlessly.",
+      name: "Aditya Hissaria",
+      brand: "Hissaria Art Palace Pvt Ltd"
+    },
+    {
+      text: "Managing patient records, appointments, and pharmacy has become effortless. The CuraBiz platform truly understands the needs of an Ayurvedic practice.",
+      name: "Dr. Amit Sharma",
+      brand: "Bhagwati Ayurveda & Panchakarma Research Centre",
+      logo: "/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg"
+    },
+    {
+      text: "From OPD to billing and discharge summaries, everything runs smoothly. It has greatly improved our hospital's day-to-day efficiency.",
+      name: "Dr. Saabram",
+      brand: "Parmeshwari Newborn & Children Hospital - Abohar",
+      logo: "/Parmeshwari Newborn & Children Hospital - Abohar.jpeg"
+    },
+    {
+      text: "Tracking candidates, clients, and placements is now incredibly simple. The team's support has been outstanding throughout our journey.",
+      name: "Ms. Preeti",
+      brand: "Skyy High Placement",
+      logo: "/Skyy High Placement.jpeg"
+    },
+    {
+      text: "Inventory, billing, and daily reports are all in one place now. Running our store has become much easier and faster than before.",
+      name: "Mr. Kanhaiya Lal",
+      brand: "Shiv General Store",
+      logo: "/Shiv General Store.jpeg"
+    }
+  ];
+
+  return (
+    <section className="w-full bg-[#F7F7F5] pt-16 pb-20">
+      <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-14">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+            Client Testimonials
+          </span>
+          <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+              Businesses that refuse to
+            </span>
+            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+              settle for off-the-shelf.
+            </span>
+          </h2>
+          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
+            Jewellery showrooms and healthcare practices across India have moved from scattered notebooks and generic software to a single connected system.
+          </p>
+        </div>
+
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-6 shadow-sm flex-shrink-0 w-[85%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start flex flex-col justify-between"
+              >
+                <p className="text-[13px] leading-[1.6] text-[#4B5563] italic mb-6">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <div className="flex items-center">
+                  {testimonial.logo ? (
+                    <img src={testimonial.logo} alt={testimonial.brand} className="w-10 h-10 rounded-full object-contain border border-slate-100 bg-white p-1" />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-[#F1F5F9] flex items-center justify-center text-[#0C69B6] font-semibold text-sm">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                  )}
+                  <div className="ml-3">
+                    <h4 className="text-[13px] font-bold text-[#171717]">{testimonial.name}</h4>
+                    <p className="text-[11px] text-[#4B5563]">{testimonial.brand}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-center mt-4 gap-3">
+            <button
+              onClick={() => scroll('left')}
+              className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-600 hover:text-blue-600 shadow-sm"
+              aria-label="Previous testimonials"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button
+              onClick={() => scroll('right')}
+              className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-600 hover:text-blue-600 shadow-sm"
+              aria-label="Next testimonials"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+        </div>
+
+        <style>{`
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
       </div>
     </section>
   );
@@ -722,158 +1143,3 @@ function FAQSection() {
   );
 }
 
-function ReviewsSection() {
-  const testimonials = [
-    {
-      text: "From procurement to sales, everything is streamlined. Highly recommended for any growing jewellery business.",
-      name: "Kalpit Hissaria",
-      brand: "Hissaria Art Palace Pvt Ltd"
-    },
-    {
-      text: "The reporting features give us deep insights into our business performance. A must-have tool for modern jewellers.",
-      name: "Mudit Hissaria",
-      brand: "Hissaria Gems Private Limited", logo: "/hissaria gems private limited.jpeg"
-    },
-    {
-      text: "JewelBiz is intuitive and powerful. It has significantly reduced our manual errors and improved operational efficiency.",
-      name: "Abhishek Jain",
-      brand: "BTR & SONS", logo: "/BTR.png"
-    },
-    {
-      text: "Security and reliability were our top priorities, and JewelBiz delivers on both fronts perfectly.",
-      name: "Manoj Bansal",
-      brand: "Mahalaxmi Refinery", logo: "/Mahalaxmi.png"
-    },
-    {
-      text: "JewelBiz has revolutionized our inventory tracking. The precision and ease of use are unmatched in the industry.",
-      name: "Rajesh Hissaria",
-      brand: "B.L.Hissaria Jewellers Pvt. Ltd.", logo: "/b l hissaria jewellers.png"
-    },
-    {
-      text: "Managing multiple branches has never been easier. Real-time data synchronization keeps us ahead of the competition.",
-      name: "Sandeep Hissaria",
-      brand: "B.L.Hissaria Jewellers Pvt. Ltd.", logo: "/b l hissaria jewellers.png"
-    },
-    {
-      text: "The karigar management module is a game-changer. We now have complete visibility over our gold wastage and job work.",
-      name: "Sachin Hissaria",
-      brand: "B.L.Hissaria Jewellers Pvt. Ltd.", logo: "/b l hissaria jewellers.png"
-    },
-    {
-      text: "Excellent support and a robust platform. It handles our complex billing requirements effortlessly.",
-      name: "Aditya Hissaria",
-      brand: "Hissaria Art Palace Pvt Ltd"
-    },
-    {
-      text: "Managing patient records, appointments, and pharmacy has become effortless. The CuraBiz platform truly understands the needs of an Ayurvedic practice.",
-      name: "Dr. Amit Sharma",
-      brand: "Bhagwati Ayurveda & Panchakarma Research Centre",
-      logo: "/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg"
-    },
-    {
-      text: "From OPD to billing and discharge summaries, everything runs smoothly. It has greatly improved our hospital's day-to-day efficiency.",
-      name: "Dr. Saabram",
-      brand: "Parmeshwari Newborn & Children Hospital - Abohar",
-      logo: "/Parmeshwari Newborn & Children Hospital - Abohar.jpeg"
-    },
-    {
-      text: "Tracking candidates, clients, and placements is now incredibly simple. The team's support has been outstanding throughout our journey.",
-      name: "Ms. Preeti",
-      brand: "Skyy High Placement",
-      logo: "/Skyy High Placement.jpeg"
-    },
-    {
-      text: "Inventory, billing, and daily reports are all in one place now. Running our store has become much easier and faster than before.",
-      name: "Mr. Kanhaiya Lal",
-      brand: "Shiv General Store",
-      logo: "/Shiv General Store.jpeg"
-    }
-  ];
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const { clientWidth } = scrollRef.current;
-      const scrollAmount = direction === 'left' ? -clientWidth : clientWidth;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <section className="py-16 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6">
-          <div className="text-center sm:text-left">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-slate-900">
-              What Our Customers Say
-            </h2>
-            <p className="mt-4 text-lg text-slate-600 max-w-2xl">
-              Don't just take our word for it. See what real customers say.
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => scroll('left')}
-              className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-600 hover:text-blue-600 shadow-sm"
-              aria-label="Previous reviews"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <button
-              onClick={() => scroll('right')}
-              className="p-3 rounded-full border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-600 hover:text-blue-600 shadow-sm"
-              aria-label="Next reviews"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </button>
-          </div>
-        </div>
-
-        <div
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="relative bg-slate-50 p-8 rounded-3xl border border-slate-100 flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] snap-start hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
-            >
-              <div className="mb-8 relative">
-                <p className="text-slate-700 text-lg leading-relaxed font-body italic relative z-10">{testimonial.text}</p>
-              </div>
-
-              <div className="flex items-center">
-                {testimonial.logo ? (
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-inner p-1 border border-slate-100">
-                    <img src={testimonial.logo} alt={testimonial.brand} className="max-w-full max-h-full object-contain" />
-                  </div>
-                ) : (
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 shadow-inner">
-                    <h3 className="text-blue-700 font-semibold text-xl">{testimonial.name.charAt(0)}</h3>
-                  </div>
-                )}
-                <div className="ml-4">
-                  <h4 className="font-semibold text-slate-900">{testimonial.name}</h4>
-                  <p className="text-sm font-semibold text-blue-600">{testimonial.brand}</p>
-                  <div className="flex text-yellow-400 mt-1">
-                    {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-xs">★</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-    </section>
-  );
-}

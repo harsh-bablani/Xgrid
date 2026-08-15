@@ -10,20 +10,12 @@ export default function Header() {
 
   const headerBgClass = isBlueHeader
     ? "bg-[#166C96] border-none shadow-none"
-    : "bg-white dark:bg-gray-900 shadow-sm border-b border-gray-100 dark:border-gray-800";
-
-  const navTextClass = isBlueHeader
-    ? "text-white hover:text-white/80"
-    : "text-gray-800 dark:text-gray-200 hover:text-indigo-600";
-
-  const btnClass = isBlueHeader
-    ? "bg-white text-[#166C96] hover:bg-gray-50 shadow-sm"
-    : "bg-[#5c6ee1] text-white hover:bg-[#4a58b8] shadow-sm";
+    : "bg-white";
 
   return (
     <header className={`${headerBgClass} sticky top-0 z-50 transition-colors duration-200`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-[80px] md:h-[100px]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-[80px] md:h-[96px]">
 
           {/* Logo - Clickable and redirects to home */}
           <Link to="/" className="flex items-center">
@@ -37,13 +29,6 @@ export default function Header() {
 
           {/* Right-aligned Navigation Items (Desktop) */}
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
-            <Link
-              to="/"
-              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
-            >
-              Home
-            </Link>
-
             {/* Products Dropdown */}
             <div
               className="relative group"
@@ -52,9 +37,9 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
-                className={`flex items-center space-x-1 text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+                className={`flex items-center space-x-1 text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
               >
-                <span className={navTextClass}>Products</span>
+                <span className="text-slate-800">Product</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${(isProductsDropdownOpen) ? 'rotate-180' : ''}`} />
               </button>
 
@@ -97,28 +82,28 @@ export default function Header() {
 
             <Link
               to="/services"
-              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+              className={`text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
             >
               Services
             </Link>
 
             <Link
               to="/about-us/"
-              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+              className={`text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
             >
               About Us
             </Link>
 
             <Link
               to="/blogs"
-              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+              className={`text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
             >
               Blogs
             </Link>
 
             <Link
               to="/contact/#contact-form"
-              className={`text-[13px] font-medium transition-colors tracking-widest uppercase ${navTextClass}`}
+              className={`text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
               onClick={() => {
                 setTimeout(() => {
                   const element = document.getElementById('contact-form');
@@ -128,13 +113,12 @@ export default function Header() {
                 }, 100);
               }}
             >
-              Contact
+              Contact Us
             </Link>
 
             <Link
               to="/contact/#contact-form"
-              className={`flex items-center justify-center px-5 py-2 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase !text-white ${btnClass}`}
-              style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}
+              className={`inline-flex items-center justify-center w-[163px] h-[43px] text-[14px] font-semibold rounded-[10px] transition-colors tracking-wide uppercase !text-white bg-[#FF641F] hover:bg-[#E55A18]`}
             >
               Book A Demo
             </Link>
@@ -143,7 +127,7 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
             <button
-              className={`p-2 transition-colors ${navTextClass}`}
+              className={`p-2 transition-colors text-slate-800`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -153,51 +137,43 @@ export default function Header() {
 
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div className={`md:hidden py-4 border-t ${isBlueHeader ? 'border-white/20' : 'border-gray-100 dark:border-gray-800'}`}>
+          <div className={`md:hidden py-4 border-t border-gray-100`}>
             <div className="space-y-4">
-              <Link
-                to="/"
-                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-
               {/* Mobile Products Dropdown */}
               <div className="px-4">
                 <button
                   onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
-                  className={`flex items-center justify-between w-full text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                  className={`flex items-center justify-between w-full text-[15px] font-medium tracking-wide uppercase text-slate-800`}
                 >
-                  <span>Products</span>
+                  <span>Product</span>
                   <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isMobileProductsOpen && (
-                  <div className={`mt-2 ml-4 space-y-3 border-l-2 ${isBlueHeader ? 'border-white/30' : 'border-gray-100'} pl-4 py-2 animate-in slide-in-from-top-1 duration-200`}>
+                  <div className={`mt-2 ml-4 space-y-3 border-l-2 border-gray-100 pl-4 py-2 animate-in slide-in-from-top-1 duration-200`}>
                     <Link
                       to="/jewelbiz/"
-                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Jewellery ERP
                     </Link>
                     <Link
                       to="/curabiz/"
-                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Hospital HMS
                     </Link>
                     <Link
                       to="/retailbiz/"
-                      className={`block text-[12px] font-medium tracking-widest uppercase ${navTextClass} opacity-80`}
+                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Retail ERP
                     </Link>
                     <Link
                       to="/products"
-                      className={`block text-[12px] font-bold tracking-widest uppercase text-blue-500`}
+                      className={`block text-[12px] font-bold tracking-wide uppercase text-blue-500`}
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Custom Solutions
@@ -208,7 +184,7 @@ export default function Header() {
 
               <Link
                 to="/services"
-                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
@@ -216,7 +192,7 @@ export default function Header() {
 
               <Link
                 to="/about-us/"
-                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 About Us
@@ -224,7 +200,7 @@ export default function Header() {
 
               <Link
                 to="/blogs/"
-                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blogs
@@ -232,7 +208,7 @@ export default function Header() {
 
               <Link
                 to="/contact/#contact-form"
-                className={`block px-4 text-[13px] font-medium tracking-widest uppercase ${navTextClass}`}
+                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
                 onClick={() => {
                   setIsMenuOpen(false);
                   setTimeout(() => {
@@ -249,8 +225,7 @@ export default function Header() {
               <div className="px-4 pt-4">
                 <Link
                   to="/contact/#contact-form"
-                  className={`block w-full text-center px-6 py-3 text-[13px] font-semibold rounded-md transition-colors tracking-widest uppercase !text-white ${btnClass}`}
-                  style={{ background: 'linear-gradient(to right, #0C69B6, #1570BD, #4B96E9)' }}
+                  className={`w-full h-[43px] inline-flex items-center justify-center text-[14px] font-semibold rounded-[10px] transition-colors tracking-wide uppercase !text-white bg-[#FF641F] hover:bg-[#E55A18]`}
                   onClick={() => {
                     setIsMenuOpen(false);
                     setTimeout(() => {
