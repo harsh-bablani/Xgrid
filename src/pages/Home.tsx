@@ -15,6 +15,7 @@ export default function Home() {
       <StepsSection />
       <FAQSection />
       <CTASection />
+      <QuickEnquiryPopup />
     </div>
   );
 }
@@ -175,10 +176,6 @@ function WhyWeExistSection() {
 }
 
 function ProductsSection() {
-  const [reduced, setReduced] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
-
   const products = [
     {
       id: 'jewelbiz',
@@ -226,75 +223,25 @@ function ProductsSection() {
 
   type Product = typeof products[number];
 
-  const clamp = (value: number, min: number, max: number) =>
-    Math.min(Math.max(value, min), max);
-
-  const lerp = (start: number, end: number, progress: number) =>
-    start + (end - start) * progress;
-
-  const getCardStyle = (index: number): React.CSSProperties => {
-    const n = products.length;
-    if (n === 0) return {};
-    if (n === 1) return { transform: 'translate3d(0, 0, 0)', opacity: 1, zIndex: 10 };
-
-    /*
-     * 0.00 → 0.33 : Card 1 → Card 2
-     * 0.33 → 0.66 : Card 2 → Card 3
-     * 0.66 → 1.00 : Card 3 active, then section releases
-     */
-
-    const effective = scrollProgress <= 2 / 3
-      ? scrollProgress / (2 / 3)
-      : 1;
-
-    const transitionCount = n - 1;
-    const exactPosition = effective * transitionCount;
-    const currentIndex = Math.min(Math.floor(exactPosition), n - 1);
-    const localProgress =
-      currentIndex >= n - 1 ? 1 : exactPosition - currentIndex;
-
-    if (index === currentIndex) {
-      if (currentIndex === n - 1) {
-        return { transform: 'translate3d(0, 0%, 0)', opacity: 1, zIndex: 20 };
-      }
-      const y = lerp(0, -100, localProgress);
-      return { transform: `translate3d(0, ${y}%, 0)`, opacity: 1, zIndex: 20 };
-    }
-
-    if (index === currentIndex + 1 && currentIndex < n - 1) {
-      const y = lerp(100, 0, localProgress);
-      return { transform: `translate3d(0, ${y}%, 0)`, opacity: 1, zIndex: 30 };
-    }
-
-    if (index < currentIndex) {
-      return { transform: 'translate3d(0, -100%, 0)', opacity: 0, zIndex: 1 };
-    }
-
-    return { transform: 'translate3d(0, 100%, 0)', opacity: 0, zIndex: 1 };
-  };
-
   const Card = ({
     product,
-    className,
-    style
+    className
   }: {
     product: Product;
     className?: string;
-    style?: React.CSSProperties;
   }) => (
     <div
-      className={`bg-white rounded-[10px] p-3 md:p-5 shadow-sm will-change-transform ${className || ''}`}
-      style={style}
+      className={`bg-white rounded-[10px] p-3 md:p-5 shadow-sm ${className || ''}`}
     >
       <div className="grid md:grid-cols-2 gap-4 items-center h-full">
-        <div className={product.imageLeft ? 'order-1' : 'order-2 md:order-1'}>
+        <div className={product.imageLeft ? 'order-1' : 'order-2'}>
           <img
             src={product.image}
             alt={product.imageAlt}
             className="w-full h-[180px] md:h-[380px] object-contain rounded-2xl"
           />
         </div>
-        <div className={product.imageLeft ? 'order-2' : 'order-1 md:order-2'}>
+        <div className={product.imageLeft ? 'order-2' : 'order-1'}>
           <div className="flex items-center gap-2 mb-4">
             <h3 className="text-[22px] font-bold text-[#171717]">{product.title}</h3>
             {product.badge && (
@@ -324,108 +271,30 @@ function ProductsSection() {
     </div>
   );
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
-    if (mq.addEventListener) {
-      mq.addEventListener('change', onChange);
-    } else {
-      mq.addListener(onChange);
-    }
-    return () => {
-      if (mq.removeEventListener) {
-        mq.removeEventListener('change', onChange);
-      } else {
-        mq.removeListener(onChange);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (reduced || !sectionRef.current) return;
-
-    const section = sectionRef.current;
-    let rafId = 0;
-
-    const updateProgress = () => {
-      rafId = 0;
-      const rect = section.getBoundingClientRect();
-      const scrollableDistance = section.offsetHeight - window.innerHeight;
-
-      if (scrollableDistance <= 0) {
-        setScrollProgress(0);
-        return;
-      }
-
-      const distanceScrolled = clamp(-rect.top, 0, scrollableDistance);
-      setScrollProgress(clamp(distanceScrolled / scrollableDistance, 0, 1));
-    };
-
-    const handleScroll = () => {
-      if (!rafId) {
-        rafId = requestAnimationFrame(updateProgress);
-      }
-    };
-
-    updateProgress();
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [reduced]);
-
   return (
-    <section
-      ref={sectionRef}
-      className={`w-full bg-[#EBF0F1] ${reduced ? 'pt-14 pb-16 overflow-hidden' : 'h-[340vh] md:h-[300vh]'}`}
-    >
-      <div
-        className={`w-full ${reduced ? '' : 'sticky top-0 h-screen overflow-hidden flex items-center'}`}
-      >
-        <div
-          className={`w-full max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 ${reduced ? '' : 'h-full flex flex-col justify-center pt-10 pb-10'}`}
-        >
-          <div className="text-center mb-8">
-            <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
-              Why we exist
+    <section className="w-full bg-[#EBF0F1] pt-14 pb-16">
+      <div className="w-full max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-8">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+            Why we exist
+          </span>
+          <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
+            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+              Three ERPs.
             </span>
-            <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
-              <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
-                Three ERPs.
-              </span>
-              <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
-                One standard of engineering.
-              </span>
-            </h2>
-            <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
-              Each product is built from the ground up for its industry — not a generic ERP retrofitted with a template.
-            </p>
-          </div>
+            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+              One standard of engineering.
+            </span>
+          </h2>
+          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
+            Each product is built from the ground up for its industry — not a generic ERP retrofitted with a template.
+          </p>
+        </div>
 
-          {reduced ? (
-            <div className="flex flex-col gap-4">
-              {products.map((product) => (
-                <Card key={product.id} product={product} className="w-full" />
-              ))}
-            </div>
-          ) : (
-            <div className="relative w-full h-[480px] md:h-[620px] max-w-[1120px] mx-auto overflow-hidden">
-              {products.map((product, index) => (
-                <Card
-                  key={product.id}
-                  product={product}
-                  className="absolute top-0 left-0 w-full h-full"
-                  style={getCardStyle(index)}
-                />
-              ))}
-            </div>
-          )}
+        <div className="flex flex-col gap-4">
+          {products.map((product) => (
+            <Card key={product.id} product={product} className="w-full" />
+          ))}
         </div>
       </div>
     </section>
@@ -711,19 +580,126 @@ function ClientTestimonialsSection() {
 }
 
 function AccreditationSection() {
-  const items = [
-    'BIS hallmarking & HUID readiness',
-    'E-Way Bill aligned dispatch',
-    'Enterprise security architecture',
-    'PCI-oriented payment controls',
-    'ABDM & NABH-ready healthcare pathways',
-    'Financial audit freeze & logs',
-    'TDS / TCS & reverse charge',
-    'Data residency & deployment choice',
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const liRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const directionRef = useRef(1);
+
+  const complianceItems = [
+    {
+      title: 'GST & e-Invoicing (IRP / IRN)',
+      content: 'Mandatory for businesses above the notified turnover threshold. JewelBiz auto generates HSN mapped, GST split invoices with signed IRN and QR at the point of sale.'
+    },
+    {
+      title: 'BIS hallmarking & HUID readiness',
+      content: 'Hallmarking and HUID tracking are core to jewellery compliance. JewelBiz links HUID to stock, tags and invoices for full audit traceability.'
+    },
+    {
+      title: 'E-Way Bill aligned dispatch',
+      content: 'Interstate and threshold based goods movement needs controlled challans and tax documents. Dispatch flows stay aligned with GST practice throughout.'
+    },
+    {
+      title: 'Enterprise security architecture',
+      content: 'Built on Java and Oracle with SHA-512 hashing, role based access and full audit trails. On-premise deployment keeps your data inside your own premises.'
+    },
+    {
+      title: 'PCI-oriented payment controls',
+      content: 'Card and digital collection paths follow payment security discipline. Settlement workflows and access controls protect high value jewellery transactions.'
+    },
+    {
+      title: 'ABDM & NABH-ready healthcare pathways',
+      content: 'CuraBiz is built for hospital operations with ABDM aligned integration and NABH oriented reporting. Healthcare clients get a purpose built system, not a generic retail ERP.'
+    },
+    {
+      title: 'Financial audit freeze & logs',
+      content: 'Period locks, voucher audit trails and day end controls support CA reviews and GST assessments. No reconstructing history from spreadsheets.'
+    },
+    {
+      title: 'TDS / TCS & reverse charge',
+      content: 'Jewellery and trade purchases often trigger TDS, TCS and reverse charge rules. Platform masters and billing logic apply these correctly at transaction time.'
+    },
+    {
+      title: 'Data residency & deployment choice',
+      content: 'Choose on premise, cloud or hybrid deployment. Accreditation conversations increasingly start with where your data lives, so SlateBiz lets you decide.'
+    }
   ];
 
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    if (mq.addEventListener) {
+      mq.addEventListener('change', onChange);
+    } else {
+      mq.addListener(onChange);
+    }
+    return () => {
+      if (mq.removeEventListener) {
+        mq.removeEventListener('change', onChange);
+      } else {
+        mq.removeListener(onChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduced) {
+      const ul = ulRef.current;
+      if (ul) setLineHeight(ul.clientHeight);
+      return;
+    }
+    const li = liRefs.current[activeIndex];
+    if (!li) return;
+    setLineHeight(li.offsetTop + li.clientHeight);
+  }, [activeIndex, reduced]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setInView(true);
+    }, { threshold: 0.25 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reduced]);
+
+  useEffect(() => {
+    if (reduced || !inView) return;
+    const id = setInterval(() => {
+      if (hovered) return;
+      setActiveIndex((prev) => {
+        const next = prev + directionRef.current;
+        if (next >= complianceItems.length - 1) {
+          directionRef.current = -1;
+          return complianceItems.length - 1;
+        }
+        if (next <= 0) {
+          directionRef.current = 1;
+          return 0;
+        }
+        return next;
+      });
+    }, 1800);
+    return () => clearInterval(id);
+  }, [inView, reduced, hovered, complianceItems.length]);
+
+  const handleEnter = (i: number) => {
+    setActiveIndex(i);
+    setHovered(true);
+  };
+
+  const handleLeave = () => {
+    setHovered(false);
+  };
+
   return (
-    <section className="w-full bg-[#EAECEF] pt-16 pb-20">
+    <section ref={sectionRef} className="w-full bg-[#EAECEF] pt-16 pb-20">
       <div className="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-16">
         <span className="inline-block mb-6 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
           Accreditation
@@ -741,30 +717,54 @@ function AccreditationSection() {
         </p>
 
         <div className="mt-16 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
-          <div>
-            <div className="bg-white rounded-lg border-l-2 border-[#0C69B6] p-5 shadow-sm mb-2">
-              <h3 className="text-[15px] font-semibold text-[#171717]">
-                GST & e-Invoicing (IRP / IRN)
-              </h3>
-              <p className="mt-2 text-[13px] leading-[1.5] text-[#4B5563]">
-                See how Aeropuertos Argentina unifies weather data and automation to improve safety, increase runway availability, and cut emissions.
-              </p>
-            </div>
-            <ul className="space-y-1 mt-2">
-              {items.map((item) => (
-                <li key={item} className="text-[14px] text-[#4B5563] py-2.5 border-b border-slate-200/60 last:border-0">
-                  {item}
-                </li>
-              ))}
+          <div className="relative">
+            <div className="absolute top-0 bottom-0 left-0 w-[2px] bg-slate-300/40" />
+            <div
+              className="absolute top-0 left-0 w-[2px] bg-[#0C69B6] transition-[height] duration-1000 ease-out"
+              style={{ height: lineHeight }}
+            />
+            <ul
+              ref={ulRef}
+              className="space-y-2 pl-6"
+              onMouseLeave={handleLeave}
+            >
+              {complianceItems.map((item, i) => {
+                const isActive = reduced || i === activeIndex;
+                return (
+                  <li
+                    key={item.title}
+                    ref={(el) => { liRefs.current[i] = el; }}
+                    className="py-2.5 cursor-pointer"
+                    onMouseEnter={() => handleEnter(i)}
+                  >
+                    <h3 className="text-[15px] font-semibold text-black">
+                      {item.title}
+                    </h3>
+                    <div
+                      className={`mt-2 text-[13px] leading-[1.5] text-black overflow-hidden transition-all duration-1000 ease-out ${
+                        isActive ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      {item.content}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           <div className="flex items-center justify-center">
-            <img
-              src="/java.png"
-              alt="Java and Oracle compliance stack"
-              className="w-full max-w-[620px] h-auto object-contain"
-            />
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              className="w-full max-w-[760px] h-auto object-contain"
+              aria-label="Java and Oracle compliance stack"
+            >
+              <source src="/java slatebiz.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
@@ -928,10 +928,6 @@ function CTASection() {
       className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
     >
       <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <span className="inline-block mb-7 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
-          Get started
-        </span>
-
         <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
           <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
             Your business runs on precision.
@@ -961,6 +957,151 @@ function CTASection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function QuickEnquiryPopup() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    product: '',
+    email: ''
+  });
+
+  const products = ['JewelBiz', 'CuraBiz', 'Specialized Retail', 'Custom ERP'];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsOpen(true), 15000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.contact || !formData.product) return;
+    console.log('Quick enquiry:', formData);
+    setIsOpen(false);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+      <div className="relative w-full max-w-[420px] bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+        <button
+          type="button"
+          onClick={() => setIsOpen(false)}
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl leading-none"
+          aria-label="Close"
+        >
+          ×
+        </button>
+
+        <p className="text-[11px] font-semibold tracking-widest uppercase text-[#FF641F] mb-2">
+          Quick Enquiry
+        </p>
+        <h2 className="text-[22px] font-semibold text-slate-900 mb-1">
+          Talk to SlateBiz
+        </h2>
+        <p className="text-[13px] text-slate-500 mb-6">
+          Name, number, and product — we&apos;ll call you back.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-[13px] font-medium text-slate-700 mb-1.5">
+              Name <span className="text-[#FF641F]">*</span>
+            </label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => handleChange('name', e.target.value)}
+              placeholder="Your full name"
+              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-[13px] font-medium text-slate-700 mb-1.5">
+              Contact number <span className="text-[#FF641F]">*</span>
+            </label>
+            <input
+              type="tel"
+              value={formData.contact}
+              onChange={(e) => handleChange('contact', e.target.value)}
+              placeholder="+91 XXXXXXXXXX"
+              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-[13px] font-medium text-slate-700 mb-2">
+              Product interested in <span className="text-[#FF641F]">*</span>
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              {products.map((product) => (
+                <button
+                  key={product}
+                  type="button"
+                  onClick={() => handleChange('product', product)}
+                  className={`py-2.5 px-3 rounded-lg border text-[13px] font-medium transition-colors ${
+                    formData.product === product
+                      ? 'bg-orange-50 border-[#FF641F] text-[#FF641F]'
+                      : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  {product}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[13px] font-medium text-slate-700 mb-1.5">
+              Business email <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              placeholder="you@company.com"
+              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+            />
+          </div>
+
+          <div className="pt-2 space-y-3">
+            <button
+              type="submit"
+              className="w-full py-3 rounded-lg bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+            >
+              Request a call
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="w-full py-3 rounded-lg bg-white border border-slate-300 text-slate-600 text-[14px] font-medium hover:bg-slate-50 transition-colors"
+            >
+              Maybe later
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 
