@@ -1,9 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen w-full">
       <HeroSection />
       <CompanyLogosSection />
       <WhyWeExistSection />
@@ -182,56 +186,87 @@ function ProductsSection() {
       title: 'JewelBiz ERP',
       badge: 'Primary Product',
       tagline: 'Your karigar, your stock, your GST. One system. Nothing missed.',
-      description: 'One system for the retail counter, the wholesale desk, and the karigar workshop. Sales, stock, manufacturing, accounts, and compliance on a single ledger — from metal purchase to a signed GST invoice.',
-      tags: ['HUID and BIS compliance', 'Karigar WIP tracking', 'MCX live gold rates', 'GSTR-1 and 3B auto-ready', 'Old gold exchange', 'Ohm / pawn register', 'Multi-branch real-time sync', 'On-premise and cloud'],
+      description:
+        'One system for the retail counter, the wholesale desk, and the karigar workshop. Sales, stock, manufacturing, accounts, and compliance on a single ledger — from metal purchase to a signed GST invoice.',
+      tags: [
+        'HUID and BIS compliance',
+        'Karigar WIP tracking',
+        'MCX live gold rates',
+        'GSTR-1 and 3B auto-ready',
+        'Old gold exchange',
+        'Ohm / pawn register',
+        'Multi-branch real-time sync',
+        'On-premise and cloud',
+      ],
       tagClass: 'bg-[#FFF7ED] text-[#9A3412]',
       image: '/JM.png',
       imageAlt: 'JewelBiz ERP',
       link: '/jewelbiz/',
       linkText: 'Explore JewelBiz',
-      imageLeft: false
+      imageLeft: false,
     },
     {
       id: 'curabiz',
       title: 'CuraBiz HIMS',
       badge: 'Primary Product',
       tagline: 'Every patient. Every prescription. Every rupee. One system.',
-      description: 'Full hospital information management with integrated pharmacy, OPD, IPD, e-prescriptions, and patient records. Built for clinics and hospitals — including Ayurveda practices with Panchkarma scheduling and WhatsApp patient communication.',
-      tags: ['OPD and IPD', 'Integrated pharmacy', 'e-Prescription', 'Panchkarma scheduler', 'ABDM readiness', 'WhatsApp API'],
+      description:
+        'Full hospital information management with integrated pharmacy, OPD, IPD, e-prescriptions, and patient records. Built for clinics and hospitals — including Ayurveda practices with Panchkarma scheduling and WhatsApp patient communication.',
+      tags: [
+        'OPD and IPD',
+        'Integrated pharmacy',
+        'e-Prescription',
+        'Panchkarma scheduler',
+        'ABDM readiness',
+        'WhatsApp API',
+      ],
       tagClass: 'bg-[#DBEAFE] text-[#1E40AF]',
       image: '/HM.png',
       imageAlt: 'CuraBiz HIMS',
       link: '/curabiz/',
       linkText: 'Explore CuraBiz',
-      imageLeft: true
+      imageLeft: true,
     },
     {
       id: 'retailbiz',
       title: 'RetailBiz ERP',
       badge: null,
-      tagline: 'Built for your retail. Not adapted from someone else\'s.',
-      description: 'Specialized ERP for retail verticals where generic software cannot be forced to fit. Built around your industry rules, compliance needs, and operational workflows.',
-      tags: ['Specialized vertical ERP', 'GST-compliant billing', 'Multi-branch support', 'Industry-specific workflows'],
+      tagline: "Built for your retail. Not adapted from someone else's.",
+      description:
+        'Specialized ERP for retail verticals where generic software cannot be forced to fit. Built around your industry rules, compliance needs, and operational workflows.',
+      tags: [
+        'Specialized vertical ERP',
+        'GST-compliant billing',
+        'Multi-branch support',
+        'Industry-specific workflows',
+      ],
       tagClass: 'bg-[#F1F5F9] text-[#334155]',
       image: '/RM%20(2).png',
       imageAlt: 'RetailBiz ERP',
       link: '/retailbiz/',
       linkText: 'Explore RetailBiz ERP',
-      imageLeft: false
-    }
+      imageLeft: false,
+    },
   ];
 
-  type Product = typeof products[number];
+  type Product = (typeof products)[number];
+
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
+  const cardViewportRef = useRef<HTMLDivElement>(null);
+  const productsHeaderRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const Card = ({
     product,
-    className
+    className,
   }: {
     product: Product;
     className?: string;
   }) => (
     <div
-      className={`bg-white rounded-[10px] p-3 md:p-5 shadow-sm ${className || ''}`}
+      className={`bg-white rounded-[10px] p-3 md:p-5 shadow-sm h-full ${
+        className || ''
+      }`}
     >
       <div className="grid md:grid-cols-2 gap-4 items-center h-full">
         <div className={product.imageLeft ? 'order-1' : 'order-2'}>
@@ -241,29 +276,43 @@ function ProductsSection() {
             className="w-full h-[180px] md:h-[380px] object-contain rounded-2xl"
           />
         </div>
+
         <div className={product.imageLeft ? 'order-2' : 'order-1'}>
           <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-[22px] font-bold text-[#171717]">{product.title}</h3>
+            <h3 className="text-[22px] font-bold text-[#171717]">
+              {product.title}
+            </h3>
+
             {product.badge && (
               <span className="bg-[#FF641F] text-white text-[10px] font-semibold tracking-wide uppercase px-2 py-1 rounded">
                 {product.badge}
               </span>
             )}
           </div>
+
           <p className="text-[#0C69B6] italic text-[14px] mb-3">
             “{product.tagline}”
           </p>
+
           <p className="text-[#4B5563] text-[13px] leading-[1.5] mb-5">
             {product.description}
           </p>
+
           <div className="flex flex-wrap gap-2 mb-5">
             {product.tags.map((tag) => (
-              <span key={tag} className={`${product.tagClass} text-[11px] font-medium px-3 py-1.5 rounded-md`}>
+              <span
+                key={tag}
+                className={`${product.tagClass} text-[11px] font-medium px-3 py-1.5 rounded-md`}
+              >
                 {tag}
               </span>
             ))}
           </div>
-          <Link to={product.link} className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors">
+
+          <Link
+            to={product.link}
+            className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors"
+          >
             {product.linkText}
           </Link>
         </div>
@@ -271,29 +320,234 @@ function ProductsSection() {
     </div>
   );
 
+useLayoutEffect(() => {
+  const viewport = scrollViewportRef.current;
+  const header = productsHeaderRef.current;
+  const cardViewport = cardViewportRef.current;
+
+  if (!viewport || !header || !cardViewport) return;
+
+  const cards = cardRefs.current.filter(
+    Boolean
+  ) as HTMLDivElement[];
+
+  if (cards.length !== 3) return;
+
+  const getHeaderOffset = () => {
+    const siteHeader = document.querySelector('header');
+    return siteHeader?.offsetHeight ?? 96;
+  };
+
+  const ctx = gsap.context(() => {
+    /*
+     * ---------------------------------------------------------
+     * INITIAL CARD STATE
+     * ---------------------------------------------------------
+     *
+     * Card 1 starts fully visible.
+     * Cards 2 and 3 sit just below, with a very subtle
+     * opacity/scale so their entrance is polished.
+     */
+
+    gsap.set(cards[0], {
+      yPercent: 0,
+      opacity: 1,
+      scale: 1,
+      zIndex: 10,
+    });
+
+    gsap.set(cards[1], {
+      yPercent: 105,
+      opacity: 0.85,
+      scale: 0.985,
+      zIndex: 20,
+    });
+
+    gsap.set(cards[2], {
+      yPercent: 105,
+      opacity: 0.85,
+      scale: 0.985,
+      zIndex: 30,
+    });
+
+    /*
+     * ---------------------------------------------------------
+     * MASTER SCROLL TIMELINE
+     * ---------------------------------------------------------
+     *
+     * Phase 1:
+     * Heading scrolls upward and out of view.
+     *
+     * Phase 2:
+     * The first ERP card expands to occupy more of the viewport.
+     *
+     * Phase 3:
+     * Card 2 comes from underneath Card 1.
+     *
+     * Phase 4:
+     * Card 3 comes from underneath Card 2.
+     */
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: viewport,
+
+        start: () => `top top+=${getHeaderOffset()}`,
+
+        /*
+         * More scroll distance gives each animation
+         * enough room to look smooth.
+         */
+        end: () => `+=${window.innerHeight * 3.5}`,
+
+        pin: true,
+        pinSpacing: true,
+
+        scrub: 0.8,
+
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    /*
+     * =========================================================
+     * PHASE 1 — HEADER SCROLLS UP NATURALLY
+     * =========================================================
+     */
+
+    tl.to(
+      header,
+      {
+        yPercent: -120,
+        opacity: 0,
+        height: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginBottom: 0,
+        overflow: 'hidden',
+        duration: 0.8,
+        ease: 'power2.inOut',
+      },
+      0
+    );
+
+    /*
+     * =========================================================
+     * PHASE 2 — FIRST ERP CARD EXPANDS
+     * =========================================================
+     *
+     * The card wrapper is full-bleed (inset-0 w-full h-full),
+     * so animating the card viewport height makes the actual
+     * card itself grow larger. Border radius is preserved.
+     */
+
+    tl.to(
+      cardViewport,
+      {
+        height: () => `calc(100svh - ${getHeaderOffset()}px)`,
+        ease: 'power2.inOut',
+        duration: 1,
+      },
+      0.9
+    );
+
+    /*
+     * =========================================================
+     * PHASE 3 — CARD 2 SLIDES UP FROM UNDER CARD 1
+     * =========================================================
+     *
+     * Card 1 stays completely still. Only Card 2 moves.
+     */
+
+    tl.to(
+      cards[1],
+      {
+        yPercent: 0,
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        duration: 1.2,
+      },
+      2.0
+    );
+
+    /*
+     * =========================================================
+     * PHASE 4 — CARD 3 SLIDES UP FROM UNDER CARD 2
+     * =========================================================
+     *
+     * Card 2 stays completely still. Only Card 3 moves.
+     */
+
+    tl.to(
+      cards[2],
+      {
+        yPercent: 0,
+        opacity: 1,
+        scale: 1,
+        ease: 'power2.out',
+        duration: 1.2,
+      },
+      3.25
+    );
+  }, viewport);
+
+  return () => {
+    ctx.revert();
+  };
+}, []);
+
   return (
-    <section className="w-full bg-[#EBF0F1] pt-14 pb-16">
-      <div className="w-full max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
+    <section className="w-full bg-[#EBF0F1]">
+      <div
+        ref={scrollViewportRef}
+        className="products-scroll-viewport w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center"
+        style={{
+          minHeight: 'calc(100svh - var(--site-header-height))',
+        }}
+      >
+        <div
+          ref={productsHeaderRef}
+          className="products-static-header shrink-0 pt-10 md:pt-14 text-center mb-6 md:mb-8"
+        >
           <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
             Why we exist
           </span>
+
           <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
             <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
               Three ERPs.
             </span>
+
             <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
               One standard of engineering.
             </span>
           </h2>
+
           <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
-            Each product is built from the ground up for its industry — not a generic ERP retrofitted with a template.
+            Each product is built from the ground up for its industry — not a
+            generic ERP retrofitted with a template.
           </p>
         </div>
 
-        <div className="flex flex-col gap-4">
-          {products.map((product) => (
-            <Card key={product.id} product={product} className="w-full" />
+        <div
+          ref={cardViewportRef}
+          className="products-card-viewport relative w-full overflow-hidden h-[400px] sm:h-[440px] md:h-[480px] shrink-0"
+        >
+          {products.map((product, index) => (
+            <div
+              key={product.id}
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
+              className="products-card absolute inset-0 w-full h-full will-change-transform overflow-hidden"
+              style={{
+                zIndex: index + 1,
+              }}
+            >
+              <Card product={product} />
+            </div>
           ))}
         </div>
       </div>
@@ -760,7 +1014,7 @@ function AccreditationSection() {
               loop
               playsInline
               preload="auto"
-              className="w-full max-w-[760px] h-auto object-contain"
+              className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
               aria-label="Java and Oracle compliance stack"
             >
               <source src="/java slatebiz.mp4" type="video/mp4" />
