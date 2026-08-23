@@ -289,7 +289,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 max-w-[1240px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-[1240px] mx-auto">
           {/* Team Member 1 */}
           <div className="text-center">
             <div className="flex flex-col items-center">
@@ -337,6 +337,23 @@ export default function About() {
               </h3>
               <p className="text-base text-gray-600 dark:text-gray-400 font-medium">
                 Project Manager
+              </p>
+            </div>
+          </div>
+
+          {/* Team Member 4 */}
+          <div className="text-center">
+            <div className="flex flex-col items-center">
+              <img
+                src="/Yash Bansal.jpeg"
+                alt="Yash Bansal"
+                className="w-48 h-48 rounded-2xl shadow-lg object-contain mb-6"
+              />
+              <h3 className="text-[20px] font-semibold text-gray-900 dark:text-white mb-2">
+                Yash Bansal
+              </h3>
+              <p className="text-base text-gray-600 dark:text-gray-400 font-medium">
+                Business Development Manager
               </p>
             </div>
           </div>

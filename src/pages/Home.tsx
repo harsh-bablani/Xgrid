@@ -273,7 +273,7 @@ function ProductsSection() {
           <img
             src={product.image}
             alt={product.imageAlt}
-            className="w-full h-[180px] md:h-[380px] object-contain rounded-2xl"
+            className="w-full h-[180px] md:h-[380px] object-contain rounded-3xl brightness-110"
           />
         </div>
 

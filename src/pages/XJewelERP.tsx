@@ -14,6 +14,7 @@ export default function XJewelERP() {
       <HeroSection />
       <CompanyLogosSection />
       <BusinessModelSection />
+      <BusinessModelSectionWithImages />
       <ComparisonSection />
       <FeaturesSection />
       <AccreditationSection />
@@ -333,6 +334,67 @@ function BusinessModelSection() {
   );
 }
 
+function BusinessModelSectionWithImages() {
+  return (
+    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[900px] mx-auto">
+        <div className="text-center mb-20">
+          <span className="inline-block mb-6 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
+            Built for the trade
+          </span>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
+              From metal purchase to signed
+            </span>
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
+              GST invoice — nothing entered twice.
+            </span>
+          </h2>
+          <p className="mt-6 text-[15px] leading-[1.7] text-slate-500 max-w-[80ch] mx-auto">
+            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center">
+            <img
+              src="/retail jewelbiz.png"
+              alt="Retail POS"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Retail POS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/wholesale jewelbiz.png"
+              alt="Wholesale & approval"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Wholesale & approval</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/manufacturing jewelbiz.png"
+              alt="Manufacturing FMS"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Manufacturing FMS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function GaugeCard({ value, label, description }: { value: number; label: string; description: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
@@ -413,50 +475,51 @@ function GaugeCard({ value, label, description }: { value: number; label: string
 function AccreditationSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lineHeight, setLineHeight] = useState(0);
-  const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
   const liRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const directionRef = useRef(1);
 
   const complianceItems = [
     {
-      title: 'GST & e-Invoicing (IRP / IRN)',
-      content: 'Mandatory for businesses above the notified turnover threshold. JewelBiz auto generates HSN mapped, GST split invoices with signed IRN and QR at the point of sale.'
+      title: 'Sales Order',
+      content: 'Manage customer orders efficiently with complete product details, pricing, quantities, delivery timelines, and real-time order status tracking.'
     },
     {
-      title: 'BIS hallmarking & HUID readiness',
-      content: 'Hallmarking and HUID tracking are core to jewellery compliance. JewelBiz links HUID to stock, tags and invoices for full audit traceability.'
+      title: 'RM Stock In & Out',
+      content: 'Track every raw material movement with accurate inward and outward records, ensuring proper material usage and complete transaction visibility.'
     },
     {
-      title: 'E-Way Bill aligned dispatch',
-      content: 'Interstate and threshold based goods movement needs controlled challans and tax documents. Dispatch flows stay aligned with GST practice throughout.'
+      title: 'RM Inventory',
+      content: 'Maintain a centralized view of raw material inventory, including available quantities, consumption, reorder levels, and current stock status.'
     },
     {
-      title: 'Enterprise security architecture',
-      content: 'Built on Java and Oracle with SHA-512 hashing, role based access and full audit trails. On-premise deployment keeps your data inside your own premises.'
+      title: 'Job Card',
+      content: 'Create and manage detailed job cards to track jewellery production, assigned work, required materials, processes, and job completion status.'
     },
     {
-      title: 'PCI-oriented payment controls',
-      content: 'Card and digital collection paths follow payment security discipline. Settlement workflows and access controls protect high value jewellery transactions.'
+      title: 'Finished Goods Stock In & Out',
+      content: 'Record finished jewellery movement accurately from production to storage and dispatch, maintaining complete visibility of finished goods transactions.'
     },
     {
-      title: 'ABDM & NABH-ready healthcare pathways',
-      content: 'CuraBiz is built for hospital operations with ABDM aligned integration and NABH oriented reporting. Healthcare clients get a purpose built system, not a generic retail ERP.'
+      title: 'Stock In & Out',
+      content: 'Monitor all inventory movements across departments with organized inward and outward entries, ensuring accurate stock records and accountability.'
     },
     {
-      title: 'Financial audit freeze & logs',
-      content: 'Period locks, voucher audit trails and day end controls support CA reviews and GST assessments. No reconstructing history from spreadsheets.'
+      title: 'Production Planning',
+      content: 'Plan production activities efficiently by managing job requirements, material availability, production schedules, workloads, and expected completion timelines.'
     },
     {
-      title: 'TDS / TCS & reverse charge',
-      content: 'Jewellery and trade purchases often trigger TDS, TCS and reverse charge rules. Platform masters and billing logic apply these correctly at transaction time.'
+      title: 'Purchase Order',
+      content: 'Create and manage purchase orders with supplier details, material requirements, quantities, pricing, delivery schedules, and complete purchase tracking.'
     },
     {
-      title: 'Data residency & deployment choice',
-      content: 'Choose on premise, cloud or hybrid deployment. Accreditation conversations increasingly start with where your data lives, so SlateBiz lets you decide.'
+      title: 'Quality Management',
+      content: 'Track quality inspections and approvals throughout production to ensure every jewellery piece meets defined quality standards before dispatch.'
+    },
+    {
+      title: 'Reports & Analytics',
+      content: 'Access comprehensive reports on sales, inventory, production, purchases, materials, and operations to support faster and smarter business decisions.'
     }
   ];
 
@@ -489,44 +552,8 @@ function AccreditationSection() {
     setLineHeight(li.offsetTop + li.clientHeight);
   }, [activeIndex, reduced]);
 
-  useEffect(() => {
-    if (reduced) return;
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setInView(true);
-    }, { threshold: 0.25 });
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, [reduced]);
-
-  useEffect(() => {
-    if (reduced || !inView) return;
-    const id = setInterval(() => {
-      if (hovered) return;
-      setActiveIndex((prev) => {
-        const next = prev + directionRef.current;
-        if (next >= complianceItems.length - 1) {
-          directionRef.current = -1;
-          return complianceItems.length - 1;
-        }
-        if (next <= 0) {
-          directionRef.current = 1;
-          return 0;
-        }
-        return next;
-      });
-    }, 1800);
-    return () => clearInterval(id);
-  }, [inView, reduced, hovered, complianceItems.length]);
-
-  const handleEnter = (i: number) => {
-    setActiveIndex(i);
-    setHovered(true);
-  };
-
-  const handleLeave = () => {
-    setHovered(false);
+  const handleClick = (i: number) => {
+    setActiveIndex(i === activeIndex ? -1 : i);
   };
 
   return (
@@ -557,7 +584,6 @@ function AccreditationSection() {
             <ul
               ref={ulRef}
               className="space-y-2 pl-6"
-              onMouseLeave={handleLeave}
             >
               {complianceItems.map((item, i) => {
                 const isActive = reduced || i === activeIndex;
@@ -566,7 +592,7 @@ function AccreditationSection() {
                     key={item.title}
                     ref={(el) => { liRefs.current[i] = el; }}
                     className="py-2.5 cursor-pointer"
-                    onMouseEnter={() => handleEnter(i)}
+                    onClick={() => handleClick(i)}
                   >
                     <h3 className="text-[15px] font-semibold text-black">
                       {item.title}
@@ -584,18 +610,12 @@ function AccreditationSection() {
             </ul>
           </div>
 
-          <div className="flex items-center justify-center">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
+          <div className="flex items-center justify-center mt-[5%]">
+            <img
+              src="/acc jewelbiz.png"
+              alt="JewelBiz compliance"
               className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
-              aria-label="Java and Oracle compliance stack"
-            >
-              <source src="/java slatebiz.mp4" type="video/mp4" />
-            </video>
+            />
           </div>
         </div>
       </div>
