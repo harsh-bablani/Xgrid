@@ -1,65 +1,89 @@
-import { TrendingUp, Package, Barcode, ShoppingCart, Users, Building2, Receipt, BarChart3, Store, Wrench, UserPlus, ClipboardCheck, ReceiptText, ShieldCheck, Factory } from 'lucide-react';
-import { useState } from 'react';
+import { Building2, BarChart3, UserPlus, ClipboardCheck, ReceiptText, ShieldCheck, Check, X, ChevronRight, ArrowRight } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { modules } from '../data/productMatrix';
+import { POSTS } from './blog-posts';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function XJewelERP() {
   return (
     <div className="min-h-screen">
       <HeroSection />
+      <CompanyLogosSection />
       <BusinessModelSection />
+      <BusinessModelSectionWithImages />
       <ComparisonSection />
       <FeaturesSection />
-      <FeaturesGridSection />
-      <FeatureHighlightSection />
-      <CTAFAQSection />
+      <AccreditationSection />
+      <RelatedArticlesSection />
+      <CTASection />
     </div>
   );
 }
 
 function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-hidden pt-10 pb-24 px-4 sm:px-6 lg:px-8">
-      {/* Background Image */}
+    <section
+      className="relative flex items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-6 md:py-8"
+      style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
+    >
+      {/* Background grid from older design */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url(/herobg.png)' }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-white/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 to-white/50" />
       </div>
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 w-full text-center">
-        {/* Text Section - Constrained for readability */}
-        <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-            Jewellery Management Software
-          </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Precision-engineered ERP for modern jewellers, manufacturers, and wholesalers.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-lg">
-              Get Started
-            </Link>
-            <Link to="/contact" className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition">
-              Book Demo
-            </Link>
-          </div>
-        </div>
+      <div className="relative z-10 w-full max-w-[1120px] mx-auto">
+        <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
+          {/* Left — copy */}
+          <div className="text-center md:text-left">
+            <span className="inline-block mb-5 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] border border-[#0C69B6]/30 rounded-full bg-white/80">
+              JewelBiz ERP
+            </span>
 
-        {/* Dashboard Visualization - Expansive Wide-screen Layout (Now Unconstrained) */}
-        <div className="w-full mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
-          <div className="w-full p-2 md:p-3 bg-white rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
-            <div className="w-full overflow-hidden rounded-[1.5rem] bg-gray-50">
-              <iframe
-                src="/dashboards/jewel.html"
-                title="JewelBiz Dashboard"
-                className="w-full border-none h-[1200px] md:h-[850px]"
-                style={{
-                  display: 'block'
-                }}
-              />
+            <h1 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+              <span className="block text-[30px] md:text-[34px] lg:text-[38px]">
+                Jewellery ERP For Retail, Wholesale,
+              </span>
+              <span className="block text-[30px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
+                And Karigar Operations.
+              </span>
+            </h1>
+
+            <p className="mt-5 text-[14px] md:text-[15px] leading-[1.6] text-[#0C69B6] max-w-[500px] mx-auto md:mx-0">
+              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad, manufacturing, GST e-invoicing, and multi-branch stock on a single connected system. Not a generic ERP with jewellery labels.
+            </p>
+
+            <div className="mt-7 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+              <Link
+                to="/contact"
+                className="w-full sm:w-[182px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+              >
+                Get 14 Days Free Trial
+              </Link>
+
+              <Link
+                to="/contact"
+                className="w-full sm:w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] border border-gray-200 text-[14px] font-semibold hover:bg-gray-50 transition-colors"
+              >
+                Browse all features
+              </Link>
             </div>
+          </div>
+
+          {/* Right — dashboard */}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-[85%] h-[85%] bg-gradient-to-r from-blue-200 to-indigo-200 rounded-full blur-3xl opacity-40" />
+            <img
+              src="/Dashboard.png"
+              alt="JewelBiz Dashboard"
+              className="relative w-full max-w-[580px] h-auto max-h-[56vh] object-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
+            />
           </div>
         </div>
       </div>
@@ -67,76 +91,128 @@ function HeroSection() {
   );
 }
 
+function CompanyLogosSection() {
+  const logos = [
+    '/hissaria gems private limited.jpeg',
+    '/Mahalaxmi.png',
+    '/BTR.png',
+    '/b l hissaria jewellers.png',
+    '/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg',
+    '/Parmeshwari Newborn & Children Hospital - Abohar.jpeg',
+    '/Skyy High Placement.jpeg',
+    '/Shiv General Store.jpeg',
+  ];
+
+  return (
+    <div className="relative z-20 py-12 bg-white w-full overflow-hidden">
+      <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
+        Trusted by 17,000+ founders & business owners
+      </p>
+      <div className="overflow-hidden">
+        <div className="company-marquee gap-12 items-center">
+          {logos.map((src, idx) => (
+            <div key={`jewel-logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
+              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            </div>
+          ))}
+          {logos.map((src, idx) => (
+            <div key={`jewel-logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
+              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .company-marquee {
+          display: inline-flex;
+          animation: marquee 22s linear infinite;
+          will-change: transform;
+        }
+      `}</style>
+    </div>
+  );
+}
+
 function ComparisonSection() {
   return (
-    <section className="w-full bg-gray-50 py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1020px] mx-auto">
 
         {/* Heading */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            The Old Way vs.{" "}
-            <span className="text-blue-600">The Slatebiz Way</span>
+        <div className="text-center mb-10">
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[34px] md:text-[40px] lg:text-[44px]">
+              Generic ERP versus
+            </span>
+            <span className="block text-[34px] md:text-[40px] lg:text-[44px] italic text-[#FF641F]">
+              JewelBiz ERP
+            </span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing margins to operational chaos. Upgrade to a system that
-            works as flawlessly as the jewellery you sell.
+          <p className="mt-5 text-[14px] leading-[1.6] text-slate-500 max-w-[680px] mx-auto">
+            Off-the-shelf ERPs record invoices. JewelBiz is built for purity, karigar accountability, Jangad, and GST that splits the way jewellery billing actually works.
           </p>
         </div>
 
-        {/* Comparison Box */}
-        <div className="grid grid-cols-1 md:grid-cols-2 rounded-xl overflow-hidden shadow-sm">
+        {/* Comparison Table */}
+        <div className="rounded-xl overflow-hidden border border-gray-200">
 
-          {/* LEFT - Slatebiz */}
-          <div className="bg-gradient-to-b from-[#1e5eff] to-[#0d3b75] text-white p-10">
-            <h3 className="text-lg font-semibold mb-6 tracking-wide">
-              SLATEBIZ
-            </h3>
-
-            <ul className="space-y-5 text-sm">
-              {[
-                "Real-time, accurate inventory tracking",
-                "Live gold & silver rate-based billing",
-                "Error-free pricing & calculations",
-                "Centralized control across all stores",
-                "Fully integrated CRM, billing & inventory",
-                "Complete visibility into manufacturing & job work",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="bg-white text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
-                    ✓
-                  </span>
-                  <span className="opacity-90">{item}</span>
-                </li>
-              ))}
-            </ul>
+          {/* Header */}
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-200">
+            <div className="bg-gray-50 h-[52px] px-6 hidden md:flex items-center border-r border-gray-100">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">CAPABILITY</span>
+            </div>
+            <div className="bg-gray-50 h-[52px] px-6 flex items-center border-r border-gray-100">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">Generic ERP</span>
+            </div>
+            <div className="bg-[#000000] h-[52px] px-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">JewelBiz ERP</span>
+            </div>
           </div>
 
-          {/* RIGHT - Competitors */}
-          <div className="bg-white p-10">
-            <h3 className="text-lg font-semibold mb-6 text-gray-900 tracking-wide">
-              COMPETITORS
-            </h3>
+          {/* Rows */}
+          {[
+            ["Stock unit of truth", "SKU / quantity thinking", "Gram, purity, fine weight per piece"],
+            ["Karigar & WIP", "Not designed for artisan job work", "Issue, receipt, wastage, job costing"],
+            ["Goods on approval / Jangad", "Manual notes or spreadsheets", "Tracked issuance, aging, return match"],
+            ["Old gold exchange", "Forced into generic purchase/sale", "Purity-aware exchange in one bill"],
+            ["GST on jewellery bills", "Single-line tax after the fact", "Metal + making + stone split at billing"],
+            ["E-invoicing", "Often a separate step or add-on", "Signed IRN & QR at point of sale"],
+            ["Peak-day reliability", "Cloud-only risk on busy days", "Offline-capable billing & stock"],
+            ["Trade language", "Generic retail templates", "Built for Indian jewellery workflows"],
+          ].map(([cap, generic, jewel], i) => (
+            <div key={i} className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-100 last:border-b-0">
+              <div className="px-6 py-3 bg-white font-medium text-[13px] text-slate-900 flex items-center border-r border-gray-100">
+                {cap}
+              </div>
+              <div className="px-6 py-3 bg-gray-50 text-[13px] text-slate-500 flex items-center gap-2 border-r border-gray-100">
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-orange-100 text-orange-500">
+                  <X size={10} strokeWidth={3} />
+                </span>
+                <span>{generic}</span>
+              </div>
+              <div className="px-6 py-3 bg-white text-[13px] text-slate-900 flex items-center gap-2">
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-100 text-blue-600">
+                  <Check size={10} strokeWidth={3} />
+                </span>
+                <span>{jewel}</span>
+              </div>
+            </div>
+          ))}
+        </div>
 
-            <ul className="space-y-5 text-sm text-gray-600">
-              {[
-                "Manual inventory tracking leads to stock mismatches",
-                "Pricing errors in gold & diamonds reduce profitability",
-                "No real-time visibility across stores",
-                "Disconnected tools for billing, CRM, and inventory",
-                "Limited control over karigar and production workflows",
-                "Slow gold rate updates cause pricing discrepancies",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="bg-gray-200 text-gray-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
-                    ✕
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+        {/* Bottom note */}
+        <div className="mt-8 max-w-[505px] mx-auto">
+          <div className="bg-[#F7F7F7] rounded-xl px-5 py-3.5 text-center border border-gray-200">
+            <p className="text-[12px] text-slate-600 leading-relaxed">
+              If your current system still needs Excel for fine weight, karigar balances, or GST splits — that gap is exactly what JewelBiz closes.
+            </p>
           </div>
-
         </div>
       </div>
     </section>
@@ -144,406 +220,497 @@ function ComparisonSection() {
 }
 
 function FeaturesSection() {
-  const [activeTab, setActiveTab] = useState("backoffice");
+  const [active, setActive] = useState(0);
 
-  const backoffice = [
-    ["Jewellery Inventory Management", "Track every piece with precision, from raw materials to finished goods.", Package],
-    ["Barcode / RFID Management", "Automate stock taking and billing with advanced barcode and RFID integration.", Barcode],
-    ["Procurement Management", "Streamline vendor orders, purchase invoices, and metal rate calculations.", ShoppingCart],
-    ["CRM for Jewellery Business", "Build lasting relationships with customer purchase history and preferences.", Users],
-    ["Karigar / Job Work Management", "Monitor job status, metal issued, and labor charges for every karigar.", Wrench],
-    ["Multi-Branch Management", "Centralize control across all your retail showrooms and manufacturing units.", Building2],
-    ["GST, TDS & Tax Management", "Stay compliant with automated GST calculations and tax reporting.", Receipt],
-    ["Stock Valuation System", "Get real-time valuation of your inventory based on current market rates.", TrendingUp]
-  ];
-
-  const pos = [
-    ["Billing", "Fast, accurate quotes and tax-compliant invoices.", Receipt],
-    ["Repair Management", "Track customer repairs from receipt to delivery.", Wrench],
-    ["Discount Management", "Configurable discount rules and approval workflows.", TrendingUp],
-    ["Order Management", "Track custom orders and delivery timelines efficiently.", ShoppingCart],
-    ["Customer Checks", "Credit limits and outstanding balance alerts at checkout.", Users],
-    ["Buy Back & Exchange", "Handle old gold purchases and exchanges smoothly.", Package],
-    ["Smart Pricing Engine", "Handle rate/gm, making %, wastage, and piece-rate charges.", TrendingUp],
-    ["Instant KYC", "Integrated verification without scanning documents.", Users]
-  ];
-
-  const data = activeTab === "backoffice" ? backoffice : pos;
+  const module = modules[active];
+  const Icon = module.icon;
 
   return (
-    <section className="w-full bg-[#f8fafc] py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            Powerful Features for Every Operation
+    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="mb-12 max-w-2xl">
+          <h2 className="font-serif font-normal italic text-[#FF641F] text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em]">
+            listed clearly.
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing margins to operational chaos. Upgrade to a system that works flawlessly.
+          <p className="mt-4 text-slate-500 text-[15px] leading-relaxed">
+            Capabilities drawn from the JewelBiz product matrix — organised by how jewellery businesses actually run. Ask for a demo to see which modules fit your showroom.
           </p>
         </div>
 
-        {/* Toggle */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-gray-200 rounded-full p-1 flex">
-            <button
-              onClick={() => setActiveTab("backoffice")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "backoffice"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
-            >
-              Backoffice & Inventory
-            </button>
-
-            <button
-              onClick={() => setActiveTab("pos")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "pos"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
-            >
-              POS & Sales
-            </button>
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+          <div className="flex flex-col gap-1">
+            {modules.map((m, i) => {
+              const isActive = i === active;
+              return (
+                <button
+                  key={m.id}
+                  onClick={() => setActive(i)}
+                  className={`group w-full flex items-center gap-3 px-4 py-3.5 rounded-lg text-left transition ${
+                    isActive
+                      ? 'bg-[#FF641F] text-white shadow-md'
+                      : 'text-slate-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className={`text-xs font-medium ${isActive ? 'text-white/80' : 'text-slate-400'}`}>
+                    {m.number}
+                  </span>
+                  <span className="text-sm font-semibold">{m.title}</span>
+                  {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
+                </button>
+              );
+            })}
           </div>
-        </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data.map(([itemTitle, itemDesc, itemIcon], i) => {
-            const Title = itemTitle as string;
-            const Desc = itemDesc as string;
-            const Icon = itemIcon as any;
-            return (
-              <div
-                key={i}
-                className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-              >
-                <div className="flex items-start gap-4">
-
-                  {/* ICON (FIXED) */}
-                  <div className="w-10 h-10 bg-blue-50 flex items-center justify-center rounded-lg">
-                    <Icon className="w-5 h-5 text-blue-600" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 whitespace-nowrap truncate" title={Title}>{Title}</h3>
-                    <p className="text-gray-500 text-sm mt-1">{Desc}</p>
-                  </div>
-
-                </div>
+          <div key={module.id} className="transition-all duration-300">
+            <div className="mb-10">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-md mb-4">
+                <Icon className="w-4 h-4 text-[#FF641F]" />
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-800">{module.title}</span>
               </div>
-            );
-          })}
-        </div>
+              <h3 className="text-[24px] md:text-[28px] font-semibold text-slate-900 leading-snug">{module.description}</h3>
+            </div>
 
-      </div>
-    </section>
-  );
-}
-
-function FeaturesGridSection() {
-  const features = [
-    {
-      icon: ClipboardCheck,
-      title: "INVENTORY MANAGEMENT",
-      desc: "Track loose diamonds, gemstones, and finished jewellery with RFID and barcode support.",
-    },
-    {
-      icon: ReceiptText,
-      title: "SMART POS BILLING",
-      desc: "Generate GST-compliant invoices instantly with live gold and silver rate calculations.",
-    },
-    {
-      icon: UserPlus,
-      title: "CLIENTELING & CRM",
-      desc: "Remember anniversaries, track preferences, and build lasting relationships with VIP clients.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "MANUFACTURING TRACKING",
-      desc: "Monitor karigar (artisan) work, track metal loss, and manage job work seamlessly.",
-    },
-    {
-      icon: Building2,
-      title: "MULTI-STORE SYNC",
-      desc: "Manage multiple retail outlets and centralize data in real-time from anywhere.",
-    },
-    {
-      icon: BarChart3,
-      title: "ADVANCED ANALYTICS",
-      desc: "Visualize sales trends, fast-moving stock, and staff performance with custom reports.",
-    },
-  ];
-
-  return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Everything you need to run a JEWELLERY EMPIRE
-          </h2>
-          <p className="text-gray-500 mt-4 text-[15px] max-w-2xl mx-auto">
-            A complete suite of tools engineered for the unique complexities of the jewellery industry.
-          </p>
-        </div>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((item, i) => {
-            const Icon = item.icon;
-
-            return (
-              <div
-                key={i}
-                className="bg-white rounded-2xl p-7 border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_6px_30px_rgba(0,0,0,0.06)] transition"
-              >
-                {/* ICON BOX (FIXED PERFECTLY) */}
-                <div className="w-12 h-12 bg-[#eef4ff] rounded-xl flex items-center justify-center mb-5">
-                  <Icon className="w-5 h-5 text-[#2563eb]" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {module.features.map((feature, i) => (
+                <div
+                  key={i}
+                  className="bg-white border border-gray-100 rounded-xl p-5 hover:shadow-sm transition"
+                >
+                  <h4 className="text-sm font-semibold text-slate-900">{feature.title}</h4>
+                  <p className="text-[13px] text-slate-500 mt-1 leading-relaxed">{feature.description}</p>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-[14px] font-semibold text-gray-900 tracking-wide mb-2">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-500 text-[14px] leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-      </div>
-    </section>
-  );
-}
-
-function FeatureHighlightSection() {
-  return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-        {/* LEFT - Dashboard */}
-        <div className="relative flex justify-center">
-
-          {/* Background Glow */}
-          <div className="absolute w-[90%] h-[90%] bg-gradient-to-r from-blue-200 to-indigo-200 rounded-3xl blur-3xl opacity-40"></div>
-
-          {/* Main Image */}
-          <img
-            src="/J.jpeg"
-            alt="Dashboard"
-            className="relative rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] w-full max-w-[500px]"
-          />
-
-          {/* Floating Badge */}
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3">
-            <span className="text-lg">📈</span>
-            <div>
-              <p className="text-xs opacity-80">Insight</p>
-              <p className="text-sm font-medium">24% Efficiency Gain</p>
+              ))}
             </div>
           </div>
-
         </div>
-
-        {/* RIGHT - Content */}
-        <div>
-
-          {/* Label */}
-          <p className="text-xs tracking-widest text-gray-500 mb-3">
-            FEATURES
-          </p>
-
-          {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-            Best Jewellery Management Software in India
-          </h2>
-
-          {/* Description */}
-          <p className="text-gray-600 text-[15px] leading-relaxed">
-            Managing a jewellery business requires precision. From tracking fluctuating gold and silver rates to maintaining a secure inventory of high-value items, generic retail POS systems fall short.
-            <br /><br />
-            Slatebiz is engineered from the ground up to be the ultimate jewellery ERP and management software. Whether you run a single boutique or a multi-city retail chain, our cloud-based platform ensures your data is secure, accessible, and actionable.
-            <br /><br />
-            Features like RFID auditing, karigar management, and integrated accounting make Slatebiz the preferred choice for modern jewellers looking to scale.
-          </p>
-
-        </div>
-
       </div>
     </section>
   );
 }
 
-function CTAFAQSection() {
-  const [openIndex, setOpenIndex] = useState(0);
 
-  const faqs = [
-    {
-      q: "How do you ensure the security of our data?",
-      a: "Data security is a top priority. We prioritise the security of your information by implementing industry-leading security measures. Additionally, all team members are bound by strict confidentiality agreements to ensure your privacy is always protected.",
-    },
-    {
-      q: "Do you provide post-development support and maintenance?",
-      a: "Absolutely! We understand the importance of ongoing support. We offer flexible maintenance plans to keep your project running smoothly.",
-    },
-    {
-      q: "How quickly can you start a new project?",
-      a: "Initiate your project with ease. Schedule a complimentary consultation through our website. We prioritize prompt communication and will respond within 2-3 business hours to discuss your project confidentially.",
-    },
-    {
-      q: "Do you offer refunds?",
-      a: "Refund policies depend on the terms and conditions of the subscription plan.",
-    },
-    {
-      q: "How can I request a product demo?",
-      a: "You can request a demo by filling out the demo request form on our website. Lets’s talk form",
-    },
-    {
-      q: "Does it support RFID integration?",
-      a: "Yes, SlateBiz fully supports RFID technology for rapid stock auditing and advanced inventory tracking.",
-    },
-  ];
 
-  return (
-    <section className="w-full">
-
-      {/* 🔵 CTA SECTION */}
-      <div className="w-full bg-gradient-to-r from-[#0d3b75] to-[#1e5eff] py-20 px-4 text-center text-white">
-        <div className="max-w-5xl mx-auto">
-
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-4 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis sm:whitespace-normal">
-            Ready to Modernize Your Jewellery Business?
-          </h2>
-
-          <p className="text-blue-100 mb-8">
-            Join hundreds of jewellers who have increased their efficiency by 40% with Slatebiz.
-          </p>
-
-          <Link to="/contact" className="bg-white text-[#0d3b75] px-6 py-3 rounded-md font-medium shadow hover:shadow-lg transition">
-            Book Demo
-          </Link>
-
-        </div>
-      </div>
-
-      {/* ⚪ FAQ SECTION */}
-      <div className="w-full bg-[#f3f6fb] py-20 px-4">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-
-          {/* LEFT SIDE */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h3>
-
-            <p className="text-gray-500 mb-6">
-              Have any questions about our gifts? You're in the right place.
-            </p>
-
-            <Link to="/contact" className="bg-[#0d3b75] text-white px-5 py-2 rounded-md text-sm inline-block">
-              VIEW ALL FAQ
-            </Link>
-          </div>
-
-          {/* RIGHT SIDE (Accordion) */}
-          <div className="space-y-4">
-            {faqs.map((item, i) => (
-              <div
-                key={i}
-                className="border-b border-gray-300 pb-4"
-              >
-                <button
-                  onClick={() =>
-                    setOpenIndex(openIndex === i ? -1 : i)
-                  }
-                  className="w-full flex justify-between items-center text-left"
-                >
-                  <span className="text-gray-800 font-medium">
-                    {item.q}
-                  </span>
-                  <span className="text-xl">
-                    {openIndex === i ? "−" : "+"}
-                  </span>
-                </button>
-
-                {openIndex === i && item.a && (
-                  <p className="text-gray-500 text-sm mt-3 leading-relaxed">
-                    {item.a}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </div>
-
-    </section>
-  );
-}
 
 function BusinessModelSection() {
   return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Built for Every Jewellery Business Model
+    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[900px] mx-auto">
+        <div className="text-center mb-20">
+          <span className="inline-block mb-6 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
+            Built for the trade
+          </span>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
+              From metal purchase to signed
+            </span>
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
+              GST invoice — nothing entered twice.
+            </span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Whether you run a single showroom or a massive manufacturing unit, Slatebiz adapts to your workflow.
+          <p className="mt-6 text-[15px] leading-[1.7] text-slate-500 max-w-[80ch] mx-auto">
+            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
           </p>
         </div>
 
-        {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <GaugeCard
+            value={95}
+            label="Retail POS"
+            description="Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter."
+          />
+          <GaugeCard
+            value={97}
+            label="Wholesale & approval"
+            description="Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans."
+          />
+          <GaugeCard
+            value={99}
+            label="Manufacturing FMS"
+            description="Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking."
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          {/* Retail */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Store className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Retail Showrooms</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Manage multi-store inventory, fast billing, and customer relationships with real-time stock visibility.
-            </p>
-          </div>
-
-          {/* Wholesalers */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Package className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Wholesalers</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Handle bulk inventory, approvals (jangad), B2B orders, and pricing structures efficiently.
-            </p>
-          </div>
-
-          {/* Manufacturers */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Factory className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Manufacturers</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Track karigar work, wastage, production stages, and job orders with absolute precision.
-            </p>
-          </div>
-
+function BusinessModelSectionWithImages() {
+  return (
+    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[900px] mx-auto">
+        <div className="text-center mb-20">
+          <span className="inline-block mb-6 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
+            Built for the trade
+          </span>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
+              From metal purchase to signed
+            </span>
+            <span className="block text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
+              GST invoice — nothing entered twice.
+            </span>
+          </h2>
+          <p className="mt-6 text-[15px] leading-[1.7] text-slate-500 max-w-[80ch] mx-auto">
+            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
+          </p>
         </div>
 
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center">
+            <img
+              src="/retail jewelbiz.png"
+              alt="Retail POS"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Retail POS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/wholesale jewelbiz.png"
+              alt="Wholesale & approval"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Wholesale & approval</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans.
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <img
+              src="/manufacturing jewelbiz.png"
+              alt="Manufacturing FMS"
+              className="w-full h-auto"
+            />
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Manufacturing FMS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+              Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GaugeCard({ value, label, description }: { value: number; label: string; description: string }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const st = ScrollTrigger.create({
+      trigger: cardRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        if (hasAnimated.current) return;
+        hasAnimated.current = true;
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: value,
+          duration: 1.5,
+          ease: "power2.out",
+          onUpdate: () => setDisplayValue(Math.round(obj.v)),
+        });
+      },
+    });
+    return () => st.kill();
+  }, [value]);
+
+  const total = 40;
+  const activeCount = Math.round((displayValue / 100) * total);
+
+  const segments = [];
+  for (let i = 0; i < total; i++) {
+    const angle = -180 + (i / (total - 1)) * 180;
+    const rad = (angle * Math.PI) / 180;
+    const x1 = 100 + 58 * Math.cos(rad);
+    const y1 = 85 + 58 * Math.sin(rad);
+    const x2 = 100 + 86 * Math.cos(rad);
+    const y2 = 85 + 86 * Math.sin(rad);
+    const isActive = i < activeCount;
+    segments.push(
+      <line
+        key={i}
+        x1={x1}
+        y1={y1}
+        x2={x2}
+        y2={y2}
+        stroke={isActive ? '#FF641F' : '#FFE8DE'}
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    );
+  }
+
+  return (
+    <div ref={cardRef} className="flex flex-col items-center">
+      <div className="w-[260px] h-[275px] bg-[#9FC5D4] rounded-[24px] py-[45px] px-[10px]">
+        <div className="bg-white rounded-[20px] w-[240px] h-[185px] flex flex-col items-center pt-4">
+          <div className="relative w-44 h-36">
+            <svg viewBox="0 0 200 130" className="w-full h-full">
+              {segments}
+            </svg>
+            <div className="absolute bottom-8 left-0 right-0 text-center">
+              <span className="text-3xl font-semibold text-slate-900">
+                {displayValue}
+                <span className="text-xl text-slate-900">%</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">{label}</h3>
+      <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+        {description}
+      </p>
+    </div>
+  );
+}
+
+function AccreditationSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [lineHeight, setLineHeight] = useState(0);
+  const [reduced, setReduced] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
+  const liRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  const complianceItems = [
+    {
+      title: 'Sales Order',
+      content: 'Manage customer orders efficiently with complete product details, pricing, quantities, delivery timelines, and real-time order status tracking.'
+    },
+    {
+      title: 'RM Stock In & Out',
+      content: 'Track every raw material movement with accurate inward and outward records, ensuring proper material usage and complete transaction visibility.'
+    },
+    {
+      title: 'RM Inventory',
+      content: 'Maintain a centralized view of raw material inventory, including available quantities, consumption, reorder levels, and current stock status.'
+    },
+    {
+      title: 'Job Card',
+      content: 'Create and manage detailed job cards to track jewellery production, assigned work, required materials, processes, and job completion status.'
+    },
+    {
+      title: 'Finished Goods Stock In & Out',
+      content: 'Record finished jewellery movement accurately from production to storage and dispatch, maintaining complete visibility of finished goods transactions.'
+    },
+    {
+      title: 'Stock In & Out',
+      content: 'Monitor all inventory movements across departments with organized inward and outward entries, ensuring accurate stock records and accountability.'
+    },
+    {
+      title: 'Production Planning',
+      content: 'Plan production activities efficiently by managing job requirements, material availability, production schedules, workloads, and expected completion timelines.'
+    },
+    {
+      title: 'Purchase Order',
+      content: 'Create and manage purchase orders with supplier details, material requirements, quantities, pricing, delivery schedules, and complete purchase tracking.'
+    },
+    {
+      title: 'Quality Management',
+      content: 'Track quality inspections and approvals throughout production to ensure every jewellery piece meets defined quality standards before dispatch.'
+    },
+    {
+      title: 'Reports & Analytics',
+      content: 'Access comprehensive reports on sales, inventory, production, purchases, materials, and operations to support faster and smarter business decisions.'
+    }
+  ];
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    if (mq.addEventListener) {
+      mq.addEventListener('change', onChange);
+    } else {
+      mq.addListener(onChange);
+    }
+    return () => {
+      if (mq.removeEventListener) {
+        mq.removeEventListener('change', onChange);
+      } else {
+        mq.removeListener(onChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduced) {
+      const ul = ulRef.current;
+      if (ul) setLineHeight(ul.clientHeight);
+      return;
+    }
+    const li = liRefs.current[activeIndex];
+    if (!li) return;
+    setLineHeight(li.offsetTop + li.clientHeight);
+  }, [activeIndex, reduced]);
+
+  const handleClick = (i: number) => {
+    setActiveIndex(i === activeIndex ? -1 : i);
+  };
+
+  return (
+    <section ref={sectionRef} className="w-full bg-[#EAECEF] pt-16 pb-20">
+      <div className="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-16">
+        <span className="inline-block mb-6 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+          Accreditation
+        </span>
+        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+          <span className="block text-[38px] md:text-[46px] lg:text-[54px]">
+            Track jewellery orders
+          </span>
+          <span className="block text-[38px] md:text-[46px] lg:text-[54px] italic text-[#FF641F]">
+            process by process.
+          </span>
+        </h2>
+        <p className="mt-6 text-[14px] leading-[1.7] text-[#4B5563] max-w-[780px]">
+          From sales order to delivery challan — production visibility for owners who cannot afford silent wastage.
+        </p>
+
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
+          <div className="relative">
+            <div className="absolute top-0 bottom-0 left-0 w-[2px] bg-slate-300/40" />
+            <div
+              className="absolute top-0 left-0 w-[2px] bg-[#0C69B6] transition-[height] duration-1000 ease-out"
+              style={{ height: lineHeight }}
+            />
+            <ul
+              ref={ulRef}
+              className="space-y-2 pl-6"
+            >
+              {complianceItems.map((item, i) => {
+                const isActive = reduced || i === activeIndex;
+                return (
+                  <li
+                    key={item.title}
+                    ref={(el) => { liRefs.current[i] = el; }}
+                    className="py-2.5 cursor-pointer"
+                    onClick={() => handleClick(i)}
+                  >
+                    <h3 className="text-[15px] font-semibold text-black">
+                      {item.title}
+                    </h3>
+                    <div
+                      className={`mt-2 text-[13px] leading-[1.5] text-black overflow-hidden transition-all duration-1000 ease-out ${
+                        isActive ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      {item.content}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-center mt-[5%]">
+            <img
+              src="/acc jewelbiz.png"
+              alt="JewelBiz compliance"
+              className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RelatedArticlesSection() {
+  const articles = POSTS.slice(0, 3);
+
+  return (
+    <section className="w-full bg-white py-16">
+      <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span className="inline-block mb-6 px-3 py-1.5 bg-gray-100 text-gray-700 text-[11px] font-medium tracking-wide rounded-full">
+          Related Articles
+        </span>
+        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
+            From metal purchase to signed
+          </span>
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
+            GST invoice — nothing entered twice.
+          </span>
+        </h2>
+        <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
+          Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
+        </p>
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map((article) => (
+            <Link
+              key={article.id}
+              to={`/blogs/${article.brand}/${article.slug}`}
+              className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition hover:shadow-md"
+            >
+              <div className="overflow-hidden rounded-2xl m-3 border border-gray-100">
+                <img src={article.heroImage} alt={article.title} className="w-full h-auto block" />
+              </div>
+              <div className="flex flex-col flex-1 p-5 pt-0">
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-2">
+                  {article.date} | {article.readTime} | {article.brand.toUpperCase()}
+                </p>
+                <h2 className="text-lg font-bold text-gray-900 uppercase tracking-tight leading-snug">
+                  {article.title}
+                </h2>
+                <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">
+                  {article.description}
+                </p>
+                <div className="mt-4">
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors group-hover:text-blue-700">
+                    Read More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTASection() {
+  return (
+    <section
+      className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
+    >
+      <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
+            Your business runs on precision.
+          </span>
+          <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
+            Your software should too.
+          </span>
+        </h2>
+
+        <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
+          Book a demo today. We configure it on your stock, your rates, and your industry — so you see exactly what changes before you commit.
+        </p>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <Link
+            to="/contact/#contact-form"
+            className="w-full sm:w-[182px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+          >
+            Get 14 Days Free Trial
+          </Link>
+          <Link
+            to="/contact/#contact-form"
+            className="w-full sm:w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white border border-slate-900 text-slate-900 text-[14px] font-semibold hover:bg-slate-50 transition-colors"
+          >
+            Book A Free Demo
+          </Link>
+        </div>
       </div>
     </section>
   );
