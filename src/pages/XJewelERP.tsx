@@ -47,7 +47,7 @@ function HeroSection() {
             </span>
 
             <h1 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-              <span className="block text-[30px] md:text-[34px] lg:text-[38px]">
+              <span className="block text-[30px] md:text-[34px] lg:text-[38px] whitespace-nowrap">
                 Jewellery ERP For Retail, Wholesale,
               </span>
               <span className="block text-[30px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
@@ -325,7 +325,7 @@ function BusinessModelSection() {
           />
           <GaugeCard
             value={99}
-            label="Manufacturing FMS"
+            label="Manufacturing"
             description="Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking."
           />
         </div>
