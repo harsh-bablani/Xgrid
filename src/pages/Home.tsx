@@ -273,7 +273,7 @@ function ProductsSection() {
           <img
             src={product.image}
             alt={product.imageAlt}
-            className="w-full h-[180px] md:h-[380px] object-contain rounded-3xl brightness-110"
+            className="w-full h-[180px] md:h-[380px] object-contain rounded-[3rem] brightness-110 opacity-80"
           />
         </div>
 
@@ -836,13 +836,10 @@ function ClientTestimonialsSection() {
 function AccreditationSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lineHeight, setLineHeight] = useState(0);
-  const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
-  const [hovered, setHovered] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
   const liRefs = useRef<(HTMLLIElement | null)[]>([]);
-  const directionRef = useRef(1);
 
   const complianceItems = [
     {
@@ -912,44 +909,8 @@ function AccreditationSection() {
     setLineHeight(li.offsetTop + li.clientHeight);
   }, [activeIndex, reduced]);
 
-  useEffect(() => {
-    if (reduced) return;
-    const section = sectionRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setInView(true);
-    }, { threshold: 0.25 });
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, [reduced]);
-
-  useEffect(() => {
-    if (reduced || !inView) return;
-    const id = setInterval(() => {
-      if (hovered) return;
-      setActiveIndex((prev) => {
-        const next = prev + directionRef.current;
-        if (next >= complianceItems.length - 1) {
-          directionRef.current = -1;
-          return complianceItems.length - 1;
-        }
-        if (next <= 0) {
-          directionRef.current = 1;
-          return 0;
-        }
-        return next;
-      });
-    }, 1800);
-    return () => clearInterval(id);
-  }, [inView, reduced, hovered, complianceItems.length]);
-
-  const handleEnter = (i: number) => {
-    setActiveIndex(i);
-    setHovered(true);
-  };
-
-  const handleLeave = () => {
-    setHovered(false);
+  const handleClick = (i: number) => {
+    setActiveIndex(i === activeIndex ? -1 : i);
   };
 
   return (
@@ -980,7 +941,6 @@ function AccreditationSection() {
             <ul
               ref={ulRef}
               className="space-y-2 pl-6"
-              onMouseLeave={handleLeave}
             >
               {complianceItems.map((item, i) => {
                 const isActive = reduced || i === activeIndex;
@@ -989,7 +949,7 @@ function AccreditationSection() {
                     key={item.title}
                     ref={(el) => { liRefs.current[i] = el; }}
                     className="py-2.5 cursor-pointer"
-                    onMouseEnter={() => handleEnter(i)}
+                    onClick={() => handleClick(i)}
                   >
                     <h3 className="text-[15px] font-semibold text-black">
                       {item.title}
