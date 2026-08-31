@@ -3,7 +3,7 @@ import { Linkedin, Instagram, Facebook } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#D3E1E8] text-black">
+    <footer className="bg-[#E4EAFB] text-black">
       <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
@@ -95,34 +95,34 @@ export default function Footer() {
                 href="https://www.linkedin.com/company/slatebiz/posts/?feedView=all"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-slate-200 p-2 text-slate-700 hover:bg-slate-300 transition-colors"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full bg-white/80 text-slate-700 hover:bg-white transition-colors"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-5 h-5" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-slate-200 p-2 text-slate-700 hover:bg-slate-300 transition-colors"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full bg-white/80 text-slate-700 hover:bg-white transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-5 h-5" />
               </a>
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full bg-slate-200 p-2 text-slate-700 hover:bg-slate-300 transition-colors"
+                className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full bg-white/80 text-slate-700 hover:bg-white transition-colors"
                 aria-label="Facebook"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-5 h-5" />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-300 pt-5 text-xs text-slate-600 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div className="mt-8 border-t border-[#C9D4F0] pt-5 text-xs text-slate-600 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
           <p>© 2026 SlateBiz. All rights reserved.</p>
           <p>Modern business software for growing teams.</p>
         </div>

@@ -1,5 +1,6 @@
-import React from 'react';
-import { Shield, Database, Globe, FileText, Users, Package, ShoppingCart, Building2, Receipt, BarChart3, Store, TrendingUp, Smartphone, CreditCard } from 'lucide-react';
+import ProductFeaturesSection from '../components/ProductFeaturesSection';
+import { retailBizModules } from '../data/retailBizMatrix';
+import { Users, Package, ShoppingCart, Store } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +10,10 @@ export default function XRetailERP() {
       <HeroSection />
       <BusinessModelSection />
       <ComparisonSection />
-      <FeaturesSection />
+      <ProductFeaturesSection
+        modules={retailBizModules}
+        subtitle="Capabilities drawn from the RetailBiz product matrix — organised by how retail businesses actually run. Ask for a demo to see which modules fit your stores."
+      />
       <FeaturesGridSection />
       <FeatureHighlightSection />
       <CTAFAQSection />
@@ -47,17 +51,22 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Dashboard Visualization - Expansive Wide-screen Layout (Now Unconstrained) */}
-        <div className="w-full mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
-          <div className="w-full p-2 md:p-3 bg-white rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
-            <div className="w-full overflow-hidden rounded-[1.5rem] bg-gray-50">
+        {/* Dashboard — scaled preview on mobile, full height on desktop */}
+        <div className="w-full mt-8 sm:mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
+          <div className="w-full p-1.5 sm:p-2 md:p-3 bg-white rounded-2xl md:rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
+            <div className="w-full overflow-hidden rounded-xl md:rounded-[1.5rem] bg-gray-50 relative">
+              <div className="md:hidden w-full overflow-x-auto overflow-y-hidden">
+                <iframe
+                  src="/dashboards/retail.html"
+                  title="RetailBiz Dashboard"
+                  className="border-none block"
+                  style={{ width: 1100, height: 620, maxWidth: 'none' }}
+                />
+              </div>
               <iframe
                 src="/dashboards/retail.html"
                 title="RetailBiz Dashboard"
-                className="w-full border-none h-[1200px] md:h-[850px]"
-                style={{
-                  display: 'block'
-                }}
+                className="hidden md:block w-full border-none h-[850px]"
               />
             </div>
           </div>
@@ -90,7 +99,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Store className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Multi-Chain Retailers</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Multi-Chain Retailers</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Centralized operations, multi-store visibility, and inventory analytics for complex retail environments.
             </p>
@@ -101,7 +110,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <ShoppingCart className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">E-commerce Stores</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">E-commerce Stores</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Online inventory management, order processing, and integration with marketplaces and shipping platforms.
             </p>
@@ -112,7 +121,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Package className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Boutiques & Specialty Stores</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Boutiques & Specialty Stores</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Fast POS, customer management, and specialized inventory for boutique retail operations.
             </p>
@@ -123,7 +132,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Users className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">HR Consultancy Firms</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">HR Consultancy Firms</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Workforce management, payroll processing, and recruitment solutions for scaling retail networks.
             </p>
@@ -156,7 +165,7 @@ function ComparisonSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 rounded-xl overflow-hidden shadow-sm">
 
           {/* LEFT - Modern Retail */}
-          <div className="bg-gradient-to-b from-[#1e5eff] to-[#0d3b75] text-white p-10">
+          <div className="bg-gradient-to-b from-[#1e5eff] to-[#0d3b75] text-white p-6 sm:p-10">
             <h3 className="text-lg font-semibold mb-6 tracking-wide">
               MODERN RETAIL ERP
             </h3>
@@ -181,7 +190,7 @@ function ComparisonSection() {
           </div>
 
           {/* RIGHT - Traditional */}
-          <div className="bg-white p-10">
+          <div className="bg-white p-6 sm:p-10">
             <h3 className="text-lg font-semibold mb-6 text-gray-900 tracking-wide">
               TRADITIONAL METHODS
             </h3>
@@ -206,106 +215,6 @@ function ComparisonSection() {
           </div>
 
         </div>
-      </div>
-    </section>
-  );
-}
-
-function FeaturesSection() {
-  const [activeTab, setActiveTab] = useState("operations");
-
-  const operations = [
-    ["Point of Sale (POS)", "Fast, reliable POS system with barcode scanning, multiple payment methods, and receipt printing.", ShoppingCart],
-    ["Inventory Management", "Real-time stock tracking, automated reordering, and multi-location inventory control.", Package],
-    ["Customer Management", "Complete customer profiles, purchase history, loyalty programs, and targeted marketing.", Users],
-    ["Supplier Management", "Vendor relationships, purchase orders, and automated procurement workflows.", Building2],
-    ["Multi-Store Operations", "Manage multiple retail locations from a single dashboard with centralized control.", Store],
-    ["E-commerce Integration", "Seamless integration with online stores, marketplaces, and shipping platforms.", Globe],
-    ["Reporting & Analytics", "Sales reports, inventory analytics, customer insights, and business intelligence.", BarChart3],
-    ["Mobile App Support", "Access your retail operations on-the-go with our mobile management app.", Smartphone],
-  ];
-
-  const financial = [
-    ["Sales & Revenue Tracking", "Complete sales tracking, revenue analysis, and performance metrics across all channels.", Receipt],
-    ["Financial Control", "Expense management, profit analysis, and comprehensive financial reporting.", TrendingUp],
-    ["Tax Management", "Automated tax calculations, multi-tax support, and compliance reporting.", FileText],
-    ["Payroll Integration", "Staff scheduling, payroll processing, and performance management.", Users],
-    ["Cost Analysis", "Detailed cost tracking, margin analysis, and profitability insights.", BarChart3],
-    ["Budget Planning", "Annual budgeting, forecast planning, and financial goal tracking.", Database],
-    ["Audit Trails", "Complete transaction history, audit logs, and compliance documentation.", Shield],
-    ["Payment Processing", "Multiple payment gateways, secure transactions, and automated reconciliation.", CreditCard],
-  ];
-
-  const data = activeTab === "operations" ? operations : financial;
-
-  return (
-    <section className="w-full bg-[#f8fafc] py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            Powerful Features for Every Retail Operation
-          </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing efficiency to operational chaos. Upgrade to a system that works flawlessly.
-          </p>
-        </div>
-
-        {/* Toggle */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-gray-200 rounded-full p-1 flex">
-            <button
-              onClick={() => setActiveTab("operations")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "operations"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
-            >
-              Operations & Sales
-            </button>
-
-            <button
-              onClick={() => setActiveTab("financial")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "financial"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
-            >
-              Financial & Analytics
-            </button>
-          </div>
-        </div>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data.map(([itemTitle, itemDesc, itemIcon], i) => {
-            const Title = itemTitle as string;
-            const Desc = itemDesc as string;
-            const Icon = itemIcon as any;
-            return (
-              <div
-                key={i}
-                className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-              >
-                <div className="flex items-start gap-4">
-
-                  {/* ICON */}
-                  <div className="w-10 h-10 bg-blue-50 flex items-center justify-center rounded-lg">
-                    {React.createElement(Icon, { className: "w-5 h-5 text-blue-600" })}
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 whitespace-nowrap truncate" title={Title}>{Title}</h3>
-                    <p className="text-gray-500 text-sm mt-1">{Desc}</p>
-                  </div>
-
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
       </div>
     </section>
   );
@@ -410,11 +319,11 @@ function FeatureHighlightSection() {
           />
 
           {/* Floating Badge */}
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3">
-            <span className="text-lg">📈</span>
-            <div>
-              <p className="text-xs opacity-80">Insight</p>
-              <p className="text-sm font-medium">45% Sales Growth</p>
+          <div className="absolute -bottom-3 sm:-bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl shadow-lg flex items-center gap-2 sm:gap-3 max-w-[calc(100%-1rem)]">
+            <span className="text-base sm:text-lg shrink-0">📈</span>
+            <div className="min-w-0">
+              <p className="text-[10px] sm:text-xs opacity-80">Insight</p>
+              <p className="text-xs sm:text-sm font-medium truncate">45% Sales Growth</p>
             </div>
           </div>
 
@@ -516,7 +425,7 @@ function CTAFAQSection() {
                   onClick={() =>
                     setOpenIndex(openIndex === i ? -1 : i)
                   }
-                  className="w-full flex justify-between items-center text-left"
+                  className="w-full flex justify-between items-center text-left gap-4 min-h-[48px] py-3"
                 >
                   <span className="text-gray-800 font-medium">
                     {item.q}

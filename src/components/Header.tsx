@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 
+const productLinks = [
+  { to: '/jewelbiz/', title: 'JewelBiz', subtitle: 'Jewellery ERP' },
+  { to: '/curabiz/', title: 'CuraBiz', subtitle: 'Hospital HMS' },
+  { to: '/retailbiz/', title: 'Specialized Retail', subtitle: 'RetailBiz ERP' },
+  { to: '/products', title: 'Custom ERP', subtitle: 'Built for your workflows' },
+];
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
@@ -37,44 +44,31 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
-                className={`flex items-center space-x-1 text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800`}
+                className="flex items-center gap-1 text-[15px] font-medium transition-colors tracking-wide uppercase text-slate-800"
               >
-                <span className="text-slate-800">Product</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${(isProductsDropdownOpen) ? 'rotate-180' : ''}`} />
+                <span>Products</span>
+                <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Dropdown Menu */}
               {isProductsDropdownOpen && (
-                <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-0 pt-4 w-64 z-50`}>
-                  <div className={`rounded-lg shadow-lg border bg-white border-gray-200 py-2 overflow-hidden`}>
-                    <Link
-                      to="/jewelbiz/"
-                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Jewellery Management Software
-                    </Link>
-                    <Link
-                      to="/curabiz/"
-                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Hospital Management Software
-                    </Link>
-                    <Link
-                      to="/retailbiz/"
-                      className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 transition-colors"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Retail Management Software
-                    </Link>
-                    <Link
-                      to="/products"
-                      className="block px-4 py-2 text-sm font-medium text-blue-600 hover:bg-gray-100 transition-colors"
-                      onClick={() => setIsProductsDropdownOpen(false)}
-                    >
-                      Get Customised Erp System
-                    </Link>
+                <div className="absolute top-full left-0 lg:left-1/2 lg:-translate-x-1/2 pt-3 w-[min(280px,calc(100vw-2rem))] z-50">
+                  <div className="rounded-xl bg-white py-2 shadow-[0_8px_30px_rgba(0,0,0,0.08)] ring-1 ring-black/[0.04]">
+                    {productLinks.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className="block px-5 py-3 min-h-[52px] hover:bg-slate-50 transition-colors"
+                        onClick={() => setIsProductsDropdownOpen(false)}
+                      >
+                        <span className="block text-[15px] font-semibold text-slate-900 leading-tight">
+                          {item.title}
+                        </span>
+                        <span className="block mt-0.5 text-[13px] text-slate-500 leading-snug">
+                          {item.subtitle}
+                        </span>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               )}
@@ -127,8 +121,11 @@ export default function Header() {
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
             <button
-              className={`p-2 transition-colors text-slate-800`}
+              type="button"
+              className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-lg transition-colors text-slate-800 hover:bg-slate-50"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -137,54 +134,42 @@ export default function Header() {
 
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
-          <div className={`md:hidden py-4 border-t border-gray-100`}>
-            <div className="space-y-4">
+          <div className="md:hidden py-3 border-t border-gray-100 max-h-[calc(100svh-80px)] overflow-y-auto">
+            <div className="space-y-1 pb-4">
               {/* Mobile Products Dropdown */}
-              <div className="px-4">
+              <div className="px-2">
                 <button
+                  type="button"
                   onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
-                  className={`flex items-center justify-between w-full text-[15px] font-medium tracking-wide uppercase text-slate-800`}
+                  className="flex items-center justify-between w-full min-h-[48px] px-3 text-[15px] font-medium tracking-wide uppercase text-slate-800 rounded-lg hover:bg-slate-50"
                 >
-                  <span>Product</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
+                  <span>Products</span>
+                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isMobileProductsOpen && (
-                  <div className={`mt-2 ml-4 space-y-3 border-l-2 border-gray-100 pl-4 py-2 animate-in slide-in-from-top-1 duration-200`}>
-                    <Link
-                      to="/jewelbiz/"
-                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Jewellery ERP
-                    </Link>
-                    <Link
-                      to="/curabiz/"
-                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Hospital HMS
-                    </Link>
-                    <Link
-                      to="/retailbiz/"
-                      className={`block text-[12px] font-medium tracking-wide uppercase text-slate-800 opacity-80`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Retail ERP
-                    </Link>
-                    <Link
-                      to="/products"
-                      className={`block text-[12px] font-bold tracking-wide uppercase text-blue-500`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Custom Solutions
-                    </Link>
+                  <div className="mt-1 ml-3 space-y-0.5 border-l-2 border-gray-100 pl-3 py-1">
+                    {productLinks.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className="block py-3 px-2 rounded-lg hover:bg-slate-50"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <span className="block text-[14px] font-semibold text-slate-900">
+                          {item.title}
+                        </span>
+                        <span className="block mt-0.5 text-[12px] text-slate-500">
+                          {item.subtitle}
+                        </span>
+                      </Link>
+                    ))}
                   </div>
                 )}
               </div>
 
               <Link
                 to="/services"
-                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
+                className="flex items-center min-h-[48px] px-5 text-[15px] font-medium tracking-wide uppercase text-slate-800 rounded-lg hover:bg-slate-50"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Services
@@ -192,7 +177,7 @@ export default function Header() {
 
               <Link
                 to="/about-us/"
-                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
+                className="flex items-center min-h-[48px] px-5 text-[15px] font-medium tracking-wide uppercase text-slate-800 rounded-lg hover:bg-slate-50"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About Us
@@ -200,7 +185,7 @@ export default function Header() {
 
               <Link
                 to="/blogs/"
-                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
+                className="flex items-center min-h-[48px] px-5 text-[15px] font-medium tracking-wide uppercase text-slate-800 rounded-lg hover:bg-slate-50"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blogs
@@ -208,7 +193,7 @@ export default function Header() {
 
               <Link
                 to="/contact/#contact-form"
-                className={`block px-4 text-[15px] font-medium tracking-wide uppercase text-slate-800`}
+                className="flex items-center min-h-[48px] px-5 text-[15px] font-medium tracking-wide uppercase text-slate-800 rounded-lg hover:bg-slate-50"
                 onClick={() => {
                   setIsMenuOpen(false);
                   setTimeout(() => {
@@ -222,10 +207,10 @@ export default function Header() {
                 Contact
               </Link>
 
-              <div className="px-4 pt-4">
+              <div className="px-4 pt-3">
                 <Link
                   to="/contact/#contact-form"
-                  className={`w-full h-[43px] inline-flex items-center justify-center text-[14px] font-semibold rounded-[10px] transition-colors tracking-wide uppercase !text-white bg-[#FF641F] hover:bg-[#E55A18]`}
+                  className="w-full min-h-[48px] inline-flex items-center justify-center text-[14px] font-semibold rounded-[10px] transition-colors tracking-wide uppercase !text-white bg-[#FF641F] hover:bg-[#E55A18]"
                   onClick={() => {
                     setIsMenuOpen(false);
                     setTimeout(() => {

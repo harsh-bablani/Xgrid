@@ -1,0 +1,143 @@
+{
+  "posts": [
+    {
+      "id": "41e498d7-3a62-4b02-a1c8-81a3d2529afe",
+      "brand": "jewelbiz",
+      "slug": "test-post",
+      "category_label": "Test",
+      "title": "Test",
+      "description": "Desc",
+      "hero_image": "/uploads/blogs/1788186730815-c99ee736.png",
+      "date": "31 AUG 2026",
+      "read_time": "2 MIN",
+      "content": [
+        {
+          "id": "e874c801-7b9b-4963-bda3-606f116625db",
+          "type": "paragraph",
+          "content": "para1"
+        },
+        {
+          "id": "71a3ab90-1d07-4aa4-854b-c0a24c0aaff0",
+          "type": "heading",
+          "content": "heading 2",
+          "level": 2
+        },
+        {
+          "id": "ba6b77bb-3623-491c-a267-04d8a8b05041",
+          "type": "list",
+          "items": [
+            "item 1",
+            "item 2"
+          ]
+        },
+        {
+          "id": "2ce93f66-d63a-45c6-834a-875d2e653b9f",
+          "type": "faq",
+          "items": [
+            {
+              "q": "q1",
+              "a": "ans"
+            }
+          ]
+        }
+      ],
+      "published": true,
+      "created_at": "2026-08-31T14:24:41.378Z",
+      "updated_at": "2026-08-31T14:33:26.243Z"
+    },
+    {
+      "id": "0018882d-ff2d-4013-a4e6-5292410f08a7",
+      "brand": "curabiz",
+      "slug": "myblogpost",
+      "category_label": "CuraBiz by Slatebiz",
+      "title": "post 2",
+      "description": "You are managing precious metals that fluctuate by the hour, intricate designs crafted by skilled karigars, custom orders with emotional significance, and a maze of GST regulations that seem to change every quarter.",
+      "hero_image": "https://www.slatebiz.com/blogs/jewelbiz/Hero.png",
+      "date": "31 AUG 2026",
+      "read_time": "5 MIN READ",
+      "content": [
+        {
+          "id": "4764018f-e401-4eef-b5bb-f6595c8e3511",
+          "title": "Introduction heading",
+          "desc": "Short description under the heading.",
+          "image": "https://www.slatebiz.com/blogs/jewelbiz/Hero.png",
+          "imageAlt": "desc image",
+          "whiteBg": false,
+          "body": "First paragraph of your blog post.\n\nSecond paragraph goes here.",
+          "subsections": [],
+          "faqs": []
+        }
+      ],
+      "published": true,
+      "created_at": "2026-08-31T14:57:55.187Z",
+      "updated_at": "2026-08-31T15:12:31.654Z"
+    },
+    {
+      "id": "5bdd21bc-ef7b-48f7-8d6d-37ced869a756",
+      "brand": "retailbiz",
+      "slug": "myblogpost2",
+      "category_label": "RetailBiz by Slatebiz",
+      "title": "Post3",
+      "description": "Running a jewellery business in India is unlike any other retail operation",
+      "hero_image": "https://www.slatebiz.com/blogs/jewelbiz/Hero.png",
+      "date": "31 AUG 2026",
+      "read_time": "5 MIN READ",
+      "content": [
+        {
+          "id": "60601e7e-1e4e-4c92-8626-14e03c640b50",
+          "title": "internal post",
+          "desc": "Short description under the heading.",
+          "image": "https://www.slatebiz.com/blogs/jewelbiz/Problem%20Statement.png",
+          "imageAlt": "",
+          "whiteBg": false,
+          "body": "A clothing retailer sells a shirt for a fixed MRP. A jeweller sells a piece where the price depends on the day's gold rate, the weight in grams and milligrams, the purity such as 22K or 18K, the making charges that vary by design complexity, the wastage percentage, the stone weight and quality, and whether it is a ready piece or a custom order.\n\nLet us look at the specific challenges that make jewellery management uniquely complex for Indian jewellers:",
+          "subsections": [],
+          "faqs": []
+        }
+      ],
+      "published": true,
+      "created_at": "2026-08-31T15:20:23.292Z",
+      "updated_at": "2026-08-31T15:20:23.292Z"
+    },
+    {
+      "id": "fa86ea7c-cf06-4906-a797-2eb8b5dfe476",
+      "brand": "jewelbiz",
+      "slug": "what-are-the-daily-challenges-of-jewellery-accounting-management-2",
+      "category_label": "JewelBiz by Slatebiz",
+      "title": "What are the Daily Challenges of Jewellery Accounting Management?",
+      "description": "That single sentence echoes through thousands of jewellery showrooms across India, from Karol Bagh in Delhi to Coimbatore in Tamil Nadu, every time someone suggests upgrading the old desktop billing software running on a Windows 7 machine in the back office.",
+      "hero_image": "https://www.slatebiz.com/blogs/jewelbiz/FAQ.png",
+      "image_alt": "What are the Daily Challenges of Jewellery Accounting Management?",
+      "author": "SlateBiz Editorial",
+      "tags": [],
+      "date": "01 SEPT 2026",
+      "read_time": "5 MIN READ",
+      "content": [
+        {
+          "id": "a67acdb4-de2a-460f-8242-f0bc12f91f5f",
+          "type": "html",
+          "html": "<h2>Introduction</h2>\n<p>You are managing precious metals that fluctuate by the hour, intricate designs crafted by skilled karigars, custom orders with emotional significance, and a maze of GST regulations that seem to change every quarter.</p>\n\n<img src=\"https://www.slatebiz.com/blogs/jewelbiz/Cost%201.png\" alt=\"Jewellery store inventory and billing challenges\" />\n\n<h3>Running a jewellery business in India is unlike any other retail operation</h3>\n<p>Yet, walk into most jewellery stores across Mumbai, Jaipur, or Surat, and you will still find owners tracking inventory in dusty ledgers and calculating gold rates on calculators.</p>\n<p>This is not just inefficient. It is costing you money every single day. In this guide, we will walk through why Indian jewellery businesses face unique challenges, what a specialised jewellery ERP system actually does, and how leading jewellers are using technology to scale without losing the personal touch that makes jewellery special.</p>\n\n<h2>The daily challenges jewellers face</h2>\n<ul>\n  <li>Gold rate changes multiple times a day</li>\n  <li>Making charges, wastage, and stone weight vary by design</li>\n  <li>GST and e-invoicing rules keep changing</li>\n  <li>Inventory spread across showroom, vault, and karigar workshop</li>\n</ul>\n\n<p>Want to see how JewelBiz handles this? <a href=\"/jewelbiz/\">Explore JewelBiz ERP</a>.</p>"
+        }
+      ],
+      "published": true,
+      "meta_title": "",
+      "meta_description": "",
+      "focus_keyword": "",
+      "seo_keywords": "",
+      "canonical_url": "",
+      "og_title": "",
+      "og_description": "",
+      "og_image": "",
+      "twitter_title": "",
+      "twitter_description": "",
+      "twitter_image": "",
+      "no_index": false,
+      "no_follow": false,
+      "previous_slugs": [],
+      "published_at": "2026-08-31T22:17:50.412Z",
+      "created_at": "2026-08-31T22:17:50.412Z",
+      "updated_at": "2026-08-31T22:18:52.616Z"
+    }
+  ],
+  "redirects": []
+}

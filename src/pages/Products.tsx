@@ -206,7 +206,7 @@ export default function Products() {
               </div>
 
               {/* Floating Card on Left */}
-              <div className="absolute top-8 -left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-8 left-2 md:-left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-2">
                   <div className="h-2 bg-gray-200 rounded" style={{ width: '120px' }}></div>
                   <div className="h-2 bg-gray-100 rounded" style={{ width: '80px' }}></div>
@@ -215,7 +215,7 @@ export default function Products() {
               </div>
 
               {/* Vertical Workflow Card on Right */}
-              <div className="absolute top-1/2 -right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-1/2 right-2 md:-right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-blue-100 rounded-full"></div>
@@ -233,7 +233,7 @@ export default function Products() {
               </div>
 
               {/* Bottom Floating Badge */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2" style={{ background: 'linear-gradient(to right, #1e5eff, #0d3b75)' }}>
+              <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm max-w-[calc(100%-1rem)]" style={{ background: 'linear-gradient(to right, #1e5eff, #0d3b75)' }}>
                 <span className="text-xs font-medium">Insight</span>
                 <span className="text-sm font-medium">24% Efficiency Gain</span>
               </div>
@@ -322,7 +322,7 @@ export default function Products() {
               </div>
 
               {/* Floating Card on Left */}
-              <div className="absolute top-8 -left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-8 left-2 md:-left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-2">
                   <div className="h-2 bg-gray-200 rounded" style={{ width: '120px' }}></div>
                   <div className="h-2 bg-gray-100 rounded" style={{ width: '80px' }}></div>
@@ -331,7 +331,7 @@ export default function Products() {
               </div>
 
               {/* Vertical Workflow Card on Right */}
-              <div className="absolute top-1/2 -right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-1/2 right-2 md:-right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-green-100 rounded-full"></div>
@@ -349,7 +349,7 @@ export default function Products() {
               </div>
 
               {/* Bottom Floating Badge */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2">
+              <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-green-500 to-green-600 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm max-w-[calc(100%-1rem)]">
                 <span className="text-xs font-medium">Success Rate</span>
                 <span className="text-sm font-medium">98.5%</span>
               </div>
@@ -374,7 +374,7 @@ export default function Products() {
               </div>
 
               {/* Floating Card on Left */}
-              <div className="absolute top-8 -left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-8 left-2 md:-left-4 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-2">
                   <div className="h-2 bg-gray-200 rounded" style={{ width: '120px' }}></div>
                   <div className="h-2 bg-gray-100 rounded" style={{ width: '80px' }}></div>
@@ -383,7 +383,7 @@ export default function Products() {
               </div>
 
               {/* Vertical Workflow Card on Right */}
-              <div className="absolute top-1/2 -right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
+              <div className="hidden sm:block absolute top-1/2 right-2 md:-right-4 -translate-y-1/2 bg-white rounded-xl shadow-md p-4" style={{ borderRadius: '12px' }}>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-blue-100 rounded-full"></div>
@@ -401,7 +401,7 @@ export default function Products() {
               </div>
 
               {/* Bottom Floating Badge */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 rounded-full shadow-lg flex items-center space-x-2" style={{ background: 'linear-gradient(to right, #1e5eff, #0d3b75)' }}>
+              <div className="absolute -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-500 to-blue-700 text-white px-3 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm max-w-[calc(100%-1rem)]" style={{ background: 'linear-gradient(to right, #1e5eff, #0d3b75)' }}>
                 <span className="text-xs font-medium">Insight</span>
                 <span className="text-sm font-medium">24% Efficiency Gain</span>
               </div>

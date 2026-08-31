@@ -46,11 +46,11 @@ function HeroSection() {
               JewelBiz ERP
             </span>
 
-            <h1 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-              <span className="block text-[30px] md:text-[34px] lg:text-[38px] whitespace-nowrap">
+            <h1 className="font-serif font-normal leading-[1.15] tracking-[-0.02em] text-slate-900">
+              <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] whitespace-normal md:whitespace-nowrap">
                 Jewellery ERP For Retail, Wholesale,
               </span>
-              <span className="block text-[30px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
+              <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
                 And Karigar Operations.
               </span>
             </h1>
@@ -163,14 +163,14 @@ function ComparisonSection() {
 
           {/* Header */}
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-200">
-            <div className="bg-gray-50 h-[52px] px-6 hidden md:flex items-center border-r border-gray-100">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">CAPABILITY</span>
+            <div className="bg-[#111111] h-[52px] px-6 hidden md:flex items-center border-r border-white/10">
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">Capability</span>
             </div>
-            <div className="bg-gray-50 h-[52px] px-6 flex items-center border-r border-gray-100">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-900">Generic ERP</span>
+            <div className="bg-[#111111] h-[52px] px-6 flex items-center border-r border-white/10">
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">Generic ERP</span>
             </div>
-            <div className="bg-[#000000] h-[52px] px-6 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+            <div className="bg-[#FF641F] h-[52px] px-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-white"></span>
               <span className="text-xs font-semibold uppercase tracking-wider text-white">JewelBiz ERP</span>
             </div>
           </div>
@@ -226,10 +226,10 @@ function FeaturesSection() {
   const Icon = module.icon;
 
   return (
-    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1200px] mx-auto">
-        <div className="mb-12 max-w-2xl">
-          <h2 className="font-serif font-normal italic text-[#FF641F] text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em]">
+        <div className="mb-8 sm:mb-12 max-w-2xl">
+          <h2 className="font-serif font-normal italic text-[#FF641F] text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em]">
             listed clearly.
           </h2>
           <p className="mt-4 text-slate-500 text-[15px] leading-relaxed">
@@ -237,15 +237,33 @@ function FeaturesSection() {
           </p>
         </div>
 
+        <div className="lg:hidden -mx-4 px-4 mb-8 overflow-x-auto">
+          <div className="flex gap-2 w-max pb-1">
+            {modules.map((m, i) => (
+              <button
+                key={m.id}
+                type="button"
+                onClick={() => setActive(i)}
+                className={`shrink-0 min-h-[40px] px-4 py-2 rounded-full text-sm font-semibold transition ${
+                  i === active ? 'bg-[#FF641F] text-white' : 'bg-slate-100 text-slate-700'
+                }`}
+              >
+                {m.title}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
-          <div className="flex flex-col gap-1">
+          <div className="hidden lg:flex flex-col gap-1">
             {modules.map((m, i) => {
               const isActive = i === active;
               return (
                 <button
                   key={m.id}
+                  type="button"
                   onClick={() => setActive(i)}
-                  className={`group w-full flex items-center gap-3 px-4 py-3.5 rounded-lg text-left transition ${
+                  className={`group w-full flex items-center gap-3 px-4 py-3.5 rounded-lg text-left transition min-h-[48px] ${
                     isActive
                       ? 'bg-[#FF641F] text-white shadow-md'
                       : 'text-slate-700 hover:bg-gray-50'
@@ -262,15 +280,15 @@ function FeaturesSection() {
           </div>
 
           <div key={module.id} className="transition-all duration-300">
-            <div className="mb-10">
+            <div className="mb-8 sm:mb-10">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-md mb-4">
                 <Icon className="w-4 h-4 text-[#FF641F]" />
                 <span className="text-[11px] font-semibold uppercase tracking-wide text-slate-800">{module.title}</span>
               </div>
-              <h3 className="text-[24px] md:text-[28px] font-semibold text-slate-900 leading-snug">{module.description}</h3>
+              <h3 className="text-[20px] sm:text-[24px] md:text-[28px] font-semibold text-slate-900 leading-snug">{module.description}</h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {module.features.map((feature, i) => (
                 <div
                   key={i}
@@ -362,8 +380,8 @@ function BusinessModelSectionWithImages() {
               alt="Retail POS"
               className="w-full h-auto"
             />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Retail POS</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Retail POS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
               Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter.
             </p>
           </div>
@@ -373,8 +391,8 @@ function BusinessModelSectionWithImages() {
               alt="Wholesale & approval"
               className="w-full h-auto"
             />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Wholesale & approval</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Wholesale & approval</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
               Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans.
             </p>
           </div>
@@ -384,8 +402,8 @@ function BusinessModelSectionWithImages() {
               alt="Manufacturing FMS"
               className="w-full h-auto"
             />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">Manufacturing FMS</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Manufacturing FMS</h3>
+            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
               Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.
             </p>
           </div>
@@ -449,7 +467,7 @@ function GaugeCard({ value, label, description }: { value: number; label: string
 
   return (
     <div ref={cardRef} className="flex flex-col items-center">
-      <div className="w-[260px] h-[275px] bg-[#9FC5D4] rounded-[24px] py-[45px] px-[10px]">
+      <div className="w-full max-w-[260px] h-auto min-h-[200px] sm:h-[275px] bg-[#9FC5D4] rounded-[24px] py-8 sm:py-[45px] px-[10px]">
         <div className="bg-white rounded-[20px] w-[240px] h-[185px] flex flex-col items-center pt-4">
           <div className="relative w-44 h-36">
             <svg viewBox="0 0 200 130" className="w-full h-full">
@@ -464,8 +482,8 @@ function GaugeCard({ value, label, description }: { value: number; label: string
           </div>
         </div>
       </div>
-      <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-[260px]">{label}</h3>
-      <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-[260px]">
+      <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">{label}</h3>
+      <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
         {description}
       </p>
     </div>
@@ -648,7 +666,7 @@ function RelatedArticlesSection() {
           {articles.map((article) => (
             <Link
               key={article.id}
-              to={`/blogs/${article.brand}/${article.slug}`}
+              to={`/blog/${article.slug}`}
               className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition hover:shadow-md"
             >
               <div className="overflow-hidden rounded-2xl m-3 border border-gray-100">

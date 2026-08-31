@@ -125,7 +125,7 @@ export default function Careers() {
                 key={job.id}
                 className="bg-white dark:bg-gray-800 rounded-[1.5rem] border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col"
               >
-                <div className="p-8 sm:p-10 flex flex-col flex-grow">
+                <div className="p-5 sm:p-8 md:p-10 flex flex-col flex-grow">
                   <div className="flex items-start gap-4 mb-6">
                     <div className="w-12 h-12 shrink-0 bg-indigo-50 dark:bg-indigo-900/40 rounded-xl flex items-center justify-center">
                       <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
