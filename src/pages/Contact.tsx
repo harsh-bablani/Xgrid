@@ -65,7 +65,7 @@ export default function Contact() {
         </div>
       </section>
 
-      <section id="contact-form" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <section id="contact-form" className="scroll-mt-header max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="bg-[#D3E1E8] rounded-2xl p-8 sm:p-12 text-center">
           <h2 className="text-[24px] sm:text-[28px] font-semibold text-black uppercase tracking-tight mb-4">
             Not Sure Who To Contact?

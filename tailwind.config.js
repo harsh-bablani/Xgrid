@@ -5,7 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        inter: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1.4' }],

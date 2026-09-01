@@ -1,4 +1,6 @@
-import { Globe, Users, Package, Receipt, BarChart3, Stethoscope, Building, Syringe, Pill, TestTube, Microscope, Ambulance, Calendar, TrendingUp, Shield } from 'lucide-react';
+import ProductFeaturesSection from '../components/ProductFeaturesSection';
+import { curaBizModules } from '../data/curaBizMatrix';
+import { Building, Microscope, Stethoscope, Check, X } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +10,11 @@ export default function XCuraHMS() {
       <HeroSection />
       <BusinessModelSection />
       <ComparisonSection />
-      <FeaturesSection />
+      <ProductFeaturesSection
+        modules={curaBizModules}
+        theme="blue"
+        subtitle="Capabilities drawn from the CuraBiz HIMS product matrix — organised by how clinics and hospitals actually run. Ask for a demo to see which modules fit your facility."
+      />
       <FeaturesGridSection />
       <FeatureHighlightSection />
       <CTAFAQSection />
@@ -46,17 +52,22 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Dashboard Visualization - Expansive Wide-screen Layout (Now Unconstrained) */}
-        <div className="w-full mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
-          <div className="w-full p-2 md:p-3 bg-white rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
-            <div className="w-full overflow-hidden rounded-[1.5rem] bg-gray-50">
+        {/* Dashboard — scaled preview on mobile, full height on desktop */}
+        <div className="w-full mt-8 sm:mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
+          <div className="w-full p-1.5 sm:p-2 md:p-3 bg-white rounded-2xl md:rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
+            <div className="w-full overflow-hidden rounded-xl md:rounded-[1.5rem] bg-gray-50 relative">
+              <div className="md:hidden w-full overflow-x-auto overflow-y-hidden">
+                <iframe
+                  src="/dashboards/hospital.html"
+                  title="CuraBiz Hospital Dashboard"
+                  className="border-none block"
+                  style={{ width: 1100, height: 620, maxWidth: 'none' }}
+                />
+              </div>
               <iframe
                 src="/dashboards/hospital.html"
                 title="CuraBiz Hospital Dashboard"
-                className="w-full border-none h-[1200px] md:h-[850px]"
-                style={{
-                  display: 'block'
-                }}
+                className="hidden md:block w-full border-none h-[850px]"
               />
             </div>
           </div>
@@ -89,7 +100,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Building className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Multi-Specialty Hospitals</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Multi-Specialty Hospitals</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Centralized operations, multi-branch visibility, and clinical analytics for complex healthcare environments.
             </p>
@@ -100,7 +111,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Microscope className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Diagnostic Labs</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Diagnostic Labs</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Sample lifecycle, machine integration, reporting, and billing automation for laboratory operations.
             </p>
@@ -111,7 +122,7 @@ function BusinessModelSection() {
             <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
               <Stethoscope className="w-5 h-5 text-white" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2 whitespace-nowrap">Clinics & Day Care</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Clinics & Day Care</h3>
             <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
               Fast OPD, smart queues, pharmacy, and diagnostics for outpatient care centers.
             </p>
@@ -126,180 +137,82 @@ function BusinessModelSection() {
 
 function ComparisonSection() {
   return (
-    <section className="w-full bg-gray-50 py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            The Old Way vs.{" "}
-            <span className="text-blue-600">The CuraBiz Way</span>
+    <section className="w-full bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1020px] mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[34px] md:text-[40px] lg:text-[44px]">
+              Generic software versus
+            </span>
+            <span className="block text-[34px] md:text-[40px] lg:text-[44px] italic text-[#0C69B6]">
+              CuraBiz HIMS
+            </span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing efficiency to operational chaos. Upgrade to a system that works as flawlessly as your healthcare facility.
+          <p className="mt-5 text-[14px] leading-[1.6] text-slate-500 max-w-[680px] mx-auto">
+            Spreadsheets and disconnected clinic tools record visits. CuraBiz is built for UHID, beds, eRx,
+            pharmacy stock, and documentation habits oriented toward NABH-style audits.
           </p>
         </div>
 
-        {/* Comparison Box */}
-        <div className="grid grid-cols-1 md:grid-cols-2 rounded-xl overflow-hidden shadow-sm">
-
-          {/* LEFT - CuraBiz */}
-          <div className="bg-gradient-to-b from-[#1e5eff] to-[#0d3b75] text-white p-10">
-            <h3 className="text-lg font-semibold mb-6 tracking-wide">
-              CURABIZ
-            </h3>
-
-            <ul className="space-y-5 text-sm">
-              {[
-                "Real-time, accurate patient tracking",
-                "Live appointment scheduling and queue management",
-                "Error-free billing and insurance processing",
-                "Centralized control across all departments",
-                "Fully integrated EMR, billing & pharmacy",
-                "Complete visibility into lab and radiology workflows",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="bg-white text-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
-                    ✓
-                  </span>
-                  <span className="opacity-90">{item}</span>
-                </li>
-              ))}
-            </ul>
+        <div className="rounded-xl overflow-hidden border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-200">
+            <div className="bg-[#111111] h-[52px] px-6 hidden md:flex items-center border-r border-white/10">
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">Capability</span>
+            </div>
+            <div className="bg-[#111111] h-[52px] px-6 flex items-center border-r border-white/10">
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">Generic / legacy tools</span>
+            </div>
+            <div className="bg-[#0C69B6] h-[52px] px-6 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-white"></span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">CuraBiz HIMS</span>
+            </div>
           </div>
 
-          {/* RIGHT - Competitors */}
-          <div className="bg-white p-10">
-            <h3 className="text-lg font-semibold mb-6 text-gray-900 tracking-wide">
-              COMPETITORS
-            </h3>
-
-            <ul className="space-y-5 text-sm text-gray-600">
-              {[
-                "Manual patient records lead to data mismatches",
-                "Scheduling errors reduce patient satisfaction",
-                "No real-time visibility across departments",
-                "Disconnected tools for billing, EMR, and pharmacy",
-                "Limited control over lab and radiology workflows",
-                "No automated backup leading to data security risks",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="bg-gray-200 text-gray-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-medium">
-                    ✕
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeaturesSection() {
-  const [activeTab, setActiveTab] = useState("clinical");
-
-  const clinical = [
-    ["Patient Management", "Complete registration, EMR, vitals, pediatric growth charts, and visit history.", Users],
-    ["Appointment & Queue System", "Online booking, smart token management, patient portal, SMS & email alerts.", Calendar],
-    ["OPD Management", "Consultation billing, diagnostics, and daily transaction tracking.", Stethoscope],
-    ["IPD Management", "ADT (Admission-Discharge-Transfer), bed & ward control, package billing, insurance cycles.", Building],
-    ["Laboratory & Diagnostics", "Integrated LIS, sample tracking, automated PDF reports, and radiology workflows.", TestTube],
-    ["Pharmacy Management", "Inventory control, batch & expiry tracking, billing, and multi-store pharmacy operations.", Pill],
-    ["Emergency & Ambulance", "Emergency care management, ambulance tracking, and critical care workflows.", Ambulance],
-    ["Doctor Workflows", "Specialized workflows for different departments, prescription management, and clinical notes.", Syringe]
-  ];
-
-  const administrative = [
-    ["Billing & Insurance", "Integrated billing, insurance claims, GST, receivables, and doctor payouts.", Receipt],
-    ["Financial Control", "Complete accounting, ledgers, expense tracking, and financial reporting.", TrendingUp],
-    ["Staff Management", "Employee records, scheduling, payroll, and performance tracking.", Users],
-    ["Inventory Management", "Medical supplies, equipment tracking, and automated reordering.", Package],
-    ["Compliance & Security", "HIPAA compliance, data security, audit trails, and regulatory reporting.", Shield],
-    ["Multi-Location Support", "Manage multiple facilities from a single platform with centralized control.", Building],
-    ["Analytics & Reporting", "Custom reports, dashboards, KPI tracking, and business intelligence.", BarChart3],
-    ["Integration APIs", "HL7, FHIR, and third-party system integrations for seamless data flow.", Globe]
-  ];
-
-  const data = activeTab === "clinical" ? clinical : administrative;
-
-  return (
-    <section className="w-full bg-[#f8fafc] py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-
-        {/* Heading */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
-            Powerful Features for Every Operation
-          </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Stop losing efficiency to operational chaos. Upgrade to a system that works flawlessly.
-          </p>
-        </div>
-
-        {/* Toggle */}
-        <div className="flex justify-center mb-10">
-          <div className="bg-gray-200 rounded-full p-1 flex">
-            <button
-              onClick={() => setActiveTab("clinical")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "clinical"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
+          {[
+            ['Patient file speed', 'Slow pulls; hangs on large databases', 'Seconds across 70–80k+ records'],
+            ['UHID at reception', 'Thick paper register each day', 'Daily UHID auto-reset in software'],
+            ['Doctor follow-ups', 'Retype prescriptions every visit', 'Favourites + copy previous Rx'],
+            ['Paediatrics', 'Photocopied growth charts', '0–2yr charts & immunisation log'],
+            ['Pharmacy linkage', 'Handwritten Rx re-entered at counter', 'Rx → stock → bill in one loop'],
+            ['Ayurveda workflows', 'Forced into generic procedure slots', 'Panchkarma schedule + diet plan'],
+            ['Insurance / cashless', 'Separate Excel for claims', 'Policy tagged to patient UHID'],
+            ['24/7 reliability', 'Crash-prone local installs', 'Cloud backup & cross-device access'],
+          ].map(([cap, generic, cura], i) => (
+            <div
+              key={i}
+              className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-100 last:border-b-0"
             >
-              Clinical & Patient Care
-            </button>
-
-            <button
-              onClick={() => setActiveTab("administrative")}
-              className={`px-6 py-2 text-sm rounded-full transition ${activeTab === "administrative"
-                ? "bg-white text-blue-600 shadow"
-                : "text-gray-500"
-                }`}
-            >
-              Administrative & Financial
-            </button>
-          </div>
-        </div>
-
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {data.map(([itemTitle, itemDesc, itemIcon], i) => {
-            const Title = itemTitle as string;
-            const Desc = itemDesc as string;
-            const Icon = itemIcon as any;
-            return (
-              <div
-                key={i}
-                className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition"
-              >
-                <div className="flex items-start gap-4">
-
-                  {/* ICON (FIXED) */}
-                  <div className="w-10 h-10 bg-blue-50 flex items-center justify-center rounded-lg">
-                    <Icon className="w-5 h-5 text-blue-600" />
-                  </div>
-
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900 whitespace-nowrap truncate" title={Title}>{Title}</h3>
-                    <p className="text-gray-500 text-sm mt-1">{Desc}</p>
-                  </div>
-
-                </div>
+              <div className="px-6 py-3 bg-white font-medium text-[13px] text-slate-900 flex items-center border-r border-gray-100">
+                {cap}
               </div>
-            );
-          })}
+              <div className="px-6 py-3 bg-gray-50 text-[13px] text-slate-500 flex items-center gap-2 border-r border-gray-100">
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-orange-100 text-orange-500">
+                  <X size={10} strokeWidth={3} />
+                </span>
+                <span>{generic}</span>
+              </div>
+              <div className="px-6 py-3 bg-white text-[13px] text-slate-900 flex items-center gap-2">
+                <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-blue-100 text-[#0C69B6]">
+                  <Check size={10} strokeWidth={3} />
+                </span>
+                <span>{cura}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
+        <div className="mt-8 max-w-[505px] mx-auto">
+          <div className="bg-[#F7F7F7] rounded-xl px-5 py-3.5 text-center border border-gray-200">
+            <p className="text-[12px] text-slate-600 leading-relaxed">
+              If your current system still needs Excel for beds, cashless cases, or pharmacy stock — that gap is
+              exactly what CuraBiz closes.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
-
-{/* ... redundant components removed for brevity ... */ }
 
 function FeaturesGridSection() {
   const features = [
@@ -400,11 +313,11 @@ function FeatureHighlightSection() {
           />
 
           {/* Floating Badge */}
-          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-6 py-4 rounded-xl shadow-lg flex items-center gap-3">
-            <span className="text-lg">📈</span>
-            <div>
-              <p className="text-xs opacity-80">Insight</p>
-              <p className="text-sm font-medium">40% Efficiency Gain</p>
+          <div className="absolute -bottom-3 sm:-bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl shadow-lg flex items-center gap-2 sm:gap-3 max-w-[calc(100%-1rem)]">
+            <span className="text-base sm:text-lg shrink-0">📈</span>
+            <div className="min-w-0">
+              <p className="text-[10px] sm:text-xs opacity-80">Insight</p>
+              <p className="text-xs sm:text-sm font-medium truncate">40% Efficiency Gain</p>
             </div>
           </div>
 
@@ -507,7 +420,7 @@ function CTAFAQSection() {
                   onClick={() =>
                     setOpenIndex(openIndex === i ? -1 : i)
                   }
-                  className="w-full flex justify-between items-center text-left"
+                  className="w-full flex justify-between items-center text-left gap-4 min-h-[48px] py-3"
                 >
                   <span className="text-gray-800 font-medium">
                     {item.q}

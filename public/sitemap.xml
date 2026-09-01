@@ -24,7 +24,6 @@
   <url>
     <loc>https://slatebiz.com/retailbiz/</loc>
   </url>
-
   <url>
     <loc>https://slatebiz.com/blogs/</loc>
   </url>
@@ -40,5 +39,16 @@
   <url>
     <loc>https://slatebiz.com/faq</loc>
   </url>
+  <url>
+    <loc>https://slatebiz.com/blog/test-post</loc>
+  </url>
+  <url>
+    <loc>https://slatebiz.com/blog/myblogpost</loc>
+  </url>
+  <url>
+    <loc>https://slatebiz.com/blog/myblogpost2</loc>
+  </url>
+  <url>
+    <loc>https://slatebiz.com/blog/what-are-the-daily-challenges-of-jewellery-accounting-management-2</loc>
+  </url>
 </urlset>
-

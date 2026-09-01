@@ -270,7 +270,7 @@ function ProcessSection() {
                   {isLeft ? (
                     <>
                       {/* TEXT */}
-                      <div className="text-right pl-10 md:pl-0 md:pr-20">
+                      <div className="text-left pl-10 md:pl-0 md:pr-20 md:text-right">
                         <p className="text-4xl md:text-5xl font-semibold text-gray-200 mb-1">
                           {step.number}
                         </p>

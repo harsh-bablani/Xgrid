@@ -311,7 +311,7 @@ function ProductsSection() {
 
           <Link
             to={product.link}
-            className="inline-flex items-center justify-center h-[30px] px-4 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors"
+            className="inline-flex items-center justify-center min-h-[44px] px-5 rounded-md bg-[#FF641F] text-white text-[13px] font-medium hover:bg-[#E55A18] transition-colors"
           >
             {product.linkText}
           </Link>
@@ -339,14 +339,13 @@ useLayoutEffect(() => {
   };
 
   const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add('(min-width: 768px)', () => {
     /*
      * ---------------------------------------------------------
-     * INITIAL CARD STATE
+     * INITIAL CARD STATE (desktop scroll pin only)
      * ---------------------------------------------------------
-     *
-     * Card 1 starts fully visible.
-     * Cards 2 and 3 sit just below, with a very subtle
-     * opacity/scale so their entrance is polished.
      */
 
     gsap.set(cards[0], {
@@ -491,6 +490,7 @@ useLayoutEffect(() => {
       },
       3.25
     );
+    }); // end matchMedia desktop
   }, viewport);
 
   return () => {
@@ -502,10 +502,7 @@ useLayoutEffect(() => {
     <section className="w-full bg-[#EBF0F1]">
       <div
         ref={scrollViewportRef}
-        className="products-scroll-viewport w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center"
-        style={{
-          minHeight: 'calc(100svh - var(--site-header-height))',
-        }}
+        className="products-scroll-viewport w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center md:min-h-[calc(100svh-var(--site-header-height))]"
       >
         <div
           ref={productsHeaderRef}
@@ -516,24 +513,32 @@ useLayoutEffect(() => {
           </span>
 
           <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
-            <span className="block text-[31px] whitespace-normal md:whitespace-nowrap">
+            <span className="block text-[26px] sm:text-[31px] whitespace-normal md:whitespace-nowrap">
               Three ERPs.
             </span>
 
-            <span className="block text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
+            <span className="block text-[24px] sm:text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
               One standard of engineering.
             </span>
           </h2>
 
-          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
+          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto px-2">
             Each product is built from the ground up for its industry — not a
             generic ERP retrofitted with a template.
           </p>
         </div>
 
+        {/* Mobile: stacked cards */}
+        <div className="md:hidden space-y-4 pb-10">
+          {products.map((product) => (
+            <Card key={product.id} product={product} />
+          ))}
+        </div>
+
+        {/* Desktop: GSAP pinned stack */}
         <div
           ref={cardViewportRef}
-          className="products-card-viewport relative w-full overflow-hidden h-[400px] sm:h-[440px] md:h-[480px] shrink-0"
+          className="products-card-viewport relative w-full overflow-hidden h-[480px] shrink-0 hidden md:block"
         >
           {products.map((product, index) => (
             <div
@@ -1016,7 +1021,7 @@ function StepsSection() {
             <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.03em] text-[#171717] text-[36px] md:text-[42px] mb-4">
               Three steps from today to live
             </h2>
-            <p className="text-[14px] leading-[1.6] text-[#4B5563] mb-10 whitespace-nowrap">
+            <p className="text-[14px] leading-[1.6] text-[#4B5563] mb-10">
               You call us today. You&apos;re live tomorrow. Here is exactly how it works.
             </p>
 
@@ -1191,12 +1196,15 @@ function QuickEnquiryPopup() {
   }, []);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
+    if (!isOpen) {
       document.body.style.overflow = '';
+      return;
     }
-    return () => { document.body.style.overflow = ''; };
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
   }, [isOpen]);
 
   const handleChange = (field: string, value: string) => {
@@ -1213,24 +1221,36 @@ function QuickEnquiryPopup() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-      <div className="relative w-full max-w-[420px] bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+    <div
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center bg-black/50 p-0 sm:p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quick-enquiry-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) setIsOpen(false);
+      }}
+    >
+      <div
+        className="relative w-full sm:max-w-[420px] max-h-[92svh] overflow-y-auto bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-8"
+      >
+        <div className="sm:hidden w-10 h-1 rounded-full bg-slate-200 mx-auto mb-4" aria-hidden />
+
         <button
           type="button"
           onClick={() => setIsOpen(false)}
-          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-2xl leading-none"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 text-2xl leading-none"
           aria-label="Close"
         >
           ×
         </button>
 
-        <p className="text-[11px] font-semibold tracking-widest uppercase text-[#FF641F] mb-2">
+        <p className="text-[11px] font-semibold tracking-widest uppercase text-[#FF641F] mb-2 pr-10">
           Quick Enquiry
         </p>
-        <h2 className="text-[22px] font-semibold text-slate-900 mb-1">
+        <h2 id="quick-enquiry-title" className="text-[20px] sm:text-[22px] font-semibold text-slate-900 mb-1 pr-8">
           Talk to SlateBiz
         </h2>
-        <p className="text-[13px] text-slate-500 mb-6">
+        <p className="text-[13px] text-slate-500 mb-5 sm:mb-6">
           Name, number, and product — we&apos;ll call you back.
         </p>
 
@@ -1244,7 +1264,8 @@ function QuickEnquiryPopup() {
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
               placeholder="Your full name"
-              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+              autoComplete="name"
+              className="w-full min-h-[48px] px-4 py-3 rounded-lg bg-slate-100 border-0 text-[16px] sm:text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
               required
             />
           </div>
@@ -1255,10 +1276,12 @@ function QuickEnquiryPopup() {
             </label>
             <input
               type="tel"
+              inputMode="tel"
               value={formData.contact}
               onChange={(e) => handleChange('contact', e.target.value)}
               placeholder="+91 XXXXXXXXXX"
-              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+              autoComplete="tel"
+              className="w-full min-h-[48px] px-4 py-3 rounded-lg bg-slate-100 border-0 text-[16px] sm:text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
               required
             />
           </div>
@@ -1267,13 +1290,13 @@ function QuickEnquiryPopup() {
             <label className="block text-[13px] font-medium text-slate-700 mb-2">
               Product interested in <span className="text-[#FF641F]">*</span>
             </label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
               {products.map((product) => (
                 <button
                   key={product}
                   type="button"
                   onClick={() => handleChange('product', product)}
-                  className={`py-2.5 px-3 rounded-lg border text-[13px] font-medium transition-colors ${
+                  className={`min-h-[48px] py-2.5 px-2 sm:px-3 rounded-lg border text-[12px] sm:text-[13px] font-medium transition-colors ${
                     formData.product === product
                       ? 'bg-orange-50 border-[#FF641F] text-[#FF641F]'
                       : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
@@ -1291,24 +1314,26 @@ function QuickEnquiryPopup() {
             </label>
             <input
               type="email"
+              inputMode="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
               placeholder="you@company.com"
-              className="w-full px-4 py-3 rounded-lg bg-slate-100 border-0 text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
+              autoComplete="email"
+              className="w-full min-h-[48px] px-4 py-3 rounded-lg bg-slate-100 border-0 text-[16px] sm:text-[13px] text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-[#FF641F] outline-none"
             />
           </div>
 
-          <div className="pt-2 space-y-3">
+          <div className="pt-2 space-y-3 sticky bottom-0 bg-white pb-1">
             <button
               type="submit"
-              className="w-full py-3 rounded-lg bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+              className="w-full min-h-[48px] py-3 rounded-lg bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
             >
               Request a call
             </button>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="w-full py-3 rounded-lg bg-white border border-slate-300 text-slate-600 text-[14px] font-medium hover:bg-slate-50 transition-colors"
+              className="w-full min-h-[48px] py-3 rounded-lg bg-white border border-slate-300 text-slate-600 text-[14px] font-medium hover:bg-slate-50 transition-colors"
             >
               Maybe later
             </button>

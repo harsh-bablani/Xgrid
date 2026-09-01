@@ -242,7 +242,7 @@ export const modules: ProductModule[] = [
     number: '05',
     title: 'Manufacturing & Karigar',
     description:
-      'Issue metal, receive finished goods, track WIP wastage, job costing, and artisan accountability.',
+      'Issue metal, receive finished goods, track WIP, wastage, job costing, and artisan accountability.',
     icon: Wrench,
     features: [
       {
@@ -431,7 +431,7 @@ export const modules: ProductModule[] = [
       },
       {
         title: 'Account rates per customer',
-        description: 'Rate-specific commercial rates without rewriting masters daily.',
+        description: 'Party-specific commercial rates without rewriting masters daily.',
       },
       {
         title: 'Old metal summary',

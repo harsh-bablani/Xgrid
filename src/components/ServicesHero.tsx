@@ -75,7 +75,7 @@ export default function ServicesHero() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 border border-gray-200">
+            <div className="absolute -bottom-2 left-2 sm:-bottom-6 sm:-left-6 bg-white rounded-xl shadow-lg p-3 sm:p-4 border border-gray-200">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                 <p className="text-sm font-semibold text-gray-900">System Online</p>
