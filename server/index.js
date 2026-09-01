@@ -8,9 +8,11 @@ import crypto from 'crypto';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const DB_PATH = path.join(__dirname, 'data', 'db.json');
-const SESSIONS_PATH = path.join(__dirname, 'data', 'sessions.json');
-const UPLOAD_DIR = path.join(ROOT, 'public', 'uploads', 'blogs');
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+const DB_PATH = path.join(DATA_DIR, 'db.json');
+const SESSIONS_PATH = path.join(DATA_DIR, 'sessions.json');
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(ROOT, 'public', 'uploads', 'blogs');
+const API_PUBLIC_URL = (process.env.API_PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || '').replace(/\/$/, '');
 
 const PORT = process.env.PORT || 3001;
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -58,8 +60,8 @@ function pruneSessions() {
 
 loadSessions();
 pruneSessions();
+fs.mkdirSync(DATA_DIR, { recursive: true });
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 
 function readDb() {
   try {
@@ -251,11 +253,31 @@ const upload = multer({
 });
 
 const app = express();
-app.use(cors());
+
+const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173,http://127.0.0.1:5173')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || corsOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(null, false);
+    },
+  })
+);
 app.use(express.json({ limit: '5mb' }));
 
 app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, mode: 'local' });
+  res.json({
+    ok: true,
+    mode: process.env.NODE_ENV === 'production' ? 'production' : 'local',
+    dataDir: DATA_DIR,
+  });
 });
 
 app.post('/api/auth/login', (req, res) => {
@@ -459,14 +481,17 @@ app.post('/api/upload', authMiddleware, (req, res) => {
   upload.single('file')(req, res, (err) => {
     if (err) return res.status(400).json({ error: err.message || 'Upload failed.' });
     if (!req.file) return res.status(400).json({ error: 'No file received. Choose a JPG, PNG, or WebP image.' });
-    res.json({ url: `/uploads/blogs/${req.file.filename}` });
+    const relative = `/uploads/blogs/${req.file.filename}`;
+    const url = API_PUBLIC_URL ? `${API_PUBLIC_URL}${relative}` : relative;
+    res.json({ url });
   });
 });
 
 app.use('/uploads', express.static(path.join(ROOT, 'public', 'uploads')));
 
-const server = app.listen(PORT, () => {
-  console.log(`Local API running at http://localhost:${PORT}`);
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log(`API running on port ${PORT} (${process.env.NODE_ENV === 'production' ? 'production' : 'local'})`);
+  if (API_PUBLIC_URL) console.log(`Public URL: ${API_PUBLIC_URL}`);
   try {
     writeSitemapFile(readDb());
   } catch {

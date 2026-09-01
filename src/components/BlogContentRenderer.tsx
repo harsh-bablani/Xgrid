@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { BlogContent, BlogSection, ContentBlock } from '../types/blog';
 import { isLegacyContent, splitParagraphs } from '../types/blog';
+import { resolveMediaUrl } from '../lib/media';
 import BlogSectionHeader from './blog/BlogSectionHeader';
 import BlogFAQItem from './blog/BlogFAQItem';
 
@@ -48,7 +49,7 @@ function renderSection(section: BlogSection) {
         {safe.image ? (
           <div className="rounded-2xl overflow-hidden mb-8">
             <img
-              src={safe.image}
+              src={resolveMediaUrl(safe.image)}
               alt={safe.imageAlt || safe.title || 'Section image'}
               className="w-full h-auto"
             />
@@ -148,7 +149,7 @@ function LegacyRenderer({ blocks }: { blocks: ContentBlock[] }) {
           case 'image':
             return block.src ? (
               <div key={block.id} className="rounded-2xl overflow-hidden my-6">
-                <img src={block.src} alt={block.alt || ''} className="w-full h-auto" />
+                <img src={resolveMediaUrl(block.src)} alt={block.alt || ''} className="w-full h-auto" />
               </div>
             ) : null;
           case 'list':

@@ -2,6 +2,7 @@ import { useId, useState } from 'react';
 import { Upload, X, Link2 } from 'lucide-react';
 import { validateImageFile, formatImageHint, type ImageKind } from '../../lib/imageValidation';
 import { uploadBlogImage } from '../../lib/blogService';
+import { resolveMediaUrl } from '../../lib/media';
 
 type Props = {
   label: string;
@@ -84,7 +85,7 @@ export default function ImageUpload({ label, kind, value, onChange }: Props) {
 
       {value ? (
         <div className="relative rounded-xl border border-gray-100 overflow-hidden bg-slate-50">
-          <img src={value} alt="Preview" className="w-full max-h-64 object-contain" />
+          <img src={resolveMediaUrl(value)} alt="Preview" className="w-full max-h-64 object-contain" />
           <div className="absolute top-2 right-2 flex gap-1">
             <label
               htmlFor={inputId}

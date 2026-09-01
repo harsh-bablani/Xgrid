@@ -1,3 +1,5 @@
+import { resolveMediaUrl } from '../lib/media';
+
 export type Brand = 'jewelbiz' | 'curabiz' | 'retailbiz';
 
 export type BlogSubsection = {
@@ -130,7 +132,7 @@ export function recordToPost(record: BlogPostRecord): BlogPost {
     categoryLabel: record.category_label,
     title: record.title,
     description: record.description,
-    heroImage: record.hero_image,
+    heroImage: resolveMediaUrl(record.hero_image),
     imageAlt: record.image_alt || '',
     author: record.author || '',
     tags: Array.isArray(record.tags) ? record.tags : [],

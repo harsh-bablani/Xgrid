@@ -1,5 +1,8 @@
 const TOKEN_KEY = 'slatebiz_admin_token';
 
+/** Empty in dev (Vite proxy). Set to Render URL in production, e.g. https://xgrid-api.onrender.com */
+export const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || '';
+
 export type AdminUser = {
   id: string;
   email: string;
@@ -63,7 +66,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
 
   let res: Response;
   try {
-    res = await fetch(`/api${path}`, { ...fetchOptions, headers, signal: controller.signal });
+    res = await fetch(`${API_BASE}/api${path}`, { ...fetchOptions, headers, signal: controller.signal });
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
       throw new Error(
@@ -98,7 +101,7 @@ export async function checkApiHealth(): Promise<boolean> {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 3000);
-    const res = await fetch('/api/health', { signal: controller.signal });
+    const res = await fetch(`${API_BASE}/api/health`, { signal: controller.signal });
     clearTimeout(timeout);
     return res.ok;
   } catch {
