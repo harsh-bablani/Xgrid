@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model BlogPost {
+  id                 String    @id @default(uuid()) @db.Uuid
+  brand              String
+  slug               String    @unique
+  categoryLabel      String    @map("category_label")
+  title              String
+  description        String
+  heroImage          String    @default("") @map("hero_image")
+  imageAlt           String    @default("") @map("image_alt")
+  author             String    @default("")
+  tags               String[]  @default([])
+  date               String    @default("")
+  readTime           String    @default("5 MIN READ") @map("read_time")
+  content            Json      @default("[]")
+  published          Boolean   @default(false)
+  publishedAt        DateTime? @map("published_at")
+  previousSlugs      String[]  @default([]) @map("previous_slugs")
+  metaTitle          String    @default("") @map("meta_title")
+  metaDescription    String    @default("") @map("meta_description")
+  focusKeyword       String    @default("") @map("focus_keyword")
+  seoKeywords        String    @default("") @map("seo_keywords")
+  canonicalUrl       String    @default("") @map("canonical_url")
+  ogTitle            String    @default("") @map("og_title")
+  ogDescription      String    @default("") @map("og_description")
+  ogImage            String    @default("") @map("og_image")
+  twitterTitle       String    @default("") @map("twitter_title")
+  twitterDescription String    @default("") @map("twitter_description")
+  twitterImage       String    @default("") @map("twitter_image")
+  noIndex            Boolean   @default(false) @map("no_index")
+  noFollow           Boolean   @default(false) @map("no_follow")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  @@index([brand])
+  @@index([published])
+  @@map("blog_posts")
+}
+
+model BlogRedirect {
+  id       String @id @default(uuid()) @db.Uuid
+  fromSlug String @unique @map("from_slug")
+  toSlug   String @map("to_slug")
+
+  @@map("blog_redirects")
+}
+
+model AdminSession {
+  token     String   @id
+  userId    String   @map("user_id")
+  userEmail String   @map("user_email")
+  userName  String   @map("user_name")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("admin_sessions")
+}

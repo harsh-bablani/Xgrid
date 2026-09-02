@@ -1,9 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { Navigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import AdminApiUnavailable from './components/AdminApiUnavailable';
 
 export default function AdminLogin() {
-  const { user, loading, signIn, apiReady } = useAuth();
+  const { user, loading, signIn, apiReady, apiChecking, refreshApiHealth } = useAuth();
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,15 +13,16 @@ export default function AdminLogin() {
 
   const from = (location.state as { from?: string } | null)?.from || '/admin';
 
-  if (!apiReady) {
+  if (apiChecking) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-          <p className="text-slate-600">Local API is not running. Start with <strong>npm run dev</strong>.</p>
-          <Link to="/" className="mt-4 inline-block text-[#0C69B6] text-sm font-medium">← Back to website</Link>
-        </div>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-slate-500">Connecting to API…</p>
       </div>
     );
+  }
+
+  if (!apiReady) {
+    return <AdminApiUnavailable onRetry={refreshApiHealth} />;
   }
 
   if (loading) {

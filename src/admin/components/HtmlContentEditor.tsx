@@ -13,7 +13,7 @@ const TAG_SNIPPETS: { label: string; snippet: string; cursorOffset?: number }[] 
   { label: 'P', snippet: '<p></p>\n', cursorOffset: 3 },
   { label: 'Bold', snippet: '<strong></strong>', cursorOffset: 8 },
   { label: 'Link', snippet: '<a href="/jewelbiz/">link text</a>', cursorOffset: 9 },
-  { label: 'Image', snippet: '<img src="/uploads/blogs/" alt="" />\n', cursorOffset: 22 },
+  { label: 'Image', snippet: '<img src="https://[PROJECT-REF].supabase.co/storage/v1/object/public/blog-images/blogs/example.png" alt="" />\n', cursorOffset: 9 },
   { label: 'List', snippet: '<ul>\n  <li></li>\n</ul>\n', cursorOffset: 11 },
 ];
 
