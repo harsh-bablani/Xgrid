@@ -20,7 +20,7 @@ type AuthContextValue = {
   apiBase: string;
   apiConfigured: boolean;
   refreshApiHealth: () => Promise<boolean>;
-  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
+  signIn: (email: string, password: string, captcha?: { captchaId: string; captchaAnswer: string }) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 };
 
@@ -71,11 +71,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return onUnauthorized(() => setUser(null));
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (
+    email: string,
+    password: string,
+    captcha?: { captchaId: string; captchaAnswer: string }
+  ) => {
     try {
       const { token, user: loggedIn } = await apiFetch<{ token: string; user: AdminUser }>('/auth/login', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          captchaId: captcha?.captchaId || '',
+          captchaAnswer: captcha?.captchaAnswer || '',
+        }),
         skipAuthClear: true,
       });
       setToken(token);

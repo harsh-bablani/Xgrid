@@ -20,6 +20,7 @@ import {
 import { createSession, deleteSession, getSession } from './sessionRepository.js';
 import { isSupabaseStorageConfigured } from './supabase.js';
 import { ensureStorageBucket, uploadBlogImage } from './storage.js';
+import { createCaptchaChallenge, verifyCaptchaChallenge } from './captcha.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -214,9 +215,23 @@ app.get('/api/health', async (_req, res) => {
   }
 });
 
+app.get('/api/auth/captcha', (_req, res) => {
+  try {
+    res.json(createCaptchaChallenge());
+  } catch (err) {
+    res.status(500).json({ error: err.message || 'Could not create captcha.' });
+  }
+});
+
 app.post('/api/auth/login', async (req, res) => {
   try {
-    const { email, password } = req.body || {};
+    const { email, password, captchaId, captchaAnswer } = req.body || {};
+
+    const captcha = verifyCaptchaChallenge(captchaId, captchaAnswer);
+    if (!captcha.ok) {
+      return res.status(400).json({ error: captcha.error });
+    }
+
     if (email === ADMIN_USER.email && password === ADMIN_USER.password) {
       const token = crypto.randomUUID();
       const user = { id: ADMIN_USER.id, email: ADMIN_USER.email, name: ADMIN_USER.name };
