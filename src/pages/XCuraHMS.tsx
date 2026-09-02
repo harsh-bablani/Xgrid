@@ -1,60 +1,129 @@
 import ProductFeaturesSection from '../components/ProductFeaturesSection';
 import { curaBizModules } from '../data/curaBizMatrix';
-import { Building, Microscope, Stethoscope, Check, X } from 'lucide-react';
-import { useState } from 'react';
+import {
+  curaBizCareDelivery,
+  curaBizDeployment,
+  curaBizDifferentiators,
+  curaBizFacilityTypes,
+  curaBizPatientJourney,
+  curaBizWhyChoose,
+} from '../data/curaBizPageContent';
+import {
+  Activity,
+  BellRing,
+  BedDouble,
+  CalendarCheck,
+  Check,
+  ClipboardList,
+  Cloud,
+  FlaskConical,
+  Layers,
+  Link2,
+  MonitorSmartphone,
+  Pill,
+  Receipt,
+  Server,
+  Settings2,
+  ShieldCheck,
+  Sparkles,
+  Stethoscope,
+  UserPlus,
+  X,
+} from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function XCuraHMS() {
   return (
     <div className="min-h-screen">
       <HeroSection />
-      <BusinessModelSection />
+      <DifferentiatorsSection />
+      <CareDeliverySection />
       <ComparisonSection />
       <ProductFeaturesSection
+        sectionId="feature-map"
         modules={curaBizModules}
         theme="blue"
+        kicker="Complete feature map"
+        headingLead="Every CuraBiz module,"
         subtitle="Capabilities drawn from the CuraBiz HIMS product matrix — organised by how clinics and hospitals actually run. Ask for a demo to see which modules fit your facility."
       />
-      <FeaturesGridSection />
-      <FeatureHighlightSection />
-      <CTAFAQSection />
+      <PatientJourneySection />
+      <WhyChooseSection />
+      <CTASection />
     </div>
   );
 }
 
 function HeroSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-hidden pt-10 pb-24 px-4 sm:px-6 lg:px-8">
-      {/* Background Image */}
+    <section
+      className="relative flex flex-col items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-6 md:py-8"
+      style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
+    >
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: 'url(/herobg.png)' }}
       />
-      <div className="absolute inset-0 bg-white/40" />
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-white/60" />
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 w-full text-center">
-        {/* Text Section - Constrained for readability */}
-        <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight">
-            Hospital Management Software
+      <div className="relative z-10 w-full max-w-[1120px] mx-auto pt-6 pb-10">
+        <div className="text-center max-w-4xl mx-auto">
+          <span className="inline-block mb-5 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] border border-[#0C69B6]/30 rounded-full bg-white/80">
+            CuraBiz HIMS
+          </span>
+
+          <h1 className="font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[22px] sm:text-[28px] md:text-[36px] lg:text-[42px]">
+              HIMS for clinics, nursing homes, and hospitals.
+            </span>
+            <span className="block text-[22px] sm:text-[28px] md:text-[36px] lg:text-[42px] italic text-[#0C69B6]">
+              One patient journey. Registration to discharge.
+            </span>
           </h1>
-          <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium">
-            Next-gen healthcare ecosystems for clinics, diagnostic centers, and multi-specialty hospitals.
+
+          <p className="mt-5 text-[14px] md:text-[15px] leading-[1.7] text-slate-600 max-w-[720px] mx-auto">
+            CuraBiz connects OPD, IPD, e-prescription, pharmacy, lab, and billing on a single hospital
+            record — built for Indian care teams, not a generic ERP with medical labels.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact" className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-lg">
-              Start Scaling Today
-            </Link>
-            <Link to="/contact" className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition">
-              Book a Demo
-            </Link>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {curaBizFacilityTypes.map((label) => (
+              <span
+                key={label}
+                className="px-3 py-1.5 rounded-full bg-white/90 border border-gray-200 text-[12px] font-medium text-slate-700"
+              >
+                {label}
+              </span>
+            ))}
           </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="w-full sm:w-auto min-w-[180px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#0C69B6] text-white text-[14px] font-semibold hover:bg-[#095a9d] transition-colors"
+            >
+              Book a free demo
+            </Link>
+            <a
+              href="#feature-map"
+              className="w-full sm:w-auto min-w-[180px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] border border-gray-200 text-[14px] font-semibold hover:bg-gray-50 transition-colors"
+            >
+              Browse all features
+            </a>
+          </div>
+
+          <p className="mt-8 text-[13px] text-slate-500">
+            Trusted by{' '}
+            <span className="font-medium text-slate-700">
+              Bhagwati Ayurveda & Panchakarma Research Centre
+            </span>
+          </p>
         </div>
 
-        {/* Dashboard — scaled preview on mobile, full height on desktop */}
-        <div className="w-full mt-8 sm:mt-12 max-w-[1400px] mx-auto px-4 sm:px-6">
-          <div className="w-full p-1.5 sm:p-2 md:p-3 bg-white rounded-2xl md:rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.15)] border border-gray-100">
+        <div className="w-full mt-10 max-w-[1400px] mx-auto">
+          <p className="text-center text-[13px] text-slate-500 mb-3">CuraBiz hospital command center dashboard</p>
+          <div className="w-full p-1.5 sm:p-2 md:p-3 bg-white rounded-2xl md:rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.12)] border border-gray-100">
             <div className="w-full overflow-hidden rounded-xl md:rounded-[1.5rem] bg-gray-50 relative">
               <div className="md:hidden w-full overflow-x-auto overflow-y-hidden">
                 <iframe
@@ -77,73 +146,82 @@ function HeroSection() {
   );
 }
 
-function BusinessModelSection() {
+function DifferentiatorsSection() {
   return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[900px] mx-auto">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0C69B6] mb-3 text-center">
+          What makes CuraBiz different
+        </p>
+        <ul className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+          {curaBizDifferentiators.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-3 rounded-xl border border-gray-100 bg-[#f8fafc] px-4 py-3.5 text-[14px] text-slate-700 leading-relaxed"
+            >
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-[#0C69B6] shrink-0 mt-0.5">
+                <Check size={12} strokeWidth={3} />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
 
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Built for Every Healthcare Model
-          </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            Whether you run a multi-specialty hospital or a diagnostic lab, CuraBiz adapts to your workflow.
-          </p>
-        </div>
+function CareDeliverySection() {
+  return (
+    <section className="w-full bg-[#f3f6fb] py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1000px] mx-auto text-center mb-12">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-3">
+          Built for care delivery
+        </p>
+        <h2 className="font-serif font-normal text-[28px] sm:text-[34px] md:text-[40px] leading-[1.15] tracking-[-0.02em] text-slate-900">
+          {curaBizCareDelivery.title}
+        </h2>
+        <p className="mt-5 text-[15px] leading-[1.7] text-slate-500 max-w-[680px] mx-auto">
+          {curaBizCareDelivery.description}
+        </p>
+      </div>
 
-        {/* GRID */}
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
-
-          {/* Multi-Specialty Hospitals */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Building className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Multi-Specialty Hospitals</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Centralized operations, multi-branch visibility, and clinical analytics for complex healthcare environments.
-            </p>
+      <div className="max-w-[1100px] mx-auto grid md:grid-cols-3 gap-6">
+        {curaBizCareDelivery.pillars.map((pillar) => (
+          <div
+            key={pillar.title}
+            className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm text-left"
+          >
+            <h3 className="text-lg font-semibold text-slate-900 mb-2">{pillar.title}</h3>
+            <p className="text-[14px] text-slate-500 leading-relaxed">{pillar.description}</p>
           </div>
-
-          {/* Diagnostic Labs */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Microscope className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Diagnostic Labs</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Sample lifecycle, machine integration, reporting, and billing automation for laboratory operations.
-            </p>
-          </div>
-
-          {/* Clinics & Day Care */}
-          <div className="bg-white rounded-2xl p-7 border border-gray-100 shadow-sm flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-[#1e3a8a] rounded-lg flex items-center justify-center mb-5">
-              <Stethoscope className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Clinics & Day Care</h3>
-            <p className="text-gray-500 text-sm leading-relaxed max-w-[280px]">
-              Fast OPD, smart queues, pharmacy, and diagnostics for outpatient care centers.
-            </p>
-          </div>
-
-        </div>
-
+        ))}
       </div>
     </section>
   );
 }
 
 function ComparisonSection() {
+  const rows = [
+    ['Patient file speed', 'Slow pulls; hangs on large databases', 'Seconds across 70–80k+ records'],
+    ['UHID at reception', 'Thick paper register each day', 'Daily UHID auto-reset in software'],
+    ['Doctor follow-ups', 'Retype prescriptions every visit', 'Favourites + copy previous Rx'],
+    ['Paediatrics', 'Photocopied growth charts', '0–2yr charts & immunisation log'],
+    ['Pharmacy linkage', 'Handwritten Rx re-entered at counter', 'Rx → stock → bill in one loop'],
+    ['Ayurveda workflows', 'Forced into generic procedure slots', 'Panchkarma schedule + diet plan'],
+    ['Insurance / cashless', 'Separate Excel for claims', 'Policy tagged to patient UHID'],
+    ['24/7 reliability', 'Crash-prone local installs', 'Cloud backup & cross-device access'],
+  ];
+
   return (
     <section className="w-full bg-white py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1020px] mx-auto">
         <div className="text-center mb-10">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-3">
+            Why hospital software matters
+          </p>
           <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[34px] md:text-[40px] lg:text-[44px]">
-              Generic software versus
-            </span>
+            <span className="block text-[34px] md:text-[40px] lg:text-[44px]">Generic software versus</span>
             <span className="block text-[34px] md:text-[40px] lg:text-[44px] italic text-[#0C69B6]">
               CuraBiz HIMS
             </span>
@@ -160,26 +238,19 @@ function ComparisonSection() {
               <span className="text-xs font-semibold uppercase tracking-wider text-white">Capability</span>
             </div>
             <div className="bg-[#111111] h-[52px] px-6 flex items-center border-r border-white/10">
-              <span className="text-xs font-semibold uppercase tracking-wider text-white">Generic / legacy tools</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-white">
+                Generic / legacy tools
+              </span>
             </div>
             <div className="bg-[#0C69B6] h-[52px] px-6 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-white"></span>
+              <span className="w-2 h-2 rounded-full bg-white" />
               <span className="text-xs font-semibold uppercase tracking-wider text-white">CuraBiz HIMS</span>
             </div>
           </div>
 
-          {[
-            ['Patient file speed', 'Slow pulls; hangs on large databases', 'Seconds across 70–80k+ records'],
-            ['UHID at reception', 'Thick paper register each day', 'Daily UHID auto-reset in software'],
-            ['Doctor follow-ups', 'Retype prescriptions every visit', 'Favourites + copy previous Rx'],
-            ['Paediatrics', 'Photocopied growth charts', '0–2yr charts & immunisation log'],
-            ['Pharmacy linkage', 'Handwritten Rx re-entered at counter', 'Rx → stock → bill in one loop'],
-            ['Ayurveda workflows', 'Forced into generic procedure slots', 'Panchkarma schedule + diet plan'],
-            ['Insurance / cashless', 'Separate Excel for claims', 'Policy tagged to patient UHID'],
-            ['24/7 reliability', 'Crash-prone local installs', 'Cloud backup & cross-device access'],
-          ].map(([cap, generic, cura], i) => (
+          {rows.map(([cap, generic, cura]) => (
             <div
-              key={i}
+              key={cap}
               className="grid grid-cols-1 md:grid-cols-[1fr_1.35fr_1.35fr] border-b border-gray-100 last:border-b-0"
             >
               <div className="px-6 py-3 bg-white font-medium text-[13px] text-slate-900 flex items-center border-r border-gray-100">
@@ -204,8 +275,8 @@ function ComparisonSection() {
         <div className="mt-8 max-w-[505px] mx-auto">
           <div className="bg-[#F7F7F7] rounded-xl px-5 py-3.5 text-center border border-gray-200">
             <p className="text-[12px] text-slate-600 leading-relaxed">
-              If your current system still needs Excel for beds, cashless cases, or pharmacy stock — that gap is
-              exactly what CuraBiz closes.
+              If your current system still needs Excel for beds, cashless cases, or pharmacy stock — that gap
+              is exactly what CuraBiz closes.
             </p>
           </div>
         </div>
@@ -214,234 +285,256 @@ function ComparisonSection() {
   );
 }
 
-function FeaturesGridSection() {
-  const features = [
-    {
-      icon: "🏥",
-      title: "PATIENT MANAGEMENT",
-      desc: "Complete EMR system with patient registration, medical history, and visit tracking.",
-    },
-    {
-      icon: "📅",
-      title: "APPOINTMENT BOOKING",
-      desc: "Online appointment scheduling with smart queue management and patient portal.",
-    },
-    {
-      icon: "🧪",
-      title: "LABORATORY INTEGRATION",
-      desc: "Integrated LIS with sample tracking, automated reports, and machine connectivity.",
-    },
-    {
-      icon: "💊",
-      title: "PHARMACY MANAGEMENT",
-      desc: "Complete pharmacy operations with inventory, billing, and prescription management.",
-    },
-    {
-      icon: "🏢",
-      title: "MULTI-LOCATION SUPPORT",
-      desc: "Manage multiple hospitals and clinics from a single centralized platform.",
-    },
-    {
-      icon: "📊",
-      title: "ADVANCED ANALYTICS",
-      desc: "Real-time dashboards, custom reports, and KPI tracking for better decision making.",
-    },
+function PatientJourneySection() {
+  const journeySteps: { label: string; icon: LucideIcon }[] = [
+    { label: curaBizPatientJourney[0], icon: UserPlus },
+    { label: curaBizPatientJourney[1], icon: CalendarCheck },
+    { label: curaBizPatientJourney[2], icon: Stethoscope },
+    { label: curaBizPatientJourney[3], icon: Pill },
+    { label: curaBizPatientJourney[4], icon: FlaskConical },
+    { label: curaBizPatientJourney[5], icon: BedDouble },
+    { label: curaBizPatientJourney[6], icon: Activity },
+    { label: curaBizPatientJourney[7], icon: Receipt },
+    { label: curaBizPatientJourney[8], icon: ClipboardList },
+    { label: curaBizPatientJourney[9], icon: BellRing },
   ];
 
-  return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto">
+  const topRow = journeySteps.slice(0, 5);
+  const bottomRow = [...journeySteps.slice(5)].reverse();
 
-        {/* Heading */}
-        <div className="text-center mb-16">
-          <h2 className="text-[34px] md:text-[40px] font-semibold text-gray-900">
-            Everything you need to run a HEALTHCARE EMPIRE
+  return (
+    <section className="relative w-full overflow-hidden bg-[#EAECEF] py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[#0C69B6]/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-blue-200/30 blur-3xl" />
+
+      <div className="relative max-w-[1180px] mx-auto">
+        <div className="max-w-[780px] mb-14 sm:mb-16">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full shadow-sm">
+            Patient journey
+          </span>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[32px] sm:text-[38px] md:text-[46px] lg:text-[52px]">
+              Track care from registration
+            </span>
+            <span className="block text-[32px] sm:text-[38px] md:text-[46px] lg:text-[52px] italic text-[#0C69B6]">
+              to follow-up.
+            </span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-            A complete suite of tools engineered for the unique complexities of the healthcare industry.
+          <p className="mt-6 text-[14px] sm:text-[15px] leading-[1.7] text-[#4B5563] max-w-[640px]">
+            One connected flow so clinical teams, pharmacy, and billing never rebuild the same patient
+            story.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((item, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-8 shadow-md hover:shadow-lg transition hover:-translate-y-1"
-            >
-              {/* ICON BOX (THIS IS IMPORTANT FIX) */}
-              <div className="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
-                <span className="text-blue-600 text-xl">
-                  {item.icon}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h3 className="text-[14px] font-semibold text-gray-900 tracking-wide mb-2">
-                {item.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-500 text-[14px] leading-relaxed">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-
-      </div>
-    </section>
-  );
-}
-
-function FeatureHighlightSection() {
-  return (
-    <section className="w-full bg-[#f3f6fb] py-24 px-4">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-        {/* LEFT - Dashboard */}
-        <div className="relative flex justify-center">
-
-          {/* Background Glow */}
-          <div className="absolute w-[90%] h-[90%] bg-gradient-to-r from-blue-200 to-indigo-200 rounded-3xl blur-3xl opacity-40"></div>
-
-          {/* Main Image */}
-          <img
-            src="/H.jpeg"
-            alt="Dashboard"
-            className="relative rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] w-full max-w-[500px]"
-          />
-
-          {/* Floating Badge */}
-          <div className="absolute -bottom-3 sm:-bottom-6 left-1/2 -translate-x-1/2 bg-[#0d3b75] text-white px-3 sm:px-6 py-2.5 sm:py-4 rounded-xl shadow-lg flex items-center gap-2 sm:gap-3 max-w-[calc(100%-1rem)]">
-            <span className="text-base sm:text-lg shrink-0">📈</span>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-xs opacity-80">Insight</p>
-              <p className="text-xs sm:text-sm font-medium truncate">40% Efficiency Gain</p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* RIGHT - Content */}
-        <div>
-
-          {/* Label */}
-          <p className="text-xs tracking-widest text-gray-500 mb-3">
-            FEATURES
-          </p>
-
-          {/* Heading */}
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-6 leading-snug">
-            Best Hospital Management Software in India
-          </h2>
-
-          {/* Description */}
-          <div className="text-gray-600 text-[15px] leading-relaxed">
-            <p className="mb-4">Managing a healthcare facility requires precision. From tracking patient records to maintaining secure medical data, generic hospital management systems fall short.</p>
-
-            <p className="mb-4">CuraBiz is engineered from the ground up to be the ultimate hospital ERP and management software. Whether you run a single clinic or a multi-city hospital chain, our cloud-based platform ensures your data is secure, accessible, and actionable.</p>
-
-            <p>Features like integrated EMR, laboratory management, and financial control make CuraBiz the preferred choice for modern healthcare providers looking to scale.</p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-  );
-}
-
-
-function CTAFAQSection() {
-  const [openIndex, setOpenIndex] = useState(0);
-
-  const faqs = [
-    {
-      q: "Is CuraBiz suitable for small clinics?",
-      a: "Yes, CuraBiz scales from single clinics to large multi-specialty hospitals with flexible modules and pricing.",
-    },
-    { q: "Does it support laboratory integration?", a: "" },
-    { q: "What about data security and compliance?", a: "" },
-    { q: "Can it handle multiple locations?", a: "" },
-    { q: "Is training and support included?", a: "" },
-    { q: "Is there a mobile app for doctors?", a: "" },
-  ];
-
-  return (
-    <section className="w-full">
-
-      {/* 🔵 CTA SECTION */}
-      <div className="w-full bg-gradient-to-r from-[#0d3b75] to-[#1e5eff] py-20 px-4 text-center text-white">
-        <div className="max-w-3xl mx-auto">
-
-          <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-            Ready to Modernize Your Operations?
-          </h2>
-
-          <p className="text-blue-100 mb-8">
-            Join leading hospitals who have increased their efficiency by 40% with CuraBiz.
-          </p>
-
-          <Link to="/contact" className="bg-white text-[#0d3b75] px-6 py-3 rounded-md font-medium shadow hover:shadow-lg transition">
-            Request Demo
-          </Link>
-
-        </div>
-      </div>
-
-      {/* ⚪ FAQ SECTION */}
-      <div className="w-full bg-[#f3f6fb] py-20 px-4">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-start">
-
-          {/* LEFT SIDE */}
-          <div>
-            <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-4">
-              Frequently Asked Questions
-            </h3>
-
-            <p className="text-gray-500 mb-6">
-              Have any questions about our hospital management system? You're in the right place.
-            </p>
-
-            <Link to="/contact" className="bg-[#0d3b75] text-white px-5 py-2 rounded-md text-sm inline-block">
-              VIEW ALL FAQ
-            </Link>
-          </div>
-
-          {/* RIGHT SIDE (Accordion) */}
-          <div className="space-y-4">
-            {faqs.map((item, i) => (
-              <div
-                key={i}
-                className="border-b border-gray-300 pb-4"
-              >
-                <button
-                  onClick={() =>
-                    setOpenIndex(openIndex === i ? -1 : i)
-                  }
-                  className="w-full flex justify-between items-center text-left gap-4 min-h-[48px] py-3"
-                >
-                  <span className="text-gray-800 font-medium">
-                    {item.q}
-                  </span>
-                  <span className="text-xl">
-                    {openIndex === i ? "−" : "+"}
-                  </span>
-                </button>
-
-                {openIndex === i && item.a && (
-                  <p className="text-gray-500 text-sm mt-3 leading-relaxed">
-                    {item.a}
-                  </p>
-                )}
-              </div>
+        {/* Desktop: snake timeline */}
+        <div className="hidden lg:block">
+          <div className="grid grid-cols-5 gap-5">
+            {topRow.map((step, i) => (
+              <JourneyStepCard key={step.label} step={step} index={i} showRightConnector={i < 4} />
             ))}
           </div>
 
+          <div className="flex justify-end pr-[10%] py-3">
+            <div className="h-16 w-[2px] bg-gradient-to-b from-[#0C69B6] to-[#0C69B6]/30 rounded-full" />
+          </div>
+
+          <div className="grid grid-cols-5 gap-5">
+            {bottomRow.map((step, i) => {
+              const originalIndex = journeySteps.indexOf(step);
+              return (
+                <JourneyStepCard
+                  key={step.label}
+                  step={step}
+                  index={originalIndex}
+                  showLeftConnector={i > 0}
+                  reverseConnectors
+                />
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile / tablet: vertical timeline */}
+        <div className="lg:hidden relative pl-8">
+          <div className="absolute left-[11px] top-3 bottom-3 w-[2px] bg-gradient-to-b from-[#0C69B6] via-[#0C69B6]/50 to-[#0C69B6]/20 rounded-full" />
+          <div className="space-y-4">
+            {journeySteps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.label} className="relative flex gap-4">
+                  <div className="absolute -left-8 top-5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#0C69B6] ring-4 ring-[#EAECEF]">
+                    <span className="text-[9px] font-bold text-white">{String(i + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div className="group flex-1 rounded-2xl border border-white/80 bg-white p-5 shadow-[0_8px_30px_rgba(12,105,182,0.08)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(12,105,182,0.12)]">
+                    <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0C69B6] to-[#095a9d] text-white shadow-md">
+                      <Icon size={18} strokeWidth={2} />
+                    </div>
+                    <p className="text-[14px] font-semibold text-slate-900 leading-snug">{step.label}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+    </section>
+  );
+}
 
+function JourneyStepCard({
+  step,
+  index,
+  showRightConnector,
+  showLeftConnector,
+  reverseConnectors,
+}: {
+  step: { label: string; icon: LucideIcon };
+  index: number;
+  showRightConnector?: boolean;
+  showLeftConnector?: boolean;
+  reverseConnectors?: boolean;
+}) {
+  const Icon = step.icon;
+
+  return (
+    <div className="relative group">
+      {showLeftConnector && reverseConnectors ? (
+        <div className="pointer-events-none absolute -left-[10px] top-[52px] h-[2px] w-[10px] bg-[#0C69B6]/40" />
+      ) : null}
+      {showRightConnector && !reverseConnectors ? (
+        <div className="pointer-events-none absolute -right-[10px] top-[52px] h-[2px] w-[10px] bg-[#0C69B6]/40" />
+      ) : null}
+
+      <div className="relative h-full rounded-[20px] border border-white/90 bg-white p-5 shadow-[0_10px_40px_rgba(12,105,182,0.08)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_20px_50px_rgba(12,105,182,0.14)]">
+        <div className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-gradient-to-r from-[#0C69B6] to-[#4da3e0]" />
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#0C69B6] to-[#095a9d] text-white shadow-lg shadow-blue-500/20">
+            <Icon size={20} strokeWidth={2} />
+          </div>
+          <span className="font-serif text-[28px] leading-none text-[#0C69B6]/20 group-hover:text-[#0C69B6]/35 transition-colors">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </div>
+        <p className="text-[13px] font-semibold text-slate-900 leading-snug min-h-[40px]">{step.label}</p>
+      </div>
+    </div>
+  );
+}
+
+const whyChooseIcons: LucideIcon[] = [
+  ShieldCheck,
+  Sparkles,
+  Settings2,
+  MonitorSmartphone,
+  Link2,
+  ClipboardList,
+];
+
+function WhyChooseSection() {
+  return (
+    <section className="relative w-full overflow-hidden bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-px w-[min(100%,900px)] bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+      <div className="max-w-[1180px] mx-auto">
+        <div className="text-center max-w-[760px] mx-auto mb-14 sm:mb-16">
+          <span className="inline-block mb-5 px-3 py-1.5 bg-blue-50 text-slate-800 text-[11px] font-medium tracking-wide rounded-full">
+            Why hospitals choose SlateBiz
+          </span>
+          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[32px] sm:text-[38px] md:text-[46px]">
+              Built for mission-critical
+            </span>
+            <span className="block text-[32px] sm:text-[38px] md:text-[46px] italic text-[#0C69B6]">
+              hospital hours.
+            </span>
+          </h2>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-12 sm:mb-16">
+          {curaBizWhyChoose.map((item, i) => {
+            const Icon = whyChooseIcons[i] ?? ShieldCheck;
+            return (
+              <div
+                key={item.title}
+                className="group relative overflow-hidden rounded-[20px] border border-slate-200/70 bg-white p-6 sm:p-7 shadow-[0_8px_30px_rgba(15,23,42,0.04)] transition duration-300 hover:-translate-y-1 hover:border-[#0C69B6]/25 hover:shadow-[0_20px_50px_rgba(12,105,182,0.12)]"
+              >
+                <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-[#0C69B6]/5 transition group-hover:bg-[#0C69B6]/10" />
+                <div className="relative mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0C69B6] to-[#095a9d] text-white shadow-lg shadow-blue-500/25">
+                  <Icon size={22} strokeWidth={2} />
+                </div>
+                <h3 className="relative text-[16px] font-semibold text-slate-900 mb-2">{item.title}</h3>
+                <p className="relative text-[13px] sm:text-[14px] text-slate-500 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#0a2f5c] via-[#0C69B6] to-[#1a7fd4] px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-14">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_45%)]" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+
+          <div className="relative mb-8 sm:mb-10 text-center lg:text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-100/90 mb-3">
+              Deployment options
+            </p>
+            <h3 className="font-serif font-normal text-[26px] sm:text-[32px] text-white leading-[1.15]">
+              On-premise, cloud, or hybrid — your call.
+            </h3>
+          </div>
+
+          <div className="relative grid md:grid-cols-3 gap-4 sm:gap-5">
+            {curaBizDeployment.map((item, i) => {
+              const icons = [Server, Cloud, Layers];
+              const Icon = icons[i] ?? Cloud;
+              return (
+                <div
+                  key={item.title}
+                  className="group rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm transition duration-300 hover:bg-white/15 hover:border-white/35"
+                >
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/15 text-white ring-1 ring-white/25 transition group-hover:bg-white/25">
+                    <Icon size={20} strokeWidth={2} />
+                  </div>
+                  <h4 className="text-lg font-semibold text-white mb-2">{item.title}</h4>
+                  <p className="text-[13px] text-blue-50/90 leading-relaxed">{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTASection() {
+  return (
+    <section className="w-full bg-gradient-to-r from-[#0d3b75] to-[#0C69B6] py-16 sm:py-20 px-4 text-center text-white">
+      <div className="max-w-2xl mx-auto">
+        <h2 className="font-serif font-normal text-[28px] sm:text-[36px] leading-[1.15] mb-4">
+          Demo CuraBiz on your OPD, beds, and pharmacy flow.
+        </h2>
+        <p className="text-blue-100 text-[15px] leading-relaxed mb-8">
+          A walkthrough configured around your specialties and wards — not a sample clinic dataset.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            to="/contact"
+            className="w-full sm:w-auto min-w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] text-[14px] font-semibold hover:bg-blue-50 transition-colors"
+          >
+            Book a free demo
+          </Link>
+          <a
+            href="https://wa.me/919257373668"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto min-w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] border-2 border-white/80 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
+          >
+            WhatsApp us
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

@@ -23,12 +23,19 @@ interface ProductFeaturesSectionProps {
   modules: ProductModule[];
   subtitle: string;
   theme?: FeatureTheme;
+  kicker?: string;
+  /** Serif heading before “listed clearly.” — e.g. “Every CuraBiz module,” */
+  headingLead?: string;
+  sectionId?: string;
 }
 
 export default function ProductFeaturesSection({
   modules,
   subtitle,
   theme = 'orange',
+  kicker,
+  headingLead,
+  sectionId,
 }: ProductFeaturesSectionProps) {
   const [active, setActive] = useState(0);
   const styles = themeStyles[theme];
@@ -37,13 +44,25 @@ export default function ProductFeaturesSection({
   const Icon = module.icon;
 
   return (
-    <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <section id={sectionId} className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-8 sm:mb-12 max-w-2xl">
+          {kicker ? (
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-3">
+              {kicker}
+            </p>
+          ) : null}
           <h2
-            className={`font-serif font-normal italic text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em] ${styles.heading}`}
+            className={`font-serif font-normal text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em] text-slate-900`}
           >
-            listed clearly.
+            {headingLead ? (
+              <>
+                <span className="block">{headingLead}</span>
+                <span className={`block italic ${styles.heading}`}>listed clearly.</span>
+              </>
+            ) : (
+              <span className={`italic ${styles.heading}`}>listed clearly.</span>
+            )}
           </h2>
           <p className="mt-4 text-slate-500 text-[15px] leading-relaxed">{subtitle}</p>
         </div>

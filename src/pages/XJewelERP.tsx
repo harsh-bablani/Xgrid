@@ -229,8 +229,12 @@ function FeaturesSection() {
     <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-8 sm:mb-12 max-w-2xl">
-          <h2 className="font-serif font-normal italic text-[#FF641F] text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em]">
-            listed clearly.
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-3">
+            Complete feature map
+          </p>
+          <h2 className="font-serif font-normal text-[32px] sm:text-[40px] md:text-[48px] leading-[1.1] tracking-[-0.02em] text-slate-900">
+            <span className="block">Every JewelBiz module,</span>
+            <span className="block italic text-[#FF641F]">listed clearly.</span>
           </h2>
           <p className="mt-4 text-slate-500 text-[15px] leading-relaxed">
             Capabilities drawn from the JewelBiz product matrix — organised by how jewellery businesses actually run. Ask for a demo to see which modules fit your showroom.
