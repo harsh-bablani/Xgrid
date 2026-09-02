@@ -1,16 +1,15 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Brand } from './blog-posts';
+import type { Brand } from '../types/blog';
+import { BLOG_CATEGORIES, brandDisplayTitle } from '../types/blog';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 import SearchBar from '../components/SearchBar';
 import { SITE_URL } from '../lib/seo';
 
-const CATEGORIES: { label: string; value: Brand | 'all' }[] = [
-  { label: 'All', value: 'all' },
-  { label: 'JewelBiz', value: 'jewelbiz' },
-  { label: 'CuraBiz', value: 'curabiz' },
-  { label: 'RetailBiz', value: 'retailbiz' },
+const CATEGORIES: { value: Brand | 'all'; title: string; subtitle?: string }[] = [
+  { value: 'all', title: 'All' },
+  ...BLOG_CATEGORIES,
 ];
 
 const PAGE_SIZE = 9;
@@ -33,6 +32,7 @@ export default function Blogs() {
           post.title.toLowerCase().includes(q) ||
           post.description.toLowerCase().includes(q) ||
           post.categoryLabel.toLowerCase().includes(q) ||
+          brandDisplayTitle(post.brand).toLowerCase().includes(q) ||
           post.brand.toLowerCase().includes(q)
       );
     }
@@ -92,10 +92,10 @@ export default function Blogs() {
         </div>
       </section>
 
-      {/* Category tabs — Figma: ALL / BUSINESS OPERATIONS / … */}
+      {/* Category tabs */}
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
         <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide">
-          <div className="flex items-center justify-start lg:justify-center gap-7 sm:gap-9 min-w-max lg:min-w-0">
+          <div className="flex items-stretch justify-start lg:justify-center gap-3 sm:gap-4 min-w-max lg:min-w-0">
             {CATEGORIES.map((category) => {
               const active = activeCategory === category.value;
               return (
@@ -103,19 +103,30 @@ export default function Blogs() {
                   key={category.value}
                   type="button"
                   onClick={() => selectCategory(category.value)}
-                  className={`shrink-0 pb-3 font-sans text-[12px] sm:text-[13px] font-semibold tracking-[0.08em] uppercase transition-colors border-b-[2.5px] ${
+                  className={`shrink-0 rounded-lg px-4 py-3 text-left transition-colors border ${
                     active
-                      ? 'text-[#FF641F] border-[#FF641F]'
-                      : 'text-[#98A2B3] border-transparent hover:text-[#667085]'
+                      ? 'bg-blue-50/80 border-[#0C69B6]/20'
+                      : 'bg-white border-transparent hover:bg-slate-50'
                   }`}
                 >
-                  {category.label}
+                  <span
+                    className={`block font-sans text-[14px] font-semibold leading-tight ${
+                      active ? 'text-slate-900' : 'text-slate-800'
+                    }`}
+                  >
+                    {category.title}
+                  </span>
+                  {category.subtitle ? (
+                    <span className="block mt-0.5 font-sans text-[12px] text-slate-500 leading-snug">
+                      {category.subtitle}
+                    </span>
+                  ) : null}
                 </button>
               );
             })}
           </div>
         </div>
-        <div className="border-b border-[#F2F4F7] -mt-px" />
+        <div className="border-b border-[#F2F4F7] mt-4" />
       </div>
 
       {/* Cards grid */}
@@ -160,7 +171,7 @@ export default function Blogs() {
                     </div>
 
                     <p className="mt-5 font-sans text-[12px] font-medium uppercase tracking-[0.06em] text-[#98A2B3]">
-                      {post.date} | {post.readTime} | {post.brand}
+                      {post.date} | {post.readTime} | {brandDisplayTitle(post.brand)}
                     </p>
 
                     <h2

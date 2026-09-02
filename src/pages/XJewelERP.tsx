@@ -1,7 +1,7 @@
-import { Building2, BarChart3, UserPlus, ClipboardCheck, ReceiptText, ShieldCheck, Check, X, ChevronRight, ArrowRight } from 'lucide-react';
+import { Building2, BarChart3, UserPlus, ClipboardCheck, ReceiptText, ShieldCheck, Check, X, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { modules } from '../data/productMatrix';
-import { POSTS } from './blog-posts';
+import ProductRelatedArticles from '../components/ProductRelatedArticles';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default function XJewelERP() {
       <ComparisonSection />
       <FeaturesSection />
       <AccreditationSection />
-      <RelatedArticlesSection />
+      <ProductRelatedArticles brand="jewelbiz" />
       <CTASection />
     </div>
   );
@@ -639,61 +639,6 @@ function AccreditationSection() {
               className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
             />
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RelatedArticlesSection() {
-  const articles = POSTS.slice(0, 3);
-
-  return (
-    <section className="w-full bg-white py-16">
-      <div className="max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <span className="inline-block mb-6 px-3 py-1.5 bg-gray-100 text-gray-700 text-[11px] font-medium tracking-wide rounded-full">
-          Related Articles
-        </span>
-        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-          <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
-            From metal purchase to signed
-          </span>
-          <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
-            GST invoice — nothing entered twice.
-          </span>
-        </h2>
-        <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
-          Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
-        </p>
-
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article) => (
-            <Link
-              key={article.id}
-              to={`/blog/${article.slug}`}
-              className="group flex flex-col bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition hover:shadow-md"
-            >
-              <div className="overflow-hidden rounded-2xl m-3 border border-gray-100">
-                <img src={article.heroImage} alt={article.title} className="w-full h-auto block" />
-              </div>
-              <div className="flex flex-col flex-1 p-5 pt-0">
-                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mb-2">
-                  {article.date} | {article.readTime} | {article.brand.toUpperCase()}
-                </p>
-                <h2 className="text-lg font-bold text-gray-900 uppercase tracking-tight leading-snug">
-                  {article.title}
-                </h2>
-                <p className="mt-2 text-sm text-gray-500 leading-relaxed flex-1">
-                  {article.description}
-                </p>
-                <div className="mt-4">
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 transition-colors group-hover:text-blue-700">
-                    Read More <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
         </div>
       </div>
     </section>

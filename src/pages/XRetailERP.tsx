@@ -1,4 +1,5 @@
 import ProductFeaturesSection from '../components/ProductFeaturesSection';
+import ProductRelatedArticles from '../components/ProductRelatedArticles';
 import { retailBizModules } from '../data/retailBizMatrix';
 import { Users, Package, ShoppingCart, Store } from 'lucide-react';
 import { useState } from 'react';
@@ -16,6 +17,7 @@ export default function XRetailERP() {
       />
       <FeaturesGridSection />
       <FeatureHighlightSection />
+      <ProductRelatedArticles brand="retailbiz" />
       <CTAFAQSection />
     </div>
   );

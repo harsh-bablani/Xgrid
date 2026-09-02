@@ -1,6 +1,40 @@
 import { resolveMediaUrl } from '../lib/media';
 
-export type Brand = 'jewelbiz' | 'curabiz' | 'retailbiz';
+export type Brand = 'jewelbiz' | 'curabiz' | 'retailbiz' | 'custom';
+
+export type BlogCategory = {
+  value: Brand;
+  title: string;
+  subtitle: string;
+};
+
+/** Matches Products dropdown: bold title + subtitle */
+export const BLOG_CATEGORIES: BlogCategory[] = [
+  { value: 'jewelbiz', title: 'JewelBiz', subtitle: 'Jewellery ERP' },
+  { value: 'curabiz', title: 'CuraBiz', subtitle: 'Hospital HIMS' },
+  { value: 'retailbiz', title: 'Specialized Retail', subtitle: 'RetailBiz ERP' },
+  { value: 'custom', title: 'Custom ERP', subtitle: 'Built for your workflows' },
+];
+
+export const BRAND_OPTIONS: { label: string; subtitle: string; value: Brand }[] = BLOG_CATEGORIES.map(
+  ({ value, title, subtitle }) => ({ value, label: title, subtitle })
+);
+
+const BRANDS: Brand[] = BLOG_CATEGORIES.map((c) => c.value);
+
+export function getBlogCategory(brand: Brand): BlogCategory | undefined {
+  return BLOG_CATEGORIES.find((c) => c.value === brand);
+}
+
+export function brandDisplayTitle(brand: Brand): string {
+  return getBlogCategory(brand)?.title ?? brand;
+}
+
+export function brandDefaultLabel(brand: Brand): string {
+  const cat = getBlogCategory(brand);
+  if (!cat) return brand;
+  return `${cat.title} · ${cat.subtitle}`;
+}
 
 export type BlogSubsection = {
   id: string;
@@ -107,21 +141,10 @@ export type BlogPost = {
   twitterImage?: string;
   noIndex?: boolean;
   noFollow?: boolean;
-  /** True when loaded from hardcoded blog-posts.ts (not CMS) */
-  isStatic?: boolean;
 };
 
-export const BRAND_OPTIONS: { label: string; value: Brand }[] = [
-  { label: 'JewelBiz', value: 'jewelbiz' },
-  { label: 'CuraBiz', value: 'curabiz' },
-  { label: 'RetailBiz', value: 'retailbiz' },
-];
-
-const BRANDS: Brand[] = ['jewelbiz', 'curabiz', 'retailbiz'];
-
-export function brandDefaultLabel(brand: Brand): string {
-  const label = BRAND_OPTIONS.find((b) => b.value === brand)?.label ?? brand;
-  return `${label} by Slatebiz`;
+export function isBrand(value: string): value is Brand {
+  return BRANDS.includes(value as Brand);
 }
 
 export function recordToPost(record: BlogPostRecord): BlogPost {
@@ -157,7 +180,6 @@ export function recordToPost(record: BlogPostRecord): BlogPost {
     twitterImage: record.twitter_image || '',
     noIndex: Boolean(record.no_index),
     noFollow: Boolean(record.no_follow),
-    isStatic: false,
   };
 }
 

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Plus, Pencil, Trash2, ExternalLink } from 'lucide-react';
 import { fetchAllPosts, deletePost } from '../lib/blogService';
 import type { BlogPost } from '../types/blog';
+import { brandDisplayTitle, getBlogCategory } from '../types/blog';
 
 export default function AdminDashboard() {
   const location = useLocation();
@@ -91,7 +92,7 @@ export default function AdminDashboard() {
               <thead>
                 <tr className="border-b border-gray-100 bg-slate-50/80">
                   <th className="text-left px-5 py-3 font-semibold text-slate-600">Title</th>
-                  <th className="text-left px-5 py-3 font-semibold text-slate-600 hidden md:table-cell">Brand</th>
+                  <th className="text-left px-5 py-3 font-semibold text-slate-600 hidden md:table-cell">Category</th>
                   <th className="text-left px-5 py-3 font-semibold text-slate-600 hidden lg:table-cell">Category</th>
                   <th className="text-left px-5 py-3 font-semibold text-slate-600">Status</th>
                   <th className="text-right px-5 py-3 font-semibold text-slate-600">Actions</th>
@@ -104,7 +105,14 @@ export default function AdminDashboard() {
                       <p className="font-medium text-slate-900 line-clamp-1">{post.title}</p>
                       <p className="text-xs text-slate-400 mt-0.5">/blog/{post.slug}</p>
                     </td>
-                    <td className="px-5 py-4 hidden md:table-cell capitalize text-slate-600">{post.brand}</td>
+                    <td className="px-5 py-4 hidden md:table-cell text-slate-600">
+                      <span className="font-semibold text-slate-800">{brandDisplayTitle(post.brand)}</span>
+                      {getBlogCategory(post.brand)?.subtitle ? (
+                        <span className="block text-xs text-slate-400 mt-0.5">
+                          {getBlogCategory(post.brand)?.subtitle}
+                        </span>
+                      ) : null}
+                    </td>
                     <td className="px-5 py-4 hidden lg:table-cell text-slate-600 line-clamp-1">{post.categoryLabel}</td>
                     <td className="px-5 py-4">
                       <span

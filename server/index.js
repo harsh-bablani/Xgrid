@@ -26,7 +26,7 @@ const ROOT = path.join(__dirname, '..');
 const API_PUBLIC_URL = (process.env.API_PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || '').replace(/\/$/, '');
 
 const PORT = process.env.PORT || 3001;
-const VALID_BRANDS = ['jewelbiz', 'curabiz', 'retailbiz'];
+const VALID_BRANDS = ['jewelbiz', 'curabiz', 'retailbiz', 'custom'];
 
 const ADMIN_USER = {
   id: 'admin-1',

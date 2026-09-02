@@ -1,4 +1,5 @@
 import ProductFeaturesSection from '../components/ProductFeaturesSection';
+import ProductRelatedArticles from '../components/ProductRelatedArticles';
 import { curaBizModules } from '../data/curaBizMatrix';
 import {
   curaBizCareDelivery,
@@ -41,7 +42,7 @@ export default function XCuraHMS() {
       <CareDeliverySection />
       <ComparisonSection />
       <ProductFeaturesSection
-        sectionId="feature-map"
+        sectionId="features"
         modules={curaBizModules}
         theme="blue"
         kicker="Complete feature map"
@@ -50,6 +51,7 @@ export default function XCuraHMS() {
       />
       <PatientJourneySection />
       <WhyChooseSection />
+      <ProductRelatedArticles brand="curabiz" />
       <CTASection />
     </div>
   );
@@ -57,88 +59,75 @@ export default function XCuraHMS() {
 
 function HeroSection() {
   return (
-    <section
-      className="relative flex flex-col items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-6 md:py-8"
-      style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
-    >
+    <section className="relative overflow-hidden border-b border-gray-100 bg-white py-16 lg:py-20">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/herobg.png)' }}
+        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[50%] bg-blue-50/90 lg:block"
+        style={{ clipPath: 'polygon(14% 0, 100% 0, 100% 100%, 0% 100%)' }}
       />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-white/60" />
 
-      <div className="relative z-10 w-full max-w-[1120px] mx-auto pt-6 pb-10">
-        <div className="text-center max-w-4xl mx-auto">
-          <span className="inline-block mb-5 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] border border-[#0C69B6]/30 rounded-full bg-white/80">
-            CuraBiz HIMS
-          </span>
-
-          <h1 className="font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[22px] sm:text-[28px] md:text-[36px] lg:text-[42px]">
-              HIMS for clinics, nursing homes, and hospitals.
+      <div className="relative mx-auto grid max-w-[1120px] items-center gap-12 px-4 sm:px-6 lg:px-8 lg:grid-cols-2">
+        <div>
+          <div className="mb-4 flex items-center gap-2.5">
+            <span className="h-0.5 w-7 rounded bg-[#0C69B6]" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0C69B6]">
+              CuraBiz HIMS
             </span>
-            <span className="block text-[22px] sm:text-[28px] md:text-[36px] lg:text-[42px] italic text-[#0C69B6]">
+          </div>
+
+          <h1 className="font-serif font-normal text-[clamp(2rem,4.5vw,3.2rem)] leading-[1.12] tracking-[-0.02em] text-slate-900">
+            HIMS for clinics, nursing homes, and hospitals.
+            <em className="mt-2 block font-serif italic text-[#0C69B6]">
               One patient journey. Registration to discharge.
-            </span>
+            </em>
           </h1>
 
-          <p className="mt-5 text-[14px] md:text-[15px] leading-[1.7] text-slate-600 max-w-[720px] mx-auto">
-            CuraBiz connects OPD, IPD, e-prescription, pharmacy, lab, and billing on a single hospital
-            record — built for Indian care teams, not a generic ERP with medical labels.
+          <p className="mt-5 max-w-[520px] text-[15px] md:text-[17px] leading-relaxed text-slate-600">
+            CuraBiz connects OPD, IPD, e-prescription, pharmacy, lab, and billing on a single hospital record —
+            built for Indian care teams, not a generic ERP with medical labels.
           </p>
 
-          <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <div className="mt-6 flex flex-wrap gap-2">
             {curaBizFacilityTypes.map((label) => (
               <span
                 key={label}
-                className="px-3 py-1.5 rounded-full bg-white/90 border border-gray-200 text-[12px] font-medium text-slate-700"
+                className="rounded-full border border-[#0C69B6]/20 bg-blue-50 px-3 py-1 text-xs font-medium text-slate-700"
               >
                 {label}
               </span>
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/contact"
-              className="w-full sm:w-auto min-w-[180px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#0C69B6] text-white text-[14px] font-semibold hover:bg-[#095a9d] transition-colors"
+              className="rounded-[10px] bg-[#0C69B6] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#095a9d]"
             >
               Book a free demo
             </Link>
             <a
-              href="#feature-map"
-              className="w-full sm:w-auto min-w-[180px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] border border-gray-200 text-[14px] font-semibold hover:bg-gray-50 transition-colors"
+              href="#features"
+              className="rounded-[10px] border-[1.5px] border-gray-200 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400"
             >
               Browse all features
             </a>
+            <a
+              href="https://wa.me/919257373668?text=Hi%20SlateBiz%2C%20I%27d%20like%20to%20watch%20a%20CuraBiz%20demo."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-[10px] border-[1.5px] border-[#0C69B6] bg-blue-50 px-5 py-3 text-sm font-semibold text-[#0C69B6] transition hover:bg-[#0C69B6] hover:text-white"
+            >
+              Watch Free demo
+            </a>
           </div>
-
-          <p className="mt-8 text-[13px] text-slate-500">
-            Trusted by{' '}
-            <span className="font-medium text-slate-700">
-              Bhagwati Ayurveda & Panchakarma Research Centre
-            </span>
-          </p>
         </div>
 
-        <div className="w-full mt-10 max-w-[1400px] mx-auto">
-          <p className="text-center text-[13px] text-slate-500 mb-3">CuraBiz hospital command center dashboard</p>
-          <div className="w-full p-1.5 sm:p-2 md:p-3 bg-white rounded-2xl md:rounded-[2rem] shadow-[0_32px_80px_rgba(0,0,0,0.12)] border border-gray-100">
-            <div className="w-full overflow-hidden rounded-xl md:rounded-[1.5rem] bg-gray-50 relative">
-              <div className="md:hidden w-full overflow-x-auto overflow-y-hidden">
-                <iframe
-                  src="/dashboards/hospital.html"
-                  title="CuraBiz Hospital Dashboard"
-                  className="border-none block"
-                  style={{ width: 1100, height: 620, maxWidth: 'none' }}
-                />
-              </div>
-              <iframe
-                src="/dashboards/hospital.html"
-                title="CuraBiz Hospital Dashboard"
-                className="hidden md:block w-full border-none h-[850px]"
-              />
-            </div>
+        <div className="relative">
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_24px_60px_rgba(15,25,35,0.1)]">
+            <img
+              src="/curabiz-dashboard.jpg"
+              alt="CuraBiz hospital command center dashboard"
+              className="h-auto w-full object-cover"
+            />
           </div>
         </div>
       </div>

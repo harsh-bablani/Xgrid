@@ -313,7 +313,7 @@ export default function AdminBlogEditor() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Brand</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Category</label>
               <select
                 value={brand}
                 onChange={(e) => handleBrandChange(e.target.value as Brand)}
@@ -321,13 +321,13 @@ export default function AdminBlogEditor() {
               >
                 {BRAND_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
-                    {opt.label}
+                    {opt.label} — {opt.subtitle}
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1.5">Category label</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1.5">Listing label</label>
               <input
                 value={categoryLabel}
                 onChange={(e) => {
@@ -335,7 +335,7 @@ export default function AdminBlogEditor() {
                   setCategoryLabel(e.target.value);
                 }}
                 className="w-full px-4 py-2.5 rounded-[10px] border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0C69B6]/20"
-                placeholder="JewelBiz by Slatebiz"
+                placeholder="JewelBiz · Jewellery ERP"
               />
             </div>
           </div>
