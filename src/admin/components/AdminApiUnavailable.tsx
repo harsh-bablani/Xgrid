@@ -1,37 +1,38 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { API_BASE, checkApiHealth, isApiConfigured } from '../lib/api';
+import { useAuth } from '../../context/AuthContext';
 
 type Props = {
-  onRetry?: () => void;
+  onRetry?: () => Promise<boolean>;
 };
 
 export default function AdminApiUnavailable({ onRetry }: Props) {
+  const { apiBase, apiConfigured, refreshApiHealth } = useAuth();
   const [retrying, setRetrying] = useState(false);
   const isProd = import.meta.env.PROD;
 
   const handleRetry = async () => {
     setRetrying(true);
-    if (onRetry) {
-      const ok = await onRetry();
-      if (ok) window.location.reload();
-    } else {
-      const ok = await checkApiHealth();
-      if (ok) window.location.reload();
-    }
+    const ok = onRetry ? await onRetry() : await refreshApiHealth();
+    if (ok) window.location.reload();
     setRetrying(false);
   };
 
-  if (isProd && !isApiConfigured) {
+  if (isProd && !apiConfigured) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
         <div className="max-w-lg w-full bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
           <h1 className="text-xl font-semibold text-slate-900">Backend URL not configured</h1>
           <p className="mt-3 text-slate-600 text-[15px] leading-relaxed">
-            On <strong>Vercel</strong>, add this environment variable and redeploy:
+            Set your Render API URL using <strong>one</strong> of these options, then redeploy:
           </p>
-          <pre className="mt-4 p-3 rounded-lg bg-slate-100 text-xs text-slate-800 overflow-x-auto">
+          <p className="mt-4 text-sm font-medium text-slate-800">Option A — Vercel env variable:</p>
+          <pre className="mt-2 p-3 rounded-lg bg-slate-100 text-xs text-slate-800 overflow-x-auto">
             VITE_API_URL=https://YOUR-SERVICE.onrender.com
+          </pre>
+          <p className="mt-4 text-sm font-medium text-slate-800">Option B — edit in repo:</p>
+          <pre className="mt-2 p-3 rounded-lg bg-slate-100 text-xs text-slate-800 overflow-x-auto">
+            public/api-config.json → "apiUrl": "https://YOUR-SERVICE.onrender.com"
           </pre>
           <Link to="/" className="mt-6 inline-flex text-[#0C69B6] font-semibold text-sm hover:underline">
             ← Back to website
@@ -51,18 +52,18 @@ export default function AdminApiUnavailable({ onRetry }: Props) {
           {isProd ? (
             <>
               Waiting for your Render backend
-              {API_BASE ? (
+              {apiBase ? (
                 <>
                   {' '}
-                  at <code className="text-xs bg-slate-100 px-1 rounded break-all">{API_BASE}</code>
+                  at <code className="text-xs bg-slate-100 px-1 rounded break-all">{apiBase}</code>
                 </>
               ) : null}
-              . Free tier can take <strong>30–60 seconds</strong> to wake up on first visit.
+              . Free tier can take <strong>30–60 seconds</strong> to wake up — click Retry below.
             </>
           ) : (
             <>
-              Run <code className="text-sm bg-slate-100 px-1 rounded">npm run dev</code> — it starts the website
-              and local API on port 3001.
+              Run <code className="text-sm bg-slate-100 px-1 rounded">npm run dev</code> in the project folder.
+              That starts the website and API together locally.
             </>
           )}
         </p>

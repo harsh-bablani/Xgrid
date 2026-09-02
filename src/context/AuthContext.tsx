@@ -1,11 +1,23 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
-import { apiFetch, clearToken, getToken, setToken, checkApiHealth, onUnauthorized, isApiConfigured, type AdminUser } from '../lib/api';
+import {
+  apiFetch,
+  clearToken,
+  getToken,
+  setToken,
+  checkApiHealth,
+  checkApiConfigured,
+  getApiBase,
+  onUnauthorized,
+  type AdminUser,
+} from '../lib/api';
 
 type AuthContextValue = {
   user: AdminUser | null;
   loading: boolean;
   apiReady: boolean;
   apiChecking: boolean;
+  apiBase: string;
+  apiConfigured: boolean;
   refreshApiHealth: () => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
@@ -18,9 +30,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [apiReady, setApiReady] = useState(false);
   const [apiChecking, setApiChecking] = useState(true);
+  const [apiBase, setApiBase] = useState('');
+  const [apiConfigured, setApiConfigured] = useState(false);
 
   const refreshApiHealth = useCallback(async () => {
     setApiChecking(true);
+    const base = await getApiBase();
+    const configured = await checkApiConfigured();
+    setApiBase(base);
+    setApiConfigured(configured);
+    if (!configured) {
+      setApiReady(false);
+      setApiChecking(false);
+      return false;
+    }
     const ok = await checkApiHealth();
     setApiReady(ok);
     setApiChecking(false);
@@ -28,26 +51,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    void refreshApiHealth();
-
-    const token = getToken();
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    if (!isApiConfigured) {
-      setLoading(false);
-      return;
-    }
-
-    apiFetch<{ user: AdminUser }>('/auth/me')
-      .then(({ user: me }) => setUser(me))
-      .catch(() => {
-        clearToken();
-        setUser(null);
-      })
-      .finally(() => setLoading(false));
+    void refreshApiHealth().then(async (ready) => {
+      const token = getToken();
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+      if (!ready) {
+        setLoading(false);
+        return;
+      }
+      apiFetch<{ user: AdminUser }>('/auth/me')
+        .then(({ user: me }) => setUser(me))
+        .catch(() => {
+          clearToken();
+          setUser(null);
+        })
+        .finally(() => setLoading(false));
+    });
   }, [refreshApiHealth]);
 
   useEffect(() => {
@@ -80,7 +101,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, apiReady, apiChecking, refreshApiHealth, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        apiReady,
+        apiChecking,
+        apiBase,
+        apiConfigured,
+        refreshApiHealth,
+        signIn,
+        signOut,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

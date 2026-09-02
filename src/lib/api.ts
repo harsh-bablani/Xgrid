@@ -1,16 +1,6 @@
+import { isApiConfiguredBase, resolveApiBase } from './runtimeConfig';
+
 const TOKEN_KEY = 'slatebiz_admin_token';
-
-/** Empty in dev (Vite proxy). Set to Render URL in production, e.g. https://xgrid-api.onrender.com */
-export const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || '';
-
-/** Production builds must set VITE_API_URL to the Render backend URL. */
-export const isApiConfigured = import.meta.env.DEV || Boolean(API_BASE);
-
-function apiUrl(path: string): string {
-  if (API_BASE) return `${API_BASE}/api${path}`;
-  if (import.meta.env.DEV) return `/api${path}`;
-  return `/api${path}`;
-}
 
 export type AdminUser = {
   id: string;
@@ -19,9 +9,7 @@ export type AdminUser = {
 };
 
 export type ApiFetchOptions = RequestInit & {
-  /** Do not clear token on 401 (e.g. failed login attempt) */
   skipAuthClear?: boolean;
-  /** Custom timeout in ms (default 8000; uploads use 60000) */
   timeoutMs?: number;
 };
 
@@ -58,6 +46,22 @@ export class ApiError extends Error {
   }
 }
 
+async function buildApiUrl(path: string): Promise<string> {
+  const base = await resolveApiBase();
+  if (base) return `${base}/api${path}`;
+  if (import.meta.env.DEV) return `/api${path}`;
+  return `/api${path}`;
+}
+
+export async function getApiBase(): Promise<string> {
+  return resolveApiBase();
+}
+
+export async function checkApiConfigured(): Promise<boolean> {
+  const base = await resolveApiBase();
+  return isApiConfiguredBase(base);
+}
+
 export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
   const { skipAuthClear, timeoutMs = path === '/upload' ? 60000 : 8000, ...fetchOptions } = options;
   const token = getToken();
@@ -75,7 +79,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
 
   let res: Response;
   try {
-    res = await fetch(apiUrl(path), { ...fetchOptions, headers, signal: controller.signal });
+    res = await fetch(await buildApiUrl(path), { ...fetchOptions, headers, signal: controller.signal });
   } catch (err) {
     if (err instanceof Error && err.name === 'AbortError') {
       throw new Error(
@@ -88,7 +92,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     }
     throw new Error(
       import.meta.env.PROD
-        ? 'Cannot reach API server. Check VITE_API_URL on Vercel points to your Render URL.'
+        ? 'Cannot reach API server. Set VITE_API_URL on Vercel or public/api-config.json.'
         : 'Cannot reach API server. Run npm run dev (both client and server must start).'
     );
   } finally {
@@ -113,7 +117,8 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
 }
 
 export async function checkApiHealth(): Promise<boolean> {
-  if (!isApiConfigured) return false;
+  const configured = await checkApiConfigured();
+  if (!configured) return false;
 
   const attempts = import.meta.env.PROD ? 3 : 1;
   const timeoutMs = import.meta.env.PROD ? 45000 : 3000;
@@ -122,7 +127,7 @@ export async function checkApiHealth(): Promise<boolean> {
     try {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), timeoutMs);
-      const res = await fetch(apiUrl('/health'), { signal: controller.signal });
+      const res = await fetch(await buildApiUrl('/health'), { signal: controller.signal });
       clearTimeout(timeout);
       if (res.ok) return true;
     } catch {
