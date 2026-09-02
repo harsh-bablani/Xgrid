@@ -91,54 +91,71 @@
 
 /* HTML blog body (admin HTML mode) */
 .blog-html-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111827;
-  margin: 1.5rem 0 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 400;
+  color: #0f172a;
+  margin: 2rem 0 0.85rem;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-transform: none;
 }
 .blog-html-content h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #111827;
-  margin: 1.25rem 0 0.5rem;
+  font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  font-weight: 400;
+  color: #0f172a;
+  margin: 1.6rem 0 0.65rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 .blog-html-content p {
-  margin: 0.75rem 0;
-  line-height: 1.7;
-  color: #374151;
-  font-size: 15px;
+  margin: 0.95rem 0;
+  line-height: 1.8;
+  color: #475569;
+  font-size: 15.5px;
 }
 .blog-html-content a {
   color: #0C69B6;
   text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.blog-html-content a:hover {
+  color: #095a9d;
 }
 .blog-html-content ul,
 .blog-html-content ol {
-  margin: 0.75rem 0 0.75rem 1.25rem;
-  color: #374151;
+  margin: 1rem 0 1rem 1.35rem;
+  color: #475569;
 }
 .blog-html-content li {
-  margin: 0.35rem 0;
-  line-height: 1.6;
+  margin: 0.45rem 0;
+  line-height: 1.7;
 }
 .blog-html-content img {
   display: block;
   max-width: 100%;
   height: auto;
   border-radius: 1rem;
-  margin: 1.25rem 0;
+  margin: 1.75rem 0;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
 }
 .blog-html-content blockquote {
   border-left: 3px solid #0C69B6;
-  padding-left: 1rem;
-  margin: 1rem 0;
-  color: #4B5563;
+  padding: 0.35rem 0 0.35rem 1.15rem;
+  margin: 1.35rem 0;
+  color: #64748b;
   font-style: italic;
+  background: #f8fafc;
+  border-radius: 0 0.75rem 0.75rem 0;
 }
 .blog-html-content hr {
   border: 0;
-  border-top: 1px solid #E5E7EB;
-  margin: 1.5rem 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 2rem 0;
+}
+.blog-html-content strong {
+  color: #0f172a;
+  font-weight: 600;
 }

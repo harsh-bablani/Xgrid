@@ -5,8 +5,8 @@ import { resolveMediaUrl } from '../lib/media';
 import BlogSectionHeader from './blog/BlogSectionHeader';
 import BlogFAQItem from './blog/BlogFAQItem';
 
-const paragraphClass = 'text-gray-700 leading-relaxed text-[15px] md:text-[16px] prose prose-slate';
-const paragraphSmClass = 'text-gray-700 leading-relaxed text-[15px] prose prose-slate';
+const paragraphClass = 'text-slate-600 leading-[1.8] text-[15px] md:text-[16.5px]';
+const paragraphSmClass = 'text-slate-600 leading-[1.8] text-[15px]';
 
 function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   const [openFaq, setOpenFaq] = useState(0);
@@ -14,7 +14,7 @@ function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   if (!filtered.length) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="mt-10 space-y-3">
       {filtered.map((item, idx) => (
         <BlogFAQItem
           key={item.q || idx}
@@ -39,15 +39,13 @@ function renderSection(section: BlogSection) {
   return (
     <section
       key={safe.id}
-      className={`py-10 md:py-16${safe.whiteBg ? ' bg-white' : ''}`}
+      className={`py-8 md:py-12${safe.whiteBg ? ' bg-white' : ''}`}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {safe.title ? (
-          <BlogSectionHeader title={safe.title} desc={safe.desc} />
-        ) : null}
+      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+        {safe.title ? <BlogSectionHeader title={safe.title} desc={safe.desc} /> : null}
 
         {safe.image ? (
-          <div className="rounded-2xl overflow-hidden mb-8">
+          <div className="rounded-2xl overflow-hidden mb-8 border border-slate-100 shadow-sm">
             <img
               src={resolveMediaUrl(safe.image)}
               alt={safe.imageAlt || safe.title || 'Section image'}
@@ -57,14 +55,17 @@ function renderSection(section: BlogSection) {
         ) : null}
 
         {(safe.afterImageTitle || paragraphs.length > 0) && (
-          <div className="py-4">
+          <div>
             {safe.afterImageTitle ? (
-              <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">
+              <h3 className="font-serif text-[22px] sm:text-[26px] font-normal text-slate-900 tracking-[-0.01em] leading-snug">
                 {safe.afterImageTitle}
               </h3>
             ) : null}
             {paragraphs.map((p, i) => (
-              <p key={i} className={`${i === 0 && safe.afterImageTitle ? 'mt-4 ' : i > 0 ? 'mt-4 ' : ''}${paragraphClass}`}>
+              <p
+                key={i}
+                className={`${i === 0 && safe.afterImageTitle ? 'mt-4 ' : i > 0 ? 'mt-5 ' : ''}${paragraphClass}`}
+              >
                 {p}
               </p>
             ))}
@@ -72,13 +73,15 @@ function renderSection(section: BlogSection) {
         )}
 
         {safe.subsections.filter((s) => s.title || s.body).length > 0 && (
-          <div className="mt-12 space-y-12">
+          <div className="mt-10 space-y-10">
             {safe.subsections
               .filter((s) => s.title || s.body)
               .map((sub) => (
-                <div key={sub.id} className="py-4">
+                <div key={sub.id}>
                   {sub.title ? (
-                    <h3 className="text-2xl font-bold text-gray-900 uppercase tracking-wide">{sub.title}</h3>
+                    <h3 className="font-serif text-[22px] sm:text-[24px] font-normal text-slate-900 tracking-[-0.01em] leading-snug">
+                      {sub.title}
+                    </h3>
                   ) : null}
                   {splitParagraphs(sub.body).map((p, i) => (
                     <p key={i} className={`mt-4 ${paragraphSmClass}`}>
@@ -99,7 +102,7 @@ function renderSection(section: BlogSection) {
 function LegacyFAQBlock({ blockId, items }: { blockId: string; items: { q: string; a: string }[] }) {
   const [openFaq, setOpenFaq] = useState(0);
   return (
-    <div className="my-6">
+    <div className="my-6 space-y-3">
       {items.map((item, idx) => (
         <BlogFAQItem
           key={`${blockId}-${item.q || idx}`}
@@ -122,9 +125,9 @@ function LegacyRenderer({ blocks }: { blocks: ContentBlock[] }) {
             return (
               <section
                 key={block.id}
-                className={`py-10 md:py-16${block.variant === 'white' ? ' bg-white' : ''}`}
+                className={`py-8 md:py-12${block.variant === 'white' ? ' bg-white' : ''}`}
               >
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
                   <BlogSectionHeader kicker={block.kicker} title={block.title} desc={block.desc} />
                   <LegacyRenderer blocks={block.blocks} />
                 </div>
@@ -132,43 +135,57 @@ function LegacyRenderer({ blocks }: { blocks: ContentBlock[] }) {
             );
           case 'paragraph':
             return (
-              <p key={block.id} className={`${paragraphClass} py-2`}>
+              <p key={block.id} className={`${paragraphClass} py-2 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8`}>
                 {block.content}
               </p>
             );
           case 'heading':
             return block.level === 3 ? (
-              <h3 key={block.id} className="text-2xl font-bold text-gray-900 uppercase tracking-wide py-4">
+              <h3
+                key={block.id}
+                className="font-serif text-[22px] sm:text-[24px] font-normal text-slate-900 tracking-[-0.01em] leading-snug py-3 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8"
+              >
                 {block.content}
               </h3>
             ) : (
-              <h2 key={block.id} className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-wide py-4">
+              <h2
+                key={block.id}
+                className="font-serif text-[26px] sm:text-[30px] font-normal text-slate-900 tracking-[-0.02em] leading-snug py-4 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8"
+              >
                 {block.content}
               </h2>
             );
           case 'image':
             return block.src ? (
-              <div key={block.id} className="rounded-2xl overflow-hidden my-6">
-                <img src={resolveMediaUrl(block.src)} alt={block.alt || ''} className="w-full h-auto" />
+              <div key={block.id} className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 my-8">
+                <div className="rounded-2xl overflow-hidden border border-slate-100 shadow-sm">
+                  <img src={resolveMediaUrl(block.src)} alt={block.alt || ''} className="w-full h-auto" />
+                </div>
               </div>
             ) : null;
           case 'list':
             return (
-              <ul key={block.id} className="my-4 space-y-2 text-gray-700 text-[15px]">
+              <ul
+                key={block.id}
+                className="my-5 space-y-2.5 text-slate-600 text-[15px] leading-relaxed list-disc pl-5 max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8"
+              >
                 {block.items.filter(Boolean).map((item, i) => (
-                  <li key={i}>• {item}</li>
+                  <li key={i}>{item}</li>
                 ))}
               </ul>
             );
           case 'faq':
-            return <LegacyFAQBlock key={block.id} blockId={block.id} items={block.items} />;
+            return (
+              <div key={block.id} className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+                <LegacyFAQBlock blockId={block.id} items={block.items} />
+              </div>
+            );
           case 'html':
             return block.html?.trim() ? (
-              <section key={block.id} className="py-10 md:py-16">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <section key={block.id} className="py-8 md:py-12">
+                <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
                   <div
-                    className="blog-html-content prose prose-slate max-w-none text-gray-700 leading-relaxed
-                      prose-headings:text-gray-900 prose-a:text-[#0C69B6] prose-img:rounded-2xl"
+                    className="blog-html-content prose prose-slate max-w-none"
                     dangerouslySetInnerHTML={{ __html: block.html }}
                   />
                 </div>
