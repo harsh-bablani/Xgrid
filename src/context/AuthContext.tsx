@@ -1,10 +1,12 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
-import { apiFetch, clearToken, getToken, setToken, checkApiHealth, onUnauthorized, type AdminUser } from '../lib/api';
+import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from 'react';
+import { apiFetch, clearToken, getToken, setToken, checkApiHealth, onUnauthorized, isApiConfigured, type AdminUser } from '../lib/api';
 
 type AuthContextValue = {
   user: AdminUser | null;
   loading: boolean;
   apiReady: boolean;
+  apiChecking: boolean;
+  refreshApiHealth: () => Promise<boolean>;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 };
@@ -15,12 +17,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AdminUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [apiReady, setApiReady] = useState(false);
+  const [apiChecking, setApiChecking] = useState(true);
+
+  const refreshApiHealth = useCallback(async () => {
+    setApiChecking(true);
+    const ok = await checkApiHealth();
+    setApiReady(ok);
+    setApiChecking(false);
+    return ok;
+  }, []);
 
   useEffect(() => {
-    checkApiHealth().then(setApiReady);
+    void refreshApiHealth();
 
     const token = getToken();
     if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    if (!isApiConfigured) {
       setLoading(false);
       return;
     }
@@ -32,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(null);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [refreshApiHealth]);
 
   useEffect(() => {
     return onUnauthorized(() => setUser(null));
@@ -64,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, apiReady, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, loading, apiReady, apiChecking, refreshApiHealth, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

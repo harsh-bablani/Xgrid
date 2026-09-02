@@ -2,25 +2,22 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { LogOut, FileText, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import AdminApiUnavailable from './components/AdminApiUnavailable';
 
 export default function AdminLayout() {
-  const { user, loading, signOut, apiReady } = useAuth();
+  const { user, loading, signOut, apiReady, apiChecking, refreshApiHealth } = useAuth();
   const location = useLocation();
 
-  if (!apiReady) {
+  if (apiChecking) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-        <div className="max-w-lg w-full bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-          <h1 className="text-2xl font-semibold text-slate-900">Start the local server</h1>
-          <p className="mt-3 text-slate-500 text-[15px] leading-relaxed">
-            Run <code className="text-sm bg-slate-100 px-1 rounded">npm run dev</code> — it starts both the website and the local API on port 3001.
-          </p>
-          <Link to="/" className="mt-6 inline-flex text-[#0C69B6] font-semibold text-sm hover:underline">
-            ← Back to website
-          </Link>
-        </div>
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <p className="text-slate-500">Connecting to API…</p>
       </div>
     );
+  }
+
+  if (!apiReady) {
+    return <AdminApiUnavailable onRetry={refreshApiHealth} />;
   }
 
   if (loading) {
