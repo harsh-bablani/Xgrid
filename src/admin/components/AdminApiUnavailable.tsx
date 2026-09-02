@@ -58,7 +58,7 @@ export default function AdminApiUnavailable({ onRetry }: Props) {
                   at <code className="text-xs bg-slate-100 px-1 rounded break-all">{apiBase}</code>
                 </>
               ) : null}
-              . Free tier can take <strong>30–60 seconds</strong> to wake up — click Retry below.
+              . Free tier can take <strong>60–90 seconds</strong> to wake up — click Retry and wait.
             </>
           ) : (
             <>

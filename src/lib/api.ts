@@ -1,4 +1,4 @@
-import { isApiConfiguredBase, resolveApiBase } from './runtimeConfig';
+import { isApiConfiguredBase, resetApiBaseCache, resolveApiBase } from './runtimeConfig';
 
 const TOKEN_KEY = 'slatebiz_admin_token';
 
@@ -63,7 +63,8 @@ export async function checkApiConfigured(): Promise<boolean> {
 }
 
 export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
-  const { skipAuthClear, timeoutMs = path === '/upload' ? 60000 : 8000, ...fetchOptions } = options;
+  const defaultTimeout = import.meta.env.PROD ? 90000 : 8000;
+  const { skipAuthClear, timeoutMs = path === '/upload' ? 120000 : defaultTimeout, ...fetchOptions } = options;
   const token = getToken();
   const headers = new Headers(fetchOptions.headers);
 
@@ -116,12 +117,17 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
   return res.json() as Promise<T>;
 }
 
+export async function wakeApiServer(): Promise<boolean> {
+  resetApiBaseCache();
+  return checkApiHealth();
+}
+
 export async function checkApiHealth(): Promise<boolean> {
   const configured = await checkApiConfigured();
   if (!configured) return false;
 
-  const attempts = import.meta.env.PROD ? 3 : 1;
-  const timeoutMs = import.meta.env.PROD ? 45000 : 3000;
+  const attempts = import.meta.env.PROD ? 5 : 1;
+  const timeoutMs = import.meta.env.PROD ? 90000 : 5000;
 
   for (let i = 0; i < attempts; i += 1) {
     try {
@@ -129,10 +135,13 @@ export async function checkApiHealth(): Promise<boolean> {
       const timeout = setTimeout(() => controller.abort(), timeoutMs);
       const res = await fetch(await buildApiUrl('/health'), { signal: controller.signal });
       clearTimeout(timeout);
-      if (res.ok) return true;
+      if (res.ok) {
+        const data = (await res.json().catch(() => null)) as { ok?: boolean } | null;
+        if (data?.ok) return true;
+      }
     } catch {
       if (i < attempts - 1) {
-        await new Promise((r) => setTimeout(r, 2000));
+        await new Promise((r) => setTimeout(r, 3000));
       }
     }
   }

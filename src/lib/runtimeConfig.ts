@@ -7,6 +7,11 @@
 let cachedBase: string | undefined;
 let pending: Promise<string> | undefined;
 
+export function resetApiBaseCache() {
+  cachedBase = undefined;
+  pending = undefined;
+}
+
 export async function resolveApiBase(): Promise<string> {
   if (cachedBase !== undefined) return cachedBase;
   if (pending) return pending;

@@ -8,6 +8,7 @@ import {
   checkApiConfigured,
   getApiBase,
   onUnauthorized,
+  wakeApiServer,
   type AdminUser,
 } from '../lib/api';
 
@@ -35,19 +36,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refreshApiHealth = useCallback(async () => {
     setApiChecking(true);
+    const ok = await wakeApiServer();
     const base = await getApiBase();
     const configured = await checkApiConfigured();
     setApiBase(base);
     setApiConfigured(configured);
-    if (!configured) {
-      setApiReady(false);
-      setApiChecking(false);
-      return false;
-    }
-    const ok = await checkApiHealth();
-    setApiReady(ok);
+    setApiReady(ok && configured);
     setApiChecking(false);
-    return ok;
+    return ok && configured;
   }, []);
 
   useEffect(() => {
