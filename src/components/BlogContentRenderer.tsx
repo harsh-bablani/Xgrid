@@ -5,8 +5,8 @@ import { resolveMediaUrl } from '../lib/media';
 import BlogSectionHeader from './blog/BlogSectionHeader';
 import BlogFAQItem from './blog/BlogFAQItem';
 
-const paragraphClass = 'text-slate-600 leading-[1.85] text-[15.5px] md:text-[16.5px] text-left';
-const paragraphSmClass = 'text-slate-600 leading-[1.85] text-[15.5px] text-left';
+const paragraphClass = 'text-slate-600 leading-[1.85] text-[15.5px] md:text-[16.5px] text-justify';
+const paragraphSmClass = 'text-slate-600 leading-[1.85] text-[15.5px] text-justify';
 
 function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   const [openFaq, setOpenFaq] = useState(0);

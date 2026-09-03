@@ -116,7 +116,8 @@
   line-height: 1.85;
   color: #475569;
   font-size: 15.5px;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
 }
 .blog-html-content a {
   color: #0C69B6;
@@ -130,12 +131,13 @@
 .blog-html-content ol {
   margin: 1rem 0 1rem 1.35rem;
   color: #475569;
-  text-align: left;
+  text-align: justify;
 }
 .blog-html-content li {
   margin: 0.45rem 0;
   line-height: 1.7;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
 }
 .blog-html-content img {
   display: block;
