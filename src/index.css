@@ -99,6 +99,7 @@
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-transform: none;
+  text-align: left;
 }
 .blog-html-content h3 {
   font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
@@ -108,12 +109,14 @@
   margin: 1.6rem 0 0.65rem;
   letter-spacing: -0.01em;
   line-height: 1.3;
+  text-align: left;
 }
 .blog-html-content p {
   margin: 0.95rem 0;
-  line-height: 1.8;
+  line-height: 1.85;
   color: #475569;
   font-size: 15.5px;
+  text-align: left;
 }
 .blog-html-content a {
   color: #0C69B6;
@@ -127,10 +130,12 @@
 .blog-html-content ol {
   margin: 1rem 0 1rem 1.35rem;
   color: #475569;
+  text-align: left;
 }
 .blog-html-content li {
   margin: 0.45rem 0;
   line-height: 1.7;
+  text-align: left;
 }
 .blog-html-content img {
   display: block;

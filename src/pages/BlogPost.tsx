@@ -171,16 +171,16 @@ export default function BlogPost() {
           <img
             src={post.heroImage}
             alt={post.imageAlt || post.title}
-            className="w-full h-auto block max-h-[560px] object-cover"
+            className="w-full aspect-[16/9] object-cover object-center block"
           />
         </div>
       </div>
 
       {/* Article body */}
       {post.content && post.content.length > 0 ? (
-        <div className="pt-10 md:pt-14">
+        <article className="pt-10 md:pt-14">
           <BlogContentRenderer content={post.content} />
-        </div>
+        </article>
       ) : (
         <section className="py-16">
           <div className="max-w-[1000px] mx-auto px-4 text-center">

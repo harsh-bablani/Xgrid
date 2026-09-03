@@ -162,11 +162,11 @@ export default function Blogs() {
                     to={`/blog/${post.slug}`}
                     className="group flex flex-col text-left"
                   >
-                    <div className="overflow-hidden rounded-[10px] bg-[#F2F4F7] aspect-[16/10]">
+                    <div className="relative overflow-hidden rounded-[10px] bg-[#F2F4F7] aspect-[16/10]">
                       <img
                         src={post.heroImage}
                         alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
 

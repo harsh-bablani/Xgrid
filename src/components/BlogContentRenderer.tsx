@@ -5,8 +5,8 @@ import { resolveMediaUrl } from '../lib/media';
 import BlogSectionHeader from './blog/BlogSectionHeader';
 import BlogFAQItem from './blog/BlogFAQItem';
 
-const paragraphClass = 'text-slate-600 leading-[1.8] text-[15px] md:text-[16.5px]';
-const paragraphSmClass = 'text-slate-600 leading-[1.8] text-[15px]';
+const paragraphClass = 'text-slate-600 leading-[1.85] text-[15.5px] md:text-[16.5px] text-left';
+const paragraphSmClass = 'text-slate-600 leading-[1.85] text-[15.5px] text-left';
 
 function FAQAccordion({ items }: { items: { q: string; a: string }[] }) {
   const [openFaq, setOpenFaq] = useState(0);
@@ -41,11 +41,11 @@ function renderSection(section: BlogSection) {
       key={safe.id}
       className={`py-8 md:py-12${safe.whiteBg ? ' bg-white' : ''}`}
     >
-      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
         {safe.title ? <BlogSectionHeader title={safe.title} desc={safe.desc} /> : null}
 
         {safe.image ? (
-          <div className="rounded-2xl overflow-hidden mb-8 border border-slate-100 shadow-sm">
+          <div className="rounded-2xl overflow-hidden mb-8 border border-slate-100 shadow-sm max-w-[1100px] mx-auto">
             <img
               src={resolveMediaUrl(safe.image)}
               alt={safe.imageAlt || safe.title || 'Section image'}
@@ -55,9 +55,9 @@ function renderSection(section: BlogSection) {
         ) : null}
 
         {(safe.afterImageTitle || paragraphs.length > 0) && (
-          <div>
+          <div className="text-left">
             {safe.afterImageTitle ? (
-              <h3 className="font-serif text-[22px] sm:text-[26px] font-normal text-slate-900 tracking-[-0.01em] leading-snug">
+              <h3 className="font-serif text-[22px] sm:text-[26px] font-normal text-slate-900 tracking-[-0.01em] leading-snug text-left">
                 {safe.afterImageTitle}
               </h3>
             ) : null}
@@ -73,13 +73,13 @@ function renderSection(section: BlogSection) {
         )}
 
         {safe.subsections.filter((s) => s.title || s.body).length > 0 && (
-          <div className="mt-10 space-y-10">
+          <div className="mt-10 space-y-10 text-left">
             {safe.subsections
               .filter((s) => s.title || s.body)
               .map((sub) => (
                 <div key={sub.id}>
                   {sub.title ? (
-                    <h3 className="font-serif text-[22px] sm:text-[24px] font-normal text-slate-900 tracking-[-0.01em] leading-snug">
+                    <h3 className="font-serif text-[22px] sm:text-[24px] font-normal text-slate-900 tracking-[-0.01em] leading-snug text-left">
                       {sub.title}
                     </h3>
                   ) : null}
