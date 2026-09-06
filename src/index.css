@@ -53,7 +53,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-weight: 500;
     line-height: 1.2;
     overflow-wrap: anywhere;
   }
@@ -91,7 +92,7 @@
 
 /* HTML blog body (admin HTML mode) */
 .blog-html-content h2 {
-  font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+  font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   font-weight: 400;
   color: #0f172a;
@@ -102,7 +103,7 @@
   text-align: left;
 }
 .blog-html-content h3 {
-  font-family: var(--font-serif, Georgia, 'Times New Roman', serif);
+  font-family: var(--font-serif, 'Playfair Display', Georgia, 'Times New Roman', serif);
   font-size: clamp(1.2rem, 2vw, 1.45rem);
   font-weight: 400;
   color: #0f172a;

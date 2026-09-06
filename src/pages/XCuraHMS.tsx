@@ -6,29 +6,19 @@ import {
   curaBizDeployment,
   curaBizDifferentiators,
   curaBizFacilityTypes,
-  curaBizPatientJourney,
   curaBizWhyChoose,
 } from '../data/curaBizPageContent';
 import {
-  Activity,
-  BellRing,
-  BedDouble,
-  CalendarCheck,
   Check,
   ClipboardList,
   Cloud,
-  FlaskConical,
   Layers,
   Link2,
   MonitorSmartphone,
-  Pill,
-  Receipt,
   Server,
   Settings2,
   ShieldCheck,
   Sparkles,
-  Stethoscope,
-  UserPlus,
   X,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -49,7 +39,6 @@ export default function XCuraHMS() {
         headingLead="Every CuraBiz module,"
         subtitle="Capabilities drawn from the CuraBiz HIMS product matrix — organised by how clinics and hospitals actually run. Ask for a demo to see which modules fit your facility."
       />
-      <PatientJourneySection />
       <WhyChooseSection />
       <ProductRelatedArticles brand="curabiz" />
       <CTASection />
@@ -271,142 +260,6 @@ function ComparisonSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function PatientJourneySection() {
-  const journeySteps: { label: string; icon: LucideIcon }[] = [
-    { label: curaBizPatientJourney[0], icon: UserPlus },
-    { label: curaBizPatientJourney[1], icon: CalendarCheck },
-    { label: curaBizPatientJourney[2], icon: Stethoscope },
-    { label: curaBizPatientJourney[3], icon: Pill },
-    { label: curaBizPatientJourney[4], icon: FlaskConical },
-    { label: curaBizPatientJourney[5], icon: BedDouble },
-    { label: curaBizPatientJourney[6], icon: Activity },
-    { label: curaBizPatientJourney[7], icon: Receipt },
-    { label: curaBizPatientJourney[8], icon: ClipboardList },
-    { label: curaBizPatientJourney[9], icon: BellRing },
-  ];
-
-  const topRow = journeySteps.slice(0, 5);
-  const bottomRow = [...journeySteps.slice(5)].reverse();
-
-  return (
-    <section className="relative w-full overflow-hidden bg-[#EAECEF] py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[#0C69B6]/10 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-blue-200/30 blur-3xl" />
-
-      <div className="relative max-w-[1180px] mx-auto">
-        <div className="max-w-[780px] mb-14 sm:mb-16">
-          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full shadow-sm">
-            Patient journey
-          </span>
-          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[32px] sm:text-[38px] md:text-[46px] lg:text-[52px]">
-              Track care from registration
-            </span>
-            <span className="block text-[32px] sm:text-[38px] md:text-[46px] lg:text-[52px] italic text-[#0C69B6]">
-              to follow-up.
-            </span>
-          </h2>
-          <p className="mt-6 text-[14px] sm:text-[15px] leading-[1.7] text-[#4B5563] max-w-[640px]">
-            One connected flow so clinical teams, pharmacy, and billing never rebuild the same patient
-            story.
-          </p>
-        </div>
-
-        {/* Desktop: snake timeline */}
-        <div className="hidden lg:block">
-          <div className="grid grid-cols-5 gap-5">
-            {topRow.map((step, i) => (
-              <JourneyStepCard key={step.label} step={step} index={i} showRightConnector={i < 4} />
-            ))}
-          </div>
-
-          <div className="flex justify-end pr-[10%] py-3">
-            <div className="h-16 w-[2px] bg-gradient-to-b from-[#0C69B6] to-[#0C69B6]/30 rounded-full" />
-          </div>
-
-          <div className="grid grid-cols-5 gap-5">
-            {bottomRow.map((step, i) => {
-              const originalIndex = journeySteps.indexOf(step);
-              return (
-                <JourneyStepCard
-                  key={step.label}
-                  step={step}
-                  index={originalIndex}
-                  showLeftConnector={i > 0}
-                  reverseConnectors
-                />
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Mobile / tablet: vertical timeline */}
-        <div className="lg:hidden relative pl-8">
-          <div className="absolute left-[11px] top-3 bottom-3 w-[2px] bg-gradient-to-b from-[#0C69B6] via-[#0C69B6]/50 to-[#0C69B6]/20 rounded-full" />
-          <div className="space-y-4">
-            {journeySteps.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <div key={step.label} className="relative flex gap-4">
-                  <div className="absolute -left-8 top-5 flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#0C69B6] ring-4 ring-[#EAECEF]">
-                    <span className="text-[9px] font-bold text-white">{String(i + 1).padStart(2, '0')}</span>
-                  </div>
-                  <div className="group flex-1 rounded-2xl border border-white/80 bg-white p-5 shadow-[0_8px_30px_rgba(12,105,182,0.08)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_40px_rgba(12,105,182,0.12)]">
-                    <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0C69B6] to-[#095a9d] text-white shadow-md">
-                      <Icon size={18} strokeWidth={2} />
-                    </div>
-                    <p className="text-[14px] font-semibold text-slate-900 leading-snug">{step.label}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function JourneyStepCard({
-  step,
-  index,
-  showRightConnector,
-  showLeftConnector,
-  reverseConnectors,
-}: {
-  step: { label: string; icon: LucideIcon };
-  index: number;
-  showRightConnector?: boolean;
-  showLeftConnector?: boolean;
-  reverseConnectors?: boolean;
-}) {
-  const Icon = step.icon;
-
-  return (
-    <div className="relative group">
-      {showLeftConnector && reverseConnectors ? (
-        <div className="pointer-events-none absolute -left-[10px] top-[52px] h-[2px] w-[10px] bg-[#0C69B6]/40" />
-      ) : null}
-      {showRightConnector && !reverseConnectors ? (
-        <div className="pointer-events-none absolute -right-[10px] top-[52px] h-[2px] w-[10px] bg-[#0C69B6]/40" />
-      ) : null}
-
-      <div className="relative h-full rounded-[20px] border border-white/90 bg-white p-5 shadow-[0_10px_40px_rgba(12,105,182,0.08)] transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_20px_50px_rgba(12,105,182,0.14)]">
-        <div className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-gradient-to-r from-[#0C69B6] to-[#4da3e0]" />
-        <div className="flex items-start justify-between gap-3 mb-4">
-          <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#0C69B6] to-[#095a9d] text-white shadow-lg shadow-blue-500/20">
-            <Icon size={20} strokeWidth={2} />
-          </div>
-          <span className="font-serif text-[28px] leading-none text-[#0C69B6]/20 group-hover:text-[#0C69B6]/35 transition-colors">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-        </div>
-        <p className="text-[13px] font-semibold text-slate-900 leading-snug min-h-[40px]">{step.label}</p>
-      </div>
-    </div>
   );
 }
 

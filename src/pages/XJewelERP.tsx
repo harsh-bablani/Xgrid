@@ -2,18 +2,13 @@ import { Building2, BarChart3, UserPlus, ClipboardCheck, ReceiptText, ShieldChec
 import { useState, useEffect, useRef } from 'react';
 import { modules } from '../data/productMatrix';
 import ProductRelatedArticles from '../components/ProductRelatedArticles';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function XJewelERP() {
   return (
     <div className="min-h-screen">
       <HeroSection />
       <CompanyLogosSection />
-      <BusinessModelSection />
       <BusinessModelSectionWithImages />
       <ComparisonSection />
       <FeaturesSection />
@@ -27,63 +22,126 @@ export default function XJewelERP() {
 function HeroSection() {
   return (
     <section
-      className="relative flex items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-6 md:py-8"
+      className="relative flex items-center overflow-hidden"
       style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
     >
-      {/* Background grid from older design */}
+      {/* Soft grid + light wash like Figma */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/herobg.png)' }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 to-white/50" />
-      </div>
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(105deg, #FFFFFF 0%, #F7FAFF 42%, #EAF3FC 78%, #F5F0FF 100%)',
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.45]"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(12,105,182,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(12,105,182,0.06) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          maskImage: 'radial-gradient(ellipse 80% 70% at 70% 40%, black 20%, transparent 75%)',
+          WebkitMaskImage:
+            'radial-gradient(ellipse 80% 70% at 70% 40%, black 20%, transparent 75%)',
+        }}
+      />
+      <div className="pointer-events-none absolute right-[-8%] top-[10%] h-[520px] w-[520px] rounded-full bg-[#9EC6EA]/35 blur-[90px]" />
+      <div className="pointer-events-none absolute right-[8%] bottom-[5%] h-[280px] w-[280px] rounded-full bg-white/80 blur-[60px]" />
 
-      <div className="relative z-10 w-full max-w-[1120px] mx-auto">
-        <div className="grid md:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
+      <div className="relative z-10 mx-auto w-full max-w-[1180px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 xl:gap-12">
           {/* Left — copy */}
-          <div className="text-center md:text-left">
-            <span className="inline-block mb-5 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] border border-[#0C69B6]/30 rounded-full bg-white/80">
+          <div className="text-center lg:text-left">
+            <span className="inline-flex items-center rounded-full border border-[#0C69B6]/35 bg-white/85 px-4 py-1.5 text-[12px] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
               JewelBiz ERP
             </span>
 
-            <h1 className="font-serif font-normal leading-[1.15] tracking-[-0.02em] text-slate-900">
-              <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] whitespace-normal md:whitespace-nowrap">
-                Jewellery ERP For Retail, Wholesale,
+            <h1 className="mt-5 font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
+              <span className="block text-[clamp(1.65rem,3.8vw,2.65rem)]">
+                Jewellery ERP for retail, wholesale,
               </span>
-              <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
-                And Karigar Operations.
-              </span>
+              <em className="mt-1 block text-[clamp(1.65rem,3.8vw,2.65rem)] italic text-[#FF641F]">
+                and karigar operations.
+              </em>
             </h1>
 
-            <p className="mt-5 text-[14px] md:text-[15px] leading-[1.6] text-[#0C69B6] max-w-[500px] mx-auto md:mx-0">
-              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad, manufacturing, GST e-invoicing, and multi-branch stock on a single connected system. Not a generic ERP with jewellery labels.
+            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#0C69B6] sm:text-[15.5px] lg:mx-0">
+              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
+              manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
+              Not a generic ERP with jewellery labels.
             </p>
 
-            <div className="mt-7 flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
               <Link
-                to="/contact"
-                className="w-full sm:w-[182px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+                to="/contact/"
+                className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] bg-[#FF641F] px-6 text-[14px] font-semibold text-white shadow-[0_10px_28px_rgba(255,100,31,0.28)] transition hover:bg-[#E55A18] sm:w-auto"
               >
                 Get 14 Days Free Trial
               </Link>
-
-              <Link
-                to="/contact"
-                className="w-full sm:w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] border border-gray-200 text-[14px] font-semibold hover:bg-gray-50 transition-colors"
+              <a
+                href="#features"
+                className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] border border-[#0C69B6]/25 bg-white/90 px-6 text-[14px] font-semibold text-[#0C69B6] backdrop-blur-sm transition hover:bg-white sm:w-auto"
               >
                 Browse all features
-              </Link>
+              </a>
             </div>
           </div>
 
-          {/* Right — dashboard */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute w-[85%] h-[85%] bg-gradient-to-r from-blue-200 to-indigo-200 rounded-full blur-3xl opacity-40" />
-            <img
-              src="/Dashboard.png"
-              alt="JewelBiz Dashboard"
-              className="relative w-full max-w-[580px] h-auto max-h-[56vh] object-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.08)]"
-            />
+          {/* Right — organized dashboard stack */}
+          <div className="relative mx-auto w-full max-w-[620px] lg:max-w-none">
+            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#BFD9F2]/45 blur-3xl" />
+
+            <div className="relative mx-auto flex w-full max-w-[560px] flex-col gap-3 sm:gap-4">
+              {/* Primary */}
+              <div
+                className="relative z-[3] overflow-hidden rounded-2xl border border-white/80 bg-white shadow-[0_20px_50px_rgba(15,25,35,0.12)]"
+                style={{
+                  WebkitMaskImage:
+                    'linear-gradient(to bottom, #000 72%, transparent 100%)',
+                  maskImage:
+                    'linear-gradient(to bottom, #000 72%, transparent 100%)',
+                }}
+              >
+                <img
+                  src="/jewelbiz-dashboard.png"
+                  alt="JewelBiz Business Overview"
+                  className="block w-full object-cover object-top aspect-[16/10]"
+                />
+              </div>
+
+              {/* Secondary row */}
+              <div className="relative z-[2] grid grid-cols-2 gap-3 sm:gap-4">
+                <div
+                  className="overflow-hidden rounded-xl border border-white/80 bg-white shadow-[0_12px_32px_rgba(15,25,35,0.1)]"
+                  style={{
+                    WebkitMaskImage:
+                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
+                    maskImage:
+                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
+                  }}
+                >
+                  <img
+                    src="/jewelbiz-dashboard-sales.png"
+                    alt="JewelBiz Sales & Revenue"
+                    className="block w-full object-cover object-top aspect-[16/11]"
+                  />
+                </div>
+                <div
+                  className="overflow-hidden rounded-xl border border-white/80 bg-white shadow-[0_12px_32px_rgba(15,25,35,0.1)]"
+                  style={{
+                    WebkitMaskImage:
+                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
+                    maskImage:
+                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
+                  }}
+                >
+                  <img
+                    src="/jewelbiz-dashboard-stock.png"
+                    alt="JewelBiz Stock & Inventory"
+                    className="block w-full object-cover object-top aspect-[16/11]"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -226,7 +284,7 @@ function FeaturesSection() {
   const Icon = module.icon;
 
   return (
-    <section className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <section id="features" className="w-full bg-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-header">
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-8 sm:mb-12 max-w-2xl">
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400 mb-3">
@@ -313,49 +371,6 @@ function FeaturesSection() {
 
 
 
-function BusinessModelSection() {
-  return (
-    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[900px] mx-auto">
-        <div className="text-center mb-20">
-          <span className="inline-block mb-6 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
-            Built for the trade
-          </span>
-          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
-              From metal purchase to signed
-            </span>
-            <span className="block text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
-              GST invoice — nothing entered twice.
-            </span>
-          </h2>
-          <p className="mt-6 text-[15px] leading-[1.7] text-slate-500 max-w-[80ch] mx-auto">
-            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <GaugeCard
-            value={95}
-            label="Retail POS"
-            description="Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter."
-          />
-          <GaugeCard
-            value={97}
-            label="Wholesale & approval"
-            description="Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans."
-          />
-          <GaugeCard
-            value={99}
-            label="Manufacturing"
-            description="Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking."
-          />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function BusinessModelSectionWithImages() {
   return (
     <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
@@ -403,10 +418,10 @@ function BusinessModelSectionWithImages() {
           <div className="flex flex-col items-center">
             <img
               src="/manufacturing jewelbiz.png"
-              alt="Manufacturing FMS"
+              alt="Manufacturing"
               className="w-full h-auto"
             />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Manufacturing FMS</h3>
+            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Manufacturing</h3>
             <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
               Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.
             </p>
@@ -414,83 +429,6 @@ function BusinessModelSectionWithImages() {
         </div>
       </div>
     </section>
-  );
-}
-
-function GaugeCard({ value, label, description }: { value: number; label: string; description: string }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const hasAnimated = useRef(false);
-  const [displayValue, setDisplayValue] = useState(0);
-
-  useEffect(() => {
-    if (!cardRef.current) return;
-    const st = ScrollTrigger.create({
-      trigger: cardRef.current,
-      start: "top 85%",
-      once: true,
-      onEnter: () => {
-        if (hasAnimated.current) return;
-        hasAnimated.current = true;
-        const obj = { v: 0 };
-        gsap.to(obj, {
-          v: value,
-          duration: 1.5,
-          ease: "power2.out",
-          onUpdate: () => setDisplayValue(Math.round(obj.v)),
-        });
-      },
-    });
-    return () => st.kill();
-  }, [value]);
-
-  const total = 40;
-  const activeCount = Math.round((displayValue / 100) * total);
-
-  const segments = [];
-  for (let i = 0; i < total; i++) {
-    const angle = -180 + (i / (total - 1)) * 180;
-    const rad = (angle * Math.PI) / 180;
-    const x1 = 100 + 58 * Math.cos(rad);
-    const y1 = 85 + 58 * Math.sin(rad);
-    const x2 = 100 + 86 * Math.cos(rad);
-    const y2 = 85 + 86 * Math.sin(rad);
-    const isActive = i < activeCount;
-    segments.push(
-      <line
-        key={i}
-        x1={x1}
-        y1={y1}
-        x2={x2}
-        y2={y2}
-        stroke={isActive ? '#FF641F' : '#FFE8DE'}
-        strokeWidth="3"
-        strokeLinecap="round"
-      />
-    );
-  }
-
-  return (
-    <div ref={cardRef} className="flex flex-col items-center">
-      <div className="w-full max-w-[260px] h-auto min-h-[200px] sm:h-[275px] bg-[#9FC5D4] rounded-[24px] py-8 sm:py-[45px] px-[10px]">
-        <div className="bg-white rounded-[20px] w-[240px] h-[185px] flex flex-col items-center pt-4">
-          <div className="relative w-44 h-36">
-            <svg viewBox="0 0 200 130" className="w-full h-full">
-              {segments}
-            </svg>
-            <div className="absolute bottom-8 left-0 right-0 text-center">
-              <span className="text-3xl font-semibold text-slate-900">
-                {displayValue}
-                <span className="text-xl text-slate-900">%</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">{label}</h3>
-      <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
-        {description}
-      </p>
-    </div>
   );
 }
 
@@ -596,7 +534,7 @@ function AccreditationSection() {
           From sales order to delivery challan — production visibility for owners who cannot afford silent wastage.
         </p>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
+        <div className="mt-14 grid grid-cols-1 items-center gap-10 lg:mt-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 xl:gap-16">
           <div className="relative">
             <div className="absolute top-0 bottom-0 left-0 w-[2px] bg-slate-300/40" />
             <div
@@ -632,11 +570,30 @@ function AccreditationSection() {
             </ul>
           </div>
 
-          <div className="flex items-center justify-center mt-[5%]">
-            <img
-              src="/acc jewelbiz.png"
-              alt="JewelBiz compliance"
-              className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
+          <div className="relative lg:sticky lg:top-[calc(var(--site-header-height)+1.5rem)]">
+            <div className="pointer-events-none absolute inset-0 -m-6 rounded-[2rem] bg-gradient-to-br from-[#0C69B6]/10 via-transparent to-[#FF641F]/10 blur-2xl" />
+            <div
+              className="relative mx-auto max-w-[640px]"
+              style={{
+                WebkitMaskImage:
+                  'radial-gradient(ellipse 88% 82% at 50% 45%, #000 52%, transparent 100%)',
+                maskImage:
+                  'radial-gradient(ellipse 88% 82% at 50% 45%, #000 52%, transparent 100%)',
+              }}
+            >
+              <img
+                src="/acc jewelbiz.png"
+                alt="JewelBiz order and production tracking"
+                className="relative z-10 w-full scale-[1.04] object-contain drop-shadow-[0_24px_50px_rgba(15,25,35,0.12)]"
+              />
+            </div>
+            {/* Soft fade into section bg at edges */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse 70% 65% at 50% 45%, transparent 40%, #EAECEF 78%)',
+              }}
             />
           </div>
         </div>
