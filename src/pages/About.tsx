@@ -135,7 +135,7 @@ const processSteps: { icon: LucideIcon; title: string; desc: string }[] = [
 
 const founders = [
   {
-    name: 'Lokesh Kumar',
+    name: 'Lokesh Verma',
     role: 'Founder',
     image: '/Lokesh Sharma.png',
     linkedin: 'https://www.linkedin.com/in/lokesh-verma01/',
