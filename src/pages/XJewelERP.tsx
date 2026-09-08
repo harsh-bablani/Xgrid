@@ -22,9 +22,10 @@ export default function XJewelERP() {
 function HeroSection() {
   return (
     <section
-      className="relative flex items-center overflow-hidden bg-[#F4F6F8]"
+      className="relative flex items-center overflow-hidden bg-[#F7F8FA]"
       style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
     >
+      {/* Laptop anchored to the right — blank left is for copy, not empty margin */}
       <picture>
         <source
           media="(max-width: 768px)"
@@ -38,43 +39,37 @@ function HeroSection() {
           height={1100}
           decoding="async"
           fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover object-[82%_center] xl:object-[78%_center] 2xl:object-right"
+          className="absolute inset-0 h-full w-full object-cover object-right"
           aria-hidden
         />
       </picture>
 
-      {/* Keep copy readable on every laptop width — desk props sit mid-frame */}
+      {/* Soft fill only behind the text band */}
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-full max-w-[640px] lg:max-w-[46%] xl:max-w-[42%]"
         style={{
           background:
-            'linear-gradient(90deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.92) 28%, rgba(255,255,255,0.72) 42%, rgba(255,255,255,0.28) 58%, rgba(255,255,255,0) 72%)',
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0 z-[1] xl:hidden"
-        style={{
-          background:
-            'linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 38%, rgba(255,255,255,0.55) 58%, rgba(255,255,255,0.1) 78%)',
+            'linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 55%, rgba(255,255,255,0.2) 85%, rgba(255,255,255,0) 100%)',
         }}
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] items-center px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
-        <div className="w-full max-w-[460px] rounded-2xl bg-white/75 p-5 shadow-[0_8px_40px_rgba(15,25,35,0.04)] backdrop-blur-md sm:p-6 lg:max-w-[480px] lg:bg-white/55 xl:max-w-[500px] xl:bg-transparent xl:p-0 xl:shadow-none xl:backdrop-blur-none text-center lg:text-left">
-          <span className="inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/95 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] shadow-sm">
+      {/* Text sits left on desktop so the open side isn’t empty */}
+      <div className="relative z-10 flex w-full items-center px-4 py-14 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-20 lg:py-16">
+        <div className="w-full max-w-[480px] text-center sm:max-w-[500px] lg:max-w-[520px] lg:text-left">
+          <span className="inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/90 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
             JewelBiz ERP
           </span>
 
           <h1 className="mt-5 font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[22px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[38px]">
+            <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px]">
               Jewellery ERP For Retail, Wholesale,
             </span>
-            <span className="mt-1 block text-[22px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[38px] italic text-[#FF641F]">
+            <span className="mt-1 block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
               And Karigar Operations.
             </span>
           </h1>
 
-          <p className="mx-auto mt-5 max-w-[460px] text-[14px] leading-[1.65] text-[#0C69B6] md:text-[15px] lg:mx-0">
+          <p className="mx-auto mt-5 max-w-[500px] text-[14px] leading-[1.65] text-[#0C69B6] md:text-[15px] lg:mx-0">
             JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
             manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
             Not a generic ERP with jewellery labels.
