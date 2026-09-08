@@ -151,7 +151,7 @@ export default function AdminBlogEditor() {
     if (!description.trim()) missing.push('short excerpt');
     if (!heroImage.trim()) missing.push('display image (hero)');
 
-    // Always normalize — slug field is easy to miss under extra settings
+    // Always normalize — cleans trailing hyphens from long titles and empty/hidden slugs
     const finalSlug = slugify(slug.trim() || title);
     const slugError = validateSlug(finalSlug);
     if (slugError) missing.push('slug');
@@ -162,7 +162,7 @@ export default function AdminBlogEditor() {
       return;
     }
 
-    if (finalSlug !== slug) setSlug(finalSlug);
+    setSlug(finalSlug);
 
     setSaving(true);
 

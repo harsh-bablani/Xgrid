@@ -4,15 +4,26 @@ export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://slatebiz.com'
 export const SITE_NAME = 'SlateBiz Softwares';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/BGDB.webp`;
 
+const SLUG_MAX_LENGTH = 96;
+
 export function slugify(text: string): string {
-  return text
+  let slug = text
     .toLowerCase()
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 80)
     .replace(/^-+|-+$/g, '');
+
+  if (slug.length > SLUG_MAX_LENGTH) {
+    slug = slug.slice(0, SLUG_MAX_LENGTH);
+    const lastHyphen = slug.lastIndexOf('-');
+    // Cut on a word boundary when truncation lands mid-slug
+    if (lastHyphen > SLUG_MAX_LENGTH * 0.5) {
+      slug = slug.slice(0, lastHyphen);
+    }
+  }
+
+  return slug.replace(/^-+|-+$/g, '');
 }
 
 export function absoluteUrl(pathOrUrl: string): string {
