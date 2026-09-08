@@ -182,23 +182,6 @@ export default function Contact() {
                     </div>
                     <div>
                       <label
-                        htmlFor="contact-email"
-                        className="mb-1.5 block text-[12px] font-medium text-slate-700"
-                      >
-                        Email *
-                      </label>
-                      <input
-                        id="contact-email"
-                        type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        className={inputClass}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label
                         htmlFor="contact-phone"
                         className="mb-1.5 block text-[12px] font-medium text-slate-700"
                       >
@@ -212,6 +195,22 @@ export default function Contact() {
                         onChange={handleChange}
                         className={inputClass}
                         required
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="contact-email"
+                        className="mb-1.5 block text-[12px] font-medium text-slate-700"
+                      >
+                        Email
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        className={inputClass}
                       />
                     </div>
                   </div>
