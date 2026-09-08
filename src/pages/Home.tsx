@@ -1,9 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   return (
@@ -28,7 +24,7 @@ export default function Home() {
 function HeroSection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
+      className="relative w-full overflow-hidden bg-[url('/herobg.webp')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
     >
       <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <span className="inline-block mb-7 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
@@ -71,14 +67,14 @@ function HeroSection() {
 
 function CompanyLogosSection() {
   const logos = [
-    '/hissaria gems private limited.jpeg',
-    '/Mahalaxmi.png',
-    '/BTR.png',
-    '/b l hissaria jewellers.png',
-    '/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg',
-    '/Parmeshwari Newborn & Children Hospital - Abohar.jpeg',
-    '/Skyy High Placement.jpeg',
-    '/Shiv General Store.jpeg',
+    '/hissaria gems private limited.webp',
+    '/Mahalaxmi.webp',
+    '/BTR.webp',
+    '/b l hissaria jewellers.webp',
+    '/Bhagwati Ayurveda & Panchakarma Research Centre.webp',
+    '/Parmeshwari Newborn & Children Hospital - Abohar.webp',
+    '/Skyy High Placement.webp',
+    '/Shiv General Store.webp',
   ];
 
   return (
@@ -90,12 +86,12 @@ function CompanyLogosSection() {
         <div className="company-marquee gap-12 items-center">
           {logos.map((src, idx) => (
             <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
             </div>
           ))}
           {logos.map((src, idx) => (
             <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
             </div>
           ))}
         </div>
@@ -122,8 +118,12 @@ function WhyWeExistSection() {
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-[465px_1fr] gap-10 items-start">
           <img
-            src="/Exist.png"
-            alt="Why we exist"
+            src="/why-we-exist.webp"
+            alt="Healthcare team using SlateBiz"
+            width={465}
+            height={550}
+            decoding="async"
+            fetchPriority="low"
             className="w-full h-auto md:w-[465px] md:h-[550px] object-cover rounded-xl"
           />
 
@@ -199,7 +199,7 @@ function ProductsSection() {
         'On-premise and cloud',
       ],
       tagClass: 'bg-[#FFF7ED] text-[#9A3412]',
-      image: '/JM.png',
+      image: '/jewelbiz-home-section.webp',
       imageAlt: 'JewelBiz ERP',
       link: '/jewelbiz/',
       linkText: 'Explore JewelBiz',
@@ -221,7 +221,7 @@ function ProductsSection() {
         'WhatsApp API',
       ],
       tagClass: 'bg-[#DBEAFE] text-[#1E40AF]',
-      image: '/HM.png',
+      image: '/curabiz-home-section.webp',
       imageAlt: 'CuraBiz HIMS',
       link: '/curabiz/',
       linkText: 'Explore CuraBiz',
@@ -241,7 +241,7 @@ function ProductsSection() {
         'Industry-specific workflows',
       ],
       tagClass: 'bg-[#F1F5F9] text-[#334155]',
-      image: '/RM%20(2).png',
+      image: '/retailbiz-home-section.webp',
       imageAlt: 'RetailBiz ERP',
       link: '/retailbiz/',
       linkText: 'Explore RetailBiz ERP',
@@ -273,7 +273,13 @@ function ProductsSection() {
           <img
             src={product.image}
             alt={product.imageAlt}
-            className="w-full h-[180px] md:h-[380px] object-contain rounded-[3rem] brightness-110 opacity-80"
+            loading="lazy"
+            decoding="async"
+            className={`w-full h-[180px] md:h-[380px] rounded-[1.5rem] ${
+              product.id === 'jewelbiz' || product.id === 'curabiz' || product.id === 'retailbiz'
+                ? 'object-cover brightness-100 opacity-100'
+                : 'object-contain brightness-110 opacity-80 rounded-[3rem]'
+            }`}
           />
         </div>
 
@@ -338,163 +344,109 @@ useLayoutEffect(() => {
     return siteHeader?.offsetHeight ?? 96;
   };
 
-  const ctx = gsap.context(() => {
-    const mm = gsap.matchMedia();
+  let ctx: { revert: () => void } | undefined;
+  let cancelled = false;
 
-    mm.add('(min-width: 768px)', () => {
-    /*
-     * ---------------------------------------------------------
-     * INITIAL CARD STATE (desktop scroll pin only)
-     * ---------------------------------------------------------
-     */
+  void (async () => {
+    const gsap = (await import('gsap')).default;
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
+    if (cancelled) return;
 
-    gsap.set(cards[0], {
-      yPercent: 0,
-      opacity: 1,
-      scale: 1,
-      zIndex: 10,
-    });
+    ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    gsap.set(cards[1], {
-      yPercent: 105,
-      opacity: 0.85,
-      scale: 0.985,
-      zIndex: 20,
-    });
+      mm.add('(min-width: 768px)', () => {
+        gsap.set(cards[0], {
+          yPercent: 0,
+          opacity: 1,
+          scale: 1,
+          zIndex: 10,
+        });
 
-    gsap.set(cards[2], {
-      yPercent: 105,
-      opacity: 0.85,
-      scale: 0.985,
-      zIndex: 30,
-    });
+        gsap.set(cards[1], {
+          yPercent: 105,
+          opacity: 0.85,
+          scale: 0.985,
+          zIndex: 20,
+        });
 
-    /*
-     * ---------------------------------------------------------
-     * MASTER SCROLL TIMELINE
-     * ---------------------------------------------------------
-     *
-     * Phase 1:
-     * Heading scrolls upward and out of view.
-     *
-     * Phase 2:
-     * The first ERP card expands to occupy more of the viewport.
-     *
-     * Phase 3:
-     * Card 2 comes from underneath Card 1.
-     *
-     * Phase 4:
-     * Card 3 comes from underneath Card 2.
-     */
+        gsap.set(cards[2], {
+          yPercent: 105,
+          opacity: 0.85,
+          scale: 0.985,
+          zIndex: 30,
+        });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: viewport,
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: viewport,
+            start: () => `top top+=${getHeaderOffset()}`,
+            end: () => `+=${window.innerHeight * 3.5}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
 
-        start: () => `top top+=${getHeaderOffset()}`,
+        tl.to(
+          header,
+          {
+            yPercent: -120,
+            opacity: 0,
+            height: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginBottom: 0,
+            overflow: 'hidden',
+            duration: 0.8,
+            ease: 'power2.inOut',
+          },
+          0
+        );
 
-        /*
-         * More scroll distance gives each animation
-         * enough room to look smooth.
-         */
-        end: () => `+=${window.innerHeight * 3.5}`,
+        tl.to(
+          cardViewport,
+          {
+            height: () => `calc(100svh - ${getHeaderOffset()}px)`,
+            ease: 'power2.inOut',
+            duration: 1,
+          },
+          0.9
+        );
 
-        pin: true,
-        pinSpacing: true,
+        tl.to(
+          cards[1],
+          {
+            yPercent: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'power2.out',
+            duration: 1.2,
+          },
+          2.0
+        );
 
-        scrub: 0.8,
-
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    /*
-     * =========================================================
-     * PHASE 1 — HEADER SCROLLS UP NATURALLY
-     * =========================================================
-     */
-
-    tl.to(
-      header,
-      {
-        yPercent: -120,
-        opacity: 0,
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginBottom: 0,
-        overflow: 'hidden',
-        duration: 0.8,
-        ease: 'power2.inOut',
-      },
-      0
-    );
-
-    /*
-     * =========================================================
-     * PHASE 2 — FIRST ERP CARD EXPANDS
-     * =========================================================
-     *
-     * The card wrapper is full-bleed (inset-0 w-full h-full),
-     * so animating the card viewport height makes the actual
-     * card itself grow larger. Border radius is preserved.
-     */
-
-    tl.to(
-      cardViewport,
-      {
-        height: () => `calc(100svh - ${getHeaderOffset()}px)`,
-        ease: 'power2.inOut',
-        duration: 1,
-      },
-      0.9
-    );
-
-    /*
-     * =========================================================
-     * PHASE 3 — CARD 2 SLIDES UP FROM UNDER CARD 1
-     * =========================================================
-     *
-     * Card 1 stays completely still. Only Card 2 moves.
-     */
-
-    tl.to(
-      cards[1],
-      {
-        yPercent: 0,
-        opacity: 1,
-        scale: 1,
-        ease: 'power2.out',
-        duration: 1.2,
-      },
-      2.0
-    );
-
-    /*
-     * =========================================================
-     * PHASE 4 — CARD 3 SLIDES UP FROM UNDER CARD 2
-     * =========================================================
-     *
-     * Card 2 stays completely still. Only Card 3 moves.
-     */
-
-    tl.to(
-      cards[2],
-      {
-        yPercent: 0,
-        opacity: 1,
-        scale: 1,
-        ease: 'power2.out',
-        duration: 1.2,
-      },
-      3.25
-    );
-    }); // end matchMedia desktop
-  }, viewport);
+        tl.to(
+          cards[2],
+          {
+            yPercent: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'power2.out',
+            duration: 1.2,
+          },
+          3.25
+        );
+      });
+    }, viewport);
+  })();
 
   return () => {
-    ctx.revert();
+    cancelled = true;
+    ctx?.revert();
   };
 }, []);
 
@@ -562,19 +514,45 @@ useLayoutEffect(() => {
 
 function FoundationSection() {
   const cards = [
-    { image: '/streamline.png', title: 'Industry-specific ERP', desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.' },
-    { image: '/streamline.png', title: 'Data migration', desc: 'Opening stock, party ledgers, and historical records migrated before go-live.' },
-    { image: '/empowering.png', title: 'On-site training', desc: 'Counter staff, accountant, and manager trained by role — included in every deployment.' },
-    { image: '/always.png', title: 'Dedicated support', desc: 'Named account support over phone, email, and WhatsApp when operations cannot wait.' },
-    { image: '/stay.png', title: 'Compliance updates', desc: 'GST, e-invoice, and HUID regulatory changes tracked and pushed into your system.' },
-    { image: '/built.png', title: 'Industry-specific ERP', desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.' },
+    {
+      image: '/industry-specific-erp.webp',
+      title: 'Industry-specific ERP',
+      desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.',
+      featured: true,
+    },
+    {
+      image: '/data-migration.webp',
+      title: 'Data migration',
+      desc: 'Opening stock, party ledgers, and historical records migrated before go-live.',
+      featured: true,
+    },
+    {
+      image: '/empowering.webp',
+      title: 'On-site training',
+      desc: 'Counter staff, accountant, and manager trained by role — included in every deployment.',
+    },
+    {
+      image: '/always.webp',
+      title: 'Dedicated support',
+      desc: 'Named account support over phone, email, and WhatsApp when operations cannot wait.',
+    },
+    {
+      image: '/stay.webp',
+      title: 'Compliance updates',
+      desc: 'GST, e-invoice, and HUID regulatory changes tracked and pushed into your system.',
+    },
+    {
+      image: '/built.webp',
+      title: 'Industry-specific ERP',
+      desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.',
+    },
   ];
 
   return (
     <section className="w-full bg-white pt-16 pb-20">
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
+        <div className="mb-14 text-center">
+          <span className="mb-5 inline-block rounded-full bg-[#F1F5F9] px-3 py-1.5 text-[11px] font-medium tracking-wide text-[#4B5563]">
             Technical foundation
           </span>
           <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
@@ -585,19 +563,34 @@ function FoundationSection() {
               India&apos;s banks use
             </span>
           </h2>
-          <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto">
-            Buying a licence is not the same as going live successfully. Every SlateBiz deployment includes end-to-end support from setup to steady-state operations.
+          <p className="mx-auto mt-5 max-w-2xl text-[12px] leading-[1.6] text-[#4B5563]">
+            Buying a licence is not the same as going live successfully. Every SlateBiz deployment
+            includes end-to-end support from setup to steady-state operations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
           {cards.map((card, i) => (
-            <div key={i}>
-              <img
-                src={card.image}
-                alt={card.title}
-                className="w-full h-[280px] md:h-[340px] object-contain rounded-2xl"
-              />
+            <div key={`${card.title}-${i}`}>
+              {card.featured ? (
+                <div className="overflow-hidden rounded-[20px] bg-[#F3EFFF] p-2 sm:p-2.5">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-auto w-full rounded-[14px] object-contain"
+                  />
+                </div>
+              ) : (
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-[280px] w-full rounded-2xl object-contain md:h-[340px]"
+                />
+              )}
               <h3 className="mt-5 text-[14px] font-bold text-[#171717]">{card.title}</h3>
               <p className="mt-2 text-[12px] leading-[1.5] text-[#4B5563]">{card.desc}</p>
             </div>
@@ -638,8 +631,10 @@ function TechnicalSection() {
             </div>
             <div>
               <img
-                src="/technical.png"
+                src="/technical.webp"
                 alt="Bank-grade security"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[260px] md:h-[320px] object-contain rounded-2xl"
               />
             </div>
@@ -688,37 +683,37 @@ function ClientTestimonialsSection() {
       text: "The reporting features give us deep insights into our business performance. A must-have tool for modern jewellers.",
       name: "Mudit Hissaria",
       brand: "Hissaria Gems Private Limited",
-      logo: "/hissaria gems private limited.jpeg"
+      logo: "/hissaria gems private limited.webp"
     },
     {
       text: "JewelBiz is intuitive and powerful. It has significantly reduced our manual errors and improved operational efficiency.",
       name: "Abhishek Jain",
       brand: "BTR & SONS",
-      logo: "/BTR.png"
+      logo: "/BTR.webp"
     },
     {
       text: "Security and reliability were our top priorities, and JewelBiz delivers on both fronts perfectly.",
       name: "Manoj Bansal",
       brand: "Mahalaxmi Refinery",
-      logo: "/Mahalaxmi.png"
+      logo: "/Mahalaxmi.webp"
     },
     {
       text: "JewelBiz has revolutionized our inventory tracking. The precision and ease of use are unmatched in the industry.",
       name: "Rajesh Hissaria",
       brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
-      logo: "/b l hissaria jewellers.png"
+      logo: "/b l hissaria jewellers.webp"
     },
     {
       text: "Managing multiple branches has never been easier. Real-time data synchronization keeps us ahead of the competition.",
       name: "Sandeep Hissaria",
       brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
-      logo: "/b l hissaria jewellers.png"
+      logo: "/b l hissaria jewellers.webp"
     },
     {
       text: "The karigar management module is a game-changer. We now have complete visibility over our gold wastage and job work.",
       name: "Sachin Hissaria",
       brand: "B.L.Hissaria Jewellers Pvt. Ltd.",
-      logo: "/b l hissaria jewellers.png"
+      logo: "/b l hissaria jewellers.webp"
     },
     {
       text: "Excellent support and a robust platform. It handles our complex billing requirements effortlessly.",
@@ -729,25 +724,25 @@ function ClientTestimonialsSection() {
       text: "Managing patient records, appointments, and pharmacy has become effortless. The CuraBiz platform truly understands the needs of an Ayurvedic practice.",
       name: "Dr. Amit Sharma",
       brand: "Bhagwati Ayurveda & Panchakarma Research Centre",
-      logo: "/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg"
+      logo: "/Bhagwati Ayurveda & Panchakarma Research Centre.webp"
     },
     {
       text: "From OPD to billing and discharge summaries, everything runs smoothly. It has greatly improved our hospital's day-to-day efficiency.",
       name: "Dr. Saabram",
       brand: "Parmeshwari Newborn & Children Hospital - Abohar",
-      logo: "/Parmeshwari Newborn & Children Hospital - Abohar.jpeg"
+      logo: "/Parmeshwari Newborn & Children Hospital - Abohar.webp"
     },
     {
       text: "Tracking candidates, clients, and placements is now incredibly simple. The team's support has been outstanding throughout our journey.",
       name: "Ms. Preeti",
       brand: "Skyy High Placement",
-      logo: "/Skyy High Placement.jpeg"
+      logo: "/Skyy High Placement.webp"
     },
     {
       text: "Inventory, billing, and daily reports are all in one place now. Running our store has become much easier and faster than before.",
       name: "Mr. Kanhaiya Lal",
       brand: "Shiv General Store",
-      logo: "/Shiv General Store.jpeg"
+      logo: "/Shiv General Store.webp"
     }
   ];
 
@@ -783,7 +778,7 @@ function ClientTestimonialsSection() {
                 </p>
                 <div className="flex items-center">
                   {testimonial.logo ? (
-                    <img src={testimonial.logo} alt={testimonial.brand} className="w-10 h-10 rounded-full object-contain border border-slate-100 bg-white p-1" />
+                    <img src={testimonial.logo} alt={testimonial.brand} loading="lazy" decoding="async" width={40} height={40} className="w-10 h-10 rounded-full object-contain border border-slate-100 bg-white p-1" />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-[#F1F5F9] flex items-center justify-center text-[#0C69B6] font-semibold text-sm">
                       {testimonial.name.charAt(0)}
@@ -806,7 +801,7 @@ function ClientTestimonialsSection() {
                 </p>
                 <div className="flex items-center">
                   {testimonial.logo ? (
-                    <img src={testimonial.logo} alt={testimonial.brand} className="w-10 h-10 rounded-full object-contain border border-slate-100 bg-white p-1" />
+                    <img src={testimonial.logo} alt={testimonial.brand} loading="lazy" decoding="async" width={40} height={40} className="w-10 h-10 rounded-full object-contain border border-slate-100 bg-white p-1" />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-[#F1F5F9] flex items-center justify-center text-[#0C69B6] font-semibold text-sm">
                       {testimonial.name.charAt(0)}
@@ -844,7 +839,25 @@ function AccreditationSection() {
   const [reduced, setReduced] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const ulRef = useRef<HTMLUListElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const liRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: '120px' }
+    );
+    io.observe(video);
+    return () => io.disconnect();
+  }, []);
 
   const complianceItems = [
     {
@@ -974,11 +987,11 @@ function AccreditationSection() {
 
           <div className="flex items-center justify-center">
             <video
-              autoPlay
+              ref={videoRef}
               muted
               loop
               playsInline
-              preload="auto"
+              preload="none"
               className="w-full max-w-[760px] h-auto object-contain rounded-[12px]"
               aria-label="Java and Oracle compliance stack"
             >
@@ -1048,8 +1061,10 @@ function StepsSection() {
 
           <div>
             <img
-              src="/steps.png"
+              src="/three-steps.webp"
               alt="Implementation steps"
+              loading="lazy"
+              decoding="async"
               className="w-full h-[400px] md:h-[520px] object-cover rounded-2xl"
             />
           </div>
@@ -1144,7 +1159,7 @@ function FAQSection() {
 function CTASection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
+      className="relative w-full overflow-hidden bg-[url('/herobg.webp')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
     >
       <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">

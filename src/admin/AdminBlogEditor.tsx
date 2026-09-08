@@ -167,7 +167,7 @@ export default function AdminBlogEditor() {
       category_label: categoryLabel.trim() || brandDefaultLabel(brand),
       title: title.trim(),
       description: description.trim(),
-      hero_image: heroImage || '/logo.jpg',
+      hero_image: heroImage || '/logo.webp',
       image_alt: imageAlt.trim() || title.trim(),
       author: author.trim() || 'SlateBiz Editorial',
       tags,

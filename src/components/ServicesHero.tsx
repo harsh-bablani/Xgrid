@@ -69,7 +69,7 @@ export default function ServicesHero() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="/Dashboard.png" 
+                src="/Dashboard.webp" 
                 alt="Dashboard Preview" 
                 className="w-full h-auto object-cover"
               />

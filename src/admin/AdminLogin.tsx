@@ -98,7 +98,7 @@ export default function AdminLogin() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/">
-            <img src="/logo.jpg" alt="SlateBiz" className="h-10 w-auto mx-auto mix-blend-multiply" />
+            <img src="/logo.webp" alt="SlateBiz" className="h-10 w-auto mx-auto mix-blend-multiply" />
           </Link>
           <h1 className="mt-6 text-2xl font-semibold text-slate-900">Admin sign in</h1>
           <p className="mt-2 text-slate-500 text-sm">Manage blog posts, images, and categories</p>

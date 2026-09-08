@@ -2,7 +2,7 @@
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://slatebiz.com').replace(/\/$/, '');
 
 export const SITE_NAME = 'SlateBiz Softwares';
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/BGDB.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/BGDB.webp`;
 
 export function slugify(text: string): string {
   return text
@@ -144,7 +144,7 @@ export function buildBlogPostingJsonLd(source: SeoSource, seo: ResolvedSeo) {
       name: SITE_NAME,
       logo: {
         '@type': 'ImageObject',
-        url: absoluteUrl('/logo.jpg'),
+        url: absoluteUrl('/logo.webp'),
       },
     },
   };

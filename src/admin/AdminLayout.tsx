@@ -38,7 +38,7 @@ export default function AdminLayout() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/admin" className="flex items-center gap-2">
-              <img src="/logo.jpg" alt="SlateBiz" className="h-8 w-auto mix-blend-multiply" />
+              <img src="/logo.webp" alt="SlateBiz" className="h-8 w-auto mix-blend-multiply" />
               <span className="text-sm font-semibold text-slate-800 uppercase tracking-wide">Admin</span>
             </Link>
             <nav className="hidden sm:flex items-center gap-4">

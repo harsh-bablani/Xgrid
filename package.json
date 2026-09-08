@@ -15,6 +15,7 @@
     "db:seed": "node server/scripts/seed-from-json.js",
     "kill-server": "npx --yes kill-port 3001",
     "build": "vite build",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
@@ -45,6 +46,7 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.35",
     "prisma": "^6.16.2",
+    "sharp": "^0.35.4",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",

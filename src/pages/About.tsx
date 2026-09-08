@@ -137,13 +137,13 @@ const founders = [
   {
     name: 'Lokesh Verma',
     role: 'Founder',
-    image: '/Lokesh Sharma.png',
+    image: '/Lokesh Sharma.webp',
     linkedin: 'https://www.linkedin.com/in/lokesh-verma01/',
   },
   {
     name: 'Umang Garg',
     role: 'Co-Founder',
-    image: '/Umang Garg.png',
+    image: '/Umang Garg.webp',
     linkedin: 'https://www.linkedin.com/in/garg-umang/',
   },
 ];
@@ -152,27 +152,27 @@ const team = [
   {
     name: 'Sumit Goyal',
     role: 'Chartered Accountant',
-    image: '/sumit-goyal.png',
+    image: '/sumit-goyal.webp',
   },
   {
     name: 'Kuntal Mathur',
     role: 'Project Manager',
-    image: '/Kunal Mathur.png',
+    image: '/Kunal Mathur.webp',
   },
   {
     name: 'Urja Ramanandi',
     role: 'Project Manager',
-    image: '/Urja Ramanandi.png',
+    image: '/Urja Ramanandi.webp',
   },
   {
     name: 'Yash Bansal',
     role: 'Business Development Manager',
-    image: '/Yash Bansal.jpeg',
+    image: '/Yash Bansal.webp',
   },
   {
     name: 'Anil Chaudhary',
     role: 'Business Development Manager',
-    image: '/Anil Chaudhary.png',
+    image: '/Anil Chaudhary.webp',
   },
 ];
 
@@ -242,8 +242,12 @@ export default function About() {
           <div className="relative">
             <div className="overflow-hidden rounded-3xl border-[3px] border-white shadow-[0_20px_50px_rgba(15,25,35,0.1)] ring-1 ring-slate-200/80">
               <img
-                src="/ab.png"
+                src="/ab.webp"
                 alt="SlateBiz digital ecosystems"
+                width={800}
+                height={600}
+                decoding="async"
+                fetchPriority="high"
                 className="aspect-[4/3] w-full object-cover object-center"
               />
             </div>
@@ -256,8 +260,12 @@ export default function About() {
         <div className="mx-auto grid max-w-[1100px] items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-14 lg:px-8">
           <div className="order-2 overflow-hidden rounded-3xl border-[3px] border-white shadow-sm ring-1 ring-slate-200/80 lg:order-1">
             <img
-              src="/who.png"
+              src="/who.webp"
               alt="SlateBiz team"
+              width={800}
+              height={600}
+              loading="lazy"
+              decoding="async"
               className="aspect-[4/3] w-full object-cover object-center"
             />
           </div>
@@ -343,6 +351,10 @@ export default function About() {
                   <img
                     src={person.image}
                     alt={person.name}
+                    width={240}
+                    height={240}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
@@ -395,6 +407,10 @@ export default function About() {
                   <img
                     src={member.image}
                     alt={member.name}
+                    width={140}
+                    height={140}
+                    loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover object-top"
                   />
                 </div>

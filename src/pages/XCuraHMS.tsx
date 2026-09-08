@@ -113,8 +113,12 @@ function HeroSection() {
         <div className="relative">
           <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_24px_60px_rgba(15,25,35,0.1)]">
             <img
-              src="/curabiz-dashboard.jpg"
+              src="/curabiz-dashboard.webp"
               alt="CuraBiz hospital command center dashboard"
+              width={1400}
+              height={900}
+              decoding="async"
+              fetchPriority="high"
               className="h-auto w-full object-cover"
             />
           </div>

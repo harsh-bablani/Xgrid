@@ -1,4 +1,4 @@
-import { Building2, BarChart3, UserPlus, ClipboardCheck, ReceiptText, ShieldCheck, Check, X, ChevronRight } from 'lucide-react';
+import { Check, X, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { modules } from '../data/productMatrix';
 import ProductRelatedArticles from '../components/ProductRelatedArticles';
@@ -25,123 +25,61 @@ function HeroSection() {
       className="relative flex items-center overflow-hidden"
       style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
     >
-      {/* Soft grid + light wash like Figma */}
+      {/* Full hero image as background */}
+      <img
+        src="/jewelbiz-hero-laptop.webp"
+        alt=""
+        width={1920}
+        height={1080}
+        decoding="async"
+        fetchPriority="high"
+        className="absolute inset-0 h-full w-full object-cover object-right"
+        aria-hidden
+      />
+
+      {/* Soft fade on left for mobile readability */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1] lg:hidden"
         style={{
           background:
-            'linear-gradient(105deg, #FFFFFF 0%, #F7FAFF 42%, #EAF3FC 78%, #F5F0FF 100%)',
+            'linear-gradient(90deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.72) 55%, rgba(255,255,255,0.2) 100%)',
         }}
       />
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.45]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(12,105,182,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(12,105,182,0.06) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-          maskImage: 'radial-gradient(ellipse 80% 70% at 70% 40%, black 20%, transparent 75%)',
-          WebkitMaskImage:
-            'radial-gradient(ellipse 80% 70% at 70% 40%, black 20%, transparent 75%)',
-        }}
-      />
-      <div className="pointer-events-none absolute right-[-8%] top-[10%] h-[520px] w-[520px] rounded-full bg-[#9EC6EA]/35 blur-[90px]" />
-      <div className="pointer-events-none absolute right-[8%] bottom-[5%] h-[280px] w-[280px] rounded-full bg-white/80 blur-[60px]" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1180px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14">
-        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8 xl:gap-12">
-          {/* Left — copy */}
-          <div className="text-center lg:text-left">
-            <span className="inline-flex items-center rounded-full border border-[#0C69B6]/35 bg-white/85 px-4 py-1.5 text-[12px] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
-              JewelBiz ERP
+      <div className="relative z-10 mx-auto flex w-full max-w-[1200px] items-center px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="w-full max-w-[520px] text-center lg:text-left">
+          <span className="inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/90 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
+            JewelBiz ERP
+          </span>
+
+          <h1 className="mt-5 font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px]">
+              Jewellery ERP For Retail, Wholesale,
             </span>
+            <span className="mt-1 block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
+              And Karigar Operations.
+            </span>
+          </h1>
 
-            <h1 className="mt-5 font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
-              <span className="block text-[clamp(1.65rem,3.8vw,2.65rem)]">
-                Jewellery ERP for retail, wholesale,
-              </span>
-              <em className="mt-1 block text-[clamp(1.65rem,3.8vw,2.65rem)] italic text-[#FF641F]">
-                and karigar operations.
-              </em>
-            </h1>
+          <p className="mx-auto mt-5 max-w-[500px] text-[14px] leading-[1.65] text-[#0C69B6] md:text-[15px] lg:mx-0">
+            JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
+            manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
+            Not a generic ERP with jewellery labels.
+          </p>
 
-            <p className="mx-auto mt-5 max-w-[520px] text-[14.5px] leading-[1.7] text-[#0C69B6] sm:text-[15.5px] lg:mx-0">
-              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
-              manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
-              Not a generic ERP with jewellery labels.
-            </p>
-
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row lg:justify-start">
-              <Link
-                to="/contact/"
-                className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] bg-[#FF641F] px-6 text-[14px] font-semibold text-white shadow-[0_10px_28px_rgba(255,100,31,0.28)] transition hover:bg-[#E55A18] sm:w-auto"
-              >
-                Get 14 Days Free Trial
-              </Link>
-              <a
-                href="#features"
-                className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] border border-[#0C69B6]/25 bg-white/90 px-6 text-[14px] font-semibold text-[#0C69B6] backdrop-blur-sm transition hover:bg-white sm:w-auto"
-              >
-                Browse all features
-              </a>
-            </div>
-          </div>
-
-          {/* Right — organized dashboard stack */}
-          <div className="relative mx-auto w-full max-w-[620px] lg:max-w-none">
-            <div className="pointer-events-none absolute left-1/2 top-1/2 h-[80%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#BFD9F2]/45 blur-3xl" />
-
-            <div className="relative mx-auto flex w-full max-w-[560px] flex-col gap-3 sm:gap-4">
-              {/* Primary */}
-              <div
-                className="relative z-[3] overflow-hidden rounded-2xl border border-white/80 bg-white shadow-[0_20px_50px_rgba(15,25,35,0.12)]"
-                style={{
-                  WebkitMaskImage:
-                    'linear-gradient(to bottom, #000 72%, transparent 100%)',
-                  maskImage:
-                    'linear-gradient(to bottom, #000 72%, transparent 100%)',
-                }}
-              >
-                <img
-                  src="/jewelbiz-dashboard.png"
-                  alt="JewelBiz Business Overview"
-                  className="block w-full object-cover object-top aspect-[16/10]"
-                />
-              </div>
-
-              {/* Secondary row */}
-              <div className="relative z-[2] grid grid-cols-2 gap-3 sm:gap-4">
-                <div
-                  className="overflow-hidden rounded-xl border border-white/80 bg-white shadow-[0_12px_32px_rgba(15,25,35,0.1)]"
-                  style={{
-                    WebkitMaskImage:
-                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
-                    maskImage:
-                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
-                  }}
-                >
-                  <img
-                    src="/jewelbiz-dashboard-sales.png"
-                    alt="JewelBiz Sales & Revenue"
-                    className="block w-full object-cover object-top aspect-[16/11]"
-                  />
-                </div>
-                <div
-                  className="overflow-hidden rounded-xl border border-white/80 bg-white shadow-[0_12px_32px_rgba(15,25,35,0.1)]"
-                  style={{
-                    WebkitMaskImage:
-                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
-                    maskImage:
-                      'linear-gradient(to bottom, #000 70%, transparent 100%)',
-                  }}
-                >
-                  <img
-                    src="/jewelbiz-dashboard-stock.png"
-                    alt="JewelBiz Stock & Inventory"
-                    className="block w-full object-cover object-top aspect-[16/11]"
-                  />
-                </div>
-              </div>
-            </div>
+          <div className="mt-7 flex flex-col items-center gap-3.5 sm:flex-row lg:justify-start">
+            <Link
+              to="/contact/"
+              className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] bg-[#FF641F] text-[14px] font-semibold text-white transition hover:bg-[#E55A18] sm:w-[182px]"
+            >
+              Get 14 Days Free Trial
+            </Link>
+            <a
+              href="#features"
+              className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] border border-slate-800 bg-white text-[14px] font-semibold text-[#0C69B6] transition hover:bg-slate-50 sm:w-[160px]"
+            >
+              Browse all features
+            </a>
           </div>
         </div>
       </div>
@@ -151,14 +89,14 @@ function HeroSection() {
 
 function CompanyLogosSection() {
   const logos = [
-    '/hissaria gems private limited.jpeg',
-    '/Mahalaxmi.png',
-    '/BTR.png',
-    '/b l hissaria jewellers.png',
-    '/Bhagwati Ayurveda & Panchakarma Research Centre.jpeg',
-    '/Parmeshwari Newborn & Children Hospital - Abohar.jpeg',
-    '/Skyy High Placement.jpeg',
-    '/Shiv General Store.jpeg',
+    '/hissaria gems private limited.webp',
+    '/Mahalaxmi.webp',
+    '/BTR.webp',
+    '/b l hissaria jewellers.webp',
+    '/Bhagwati Ayurveda & Panchakarma Research Centre.webp',
+    '/Parmeshwari Newborn & Children Hospital - Abohar.webp',
+    '/Skyy High Placement.webp',
+    '/Shiv General Store.webp',
   ];
 
   return (
@@ -170,12 +108,12 @@ function CompanyLogosSection() {
         <div className="company-marquee gap-12 items-center">
           {logos.map((src, idx) => (
             <div key={`jewel-logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
             </div>
           ))}
           {logos.map((src, idx) => (
             <div key={`jewel-logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
             </div>
           ))}
         </div>
@@ -372,14 +310,41 @@ function FeaturesSection() {
 
 
 function BusinessModelSectionWithImages() {
+  const cards = [
+    {
+      image: '/retail jewelbiz.webp',
+      alt: 'Retail POS',
+      title: 'Retail POS',
+      description:
+        'Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter.',
+      href: '#features',
+    },
+    {
+      image: '/wholesale jewelbiz.webp',
+      alt: 'Wholesale & approval',
+      title: 'Wholesale & approval',
+      description:
+        'Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans.',
+      href: '#features',
+    },
+    {
+      image: '/manufacturing jewelbiz.webp',
+      alt: 'Manufacturing',
+      title: 'Manufacturing',
+      description:
+        'Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.',
+      href: '#features',
+    },
+  ];
+
   return (
-    <section className="w-full bg-white py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-[900px] mx-auto">
-        <div className="text-center mb-20">
-          <span className="inline-block mb-6 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
+    <section className="w-full bg-white py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[980px]">
+        <div className="mb-14 text-center sm:mb-16">
+          <span className="mb-6 inline-block rounded-full border border-slate-200 bg-[#F3F4F6] px-4 py-1.5 text-[13px] font-medium tracking-wide text-slate-700">
             Built for the trade
           </span>
-          <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
+          <h2 className="font-serif font-normal leading-[1.08] tracking-[-0.02em] text-slate-900">
             <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
               From metal purchase to signed
             </span>
@@ -387,45 +352,38 @@ function BusinessModelSectionWithImages() {
               GST invoice — nothing entered twice.
             </span>
           </h2>
-          <p className="mt-6 text-[15px] leading-[1.7] text-slate-500 max-w-[80ch] mx-auto">
-            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger. Approvals, old gold, manufacturing, and compliance stay in the same language your team already uses.
+          <p className="mx-auto mt-6 max-w-[70ch] text-[15px] leading-[1.7] text-slate-500">
+            Retail counter, wholesale desk, and karigar workshop share one stock and one ledger.
+            Approvals, old gold, manufacturing, and compliance stay in the same language your team
+            already uses.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="flex flex-col items-center">
-            <img
-              src="/retail jewelbiz.png"
-              alt="Retail POS"
-              className="w-full h-auto"
-            />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Retail POS</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
-              Barcode billing, multi-payment modes, UPI QR, salesperson tracking, and old gold exchange at the counter.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="/wholesale jewelbiz.png"
-              alt="Wholesale & approval"
-              className="w-full h-auto"
-            />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Wholesale & approval</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
-              Party rates, credit sales, Jangad / goods on approval, rate settlement, and delivery challans.
-            </p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="/manufacturing jewelbiz.png"
-              alt="Manufacturing"
-              className="w-full h-auto"
-            />
-            <h3 className="mt-7 text-base font-semibold text-slate-900 text-left w-full max-w-[260px]">Manufacturing</h3>
-            <p className="mt-2 text-sm text-slate-500 leading-relaxed text-left w-full max-w-[260px]">
-              Karigar issue–receipt, WIP, job costing, wastage visibility, and process-wise production tracking.
-            </p>
-          </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6 lg:gap-8">
+          {cards.map((card) => (
+            <div key={card.title} className="flex flex-col">
+              <div className="overflow-hidden rounded-[16px] bg-slate-100 shadow-[0_8px_24px_rgba(15,25,35,0.06)]">
+                <img
+                  src={card.image}
+                  alt={card.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="aspect-[4/3] h-auto w-full object-cover object-center"
+                />
+              </div>
+              <h3 className="mt-5 text-[16px] font-semibold text-slate-900">{card.title}</h3>
+              <p className="mt-2 flex-1 text-[14px] leading-relaxed text-slate-500">
+                {card.description}
+              </p>
+              <a
+                href={card.href}
+                className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold text-[#FF641F] transition hover:text-[#E55A18]"
+              >
+                Read More
+                <ChevronRight className="h-4 w-4" />
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -582,8 +540,10 @@ function AccreditationSection() {
               }}
             >
               <img
-                src="/acc jewelbiz.png"
+                src="/acc jewelbiz.webp"
                 alt="JewelBiz order and production tracking"
+                loading="lazy"
+                decoding="async"
                 className="relative z-10 w-full scale-[1.04] object-contain drop-shadow-[0_24px_50px_rgba(15,25,35,0.12)]"
               />
             </div>
@@ -605,7 +565,7 @@ function AccreditationSection() {
 function CTASection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[url('/herobg.png')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
+      className="relative w-full overflow-hidden bg-[url('/herobg.webp')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
     >
       <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">

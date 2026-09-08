@@ -27,8 +27,12 @@ export default function Header() {
           {/* Logo - Clickable and redirects to home */}
           <Link to="/" className="flex items-center">
             <img
-              src={isBlueHeader ? "/Logo-White.png" : "/logo.jpg"}
+              src={isBlueHeader ? "/Logo-White.webp" : "/logo.webp"}
               alt="Slatebiz Logo"
+              width={180}
+              height={50}
+              decoding="async"
+              fetchPriority="high"
               className={`${isBlueHeader ? 'h-[32px] md:h-[50px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
               style={{ display: "block" }}
             />
