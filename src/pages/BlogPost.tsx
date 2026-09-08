@@ -207,23 +207,29 @@ export default function BlogPost() {
 
       {/* CTA */}
       <section className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="rounded-2xl bg-gradient-to-br from-[#0a2f5c] via-[#0C69B6] to-[#1a7fd4] px-6 py-8 sm:px-10 sm:py-10 text-center text-white shadow-[0_20px_50px_rgba(12,105,182,0.2)]">
-          <h2 className="font-serif font-normal text-[24px] sm:text-[30px] leading-[1.2]">
-            Ready to see this in your business?
+        <div
+          className="rounded-2xl border border-slate-200/80 px-6 py-8 text-center sm:px-10 sm:py-10 shadow-[0_12px_40px_rgba(15,25,35,0.06)]"
+          style={{
+            background: 'linear-gradient(115deg, #E8F2FB 0%, #F7F8FC 48%, #FBEDE6 100%)',
+          }}
+        >
+          <h2 className="font-serif font-normal text-[24px] sm:text-[30px] leading-[1.2] tracking-[-0.02em] text-slate-900">
+            Ready to see this in your{' '}
+            <em className="italic text-[#FF641F]">business?</em>
           </h2>
-          <p className="mt-3 text-blue-50/90 text-[14px] sm:text-[15px] max-w-lg mx-auto leading-relaxed">
+          <p className="mt-3 text-slate-600 text-[14px] sm:text-[15px] max-w-lg mx-auto leading-relaxed">
             Book a free demo — we configure it around your workflows, not a sample dataset.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               to="/contact/"
-              className="w-full sm:w-auto min-w-[160px] h-[46px] inline-flex items-center justify-center rounded-[10px] bg-white text-[#0C69B6] text-[14px] font-semibold hover:bg-blue-50 transition-colors"
+              className="w-full sm:w-auto min-w-[160px] h-[46px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
             >
               Book a free demo
             </Link>
             <Link
               to="/blogs/"
-              className="w-full sm:w-auto min-w-[160px] h-[46px] inline-flex items-center justify-center rounded-[10px] border border-white/70 text-white text-[14px] font-semibold hover:bg-white/10 transition-colors"
+              className="w-full sm:w-auto min-w-[160px] h-[46px] inline-flex items-center justify-center rounded-[10px] border border-slate-800 bg-white text-[#0C69B6] text-[14px] font-semibold hover:bg-slate-50 transition-colors"
             >
               More articles
             </Link>

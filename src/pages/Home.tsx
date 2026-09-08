@@ -239,7 +239,7 @@ function ProductsSection() {
 
         <div className={product.imageLeft ? 'order-2' : 'order-1'}>
           <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-[22px] font-bold text-[#171717]">
+            <h3 className="font-sans text-[22px] font-semibold tracking-[-0.01em] text-[#171717]">
               {product.title}
             </h3>
 

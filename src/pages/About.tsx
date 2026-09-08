@@ -461,30 +461,30 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section
-        className="relative overflow-hidden py-16 sm:py-20"
-        style={{
-          background: 'linear-gradient(120deg, #0C69B6 0%, #095a9d 55%, #0a4d86 100%)',
-        }}
-      >
-        <div className="pointer-events-none absolute -right-16 top-0 h-56 w-56 rounded-full bg-white/10 blur-2xl" />
-        <div className="pointer-events-none absolute -left-10 bottom-0 h-48 w-48 rounded-full bg-[#FF641F]/20 blur-2xl" />
-
-        <div className="relative mx-auto max-w-[700px] px-4 text-center sm:px-6">
-          <h2 className="font-serif font-normal text-[clamp(1.7rem,3.5vw,2.35rem)] tracking-[-0.02em] text-white">
-            Ready to transform your business?
-          </h2>
-          <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-blue-100">
-            Partner with SlateBiz to modernize operations and build a future-ready digital
-            ecosystem.
-          </p>
-          <Link
-            to="/contact/"
-            className="mt-7 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-[13.5px] font-semibold text-[#0C69B6] shadow-lg transition hover:bg-blue-50"
+      <section className="border-t border-slate-100 bg-white py-12 sm:py-16">
+        <div className="mx-auto max-w-[880px] px-4 sm:px-6 lg:px-8">
+          <div
+            className="rounded-2xl border border-slate-200/80 px-6 py-10 text-center shadow-[0_12px_40px_rgba(15,25,35,0.06)] sm:px-10 sm:py-12"
+            style={{
+              background: 'linear-gradient(115deg, #E8F2FB 0%, #F7F8FC 48%, #FBEDE6 100%)',
+            }}
           >
-            Get started
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+            <h2 className="font-serif font-normal text-[clamp(1.7rem,3.5vw,2.35rem)] tracking-[-0.02em] text-slate-900">
+              Ready to transform your{' '}
+              <em className="italic text-[#FF641F]">business?</em>
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-relaxed text-slate-600">
+              Partner with SlateBiz to modernize operations and build a future-ready digital
+              ecosystem.
+            </p>
+            <Link
+              to="/contact/"
+              className="mt-7 inline-flex items-center gap-2 rounded-[10px] bg-[#FF641F] px-6 py-3 text-[13.5px] font-semibold text-white transition hover:bg-[#E55A18]"
+            >
+              Get started
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
