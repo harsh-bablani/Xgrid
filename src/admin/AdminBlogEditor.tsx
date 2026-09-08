@@ -150,7 +150,10 @@ export default function AdminBlogEditor() {
     if (!title.trim()) missing.push('title');
     if (!description.trim()) missing.push('short excerpt');
     if (!heroImage.trim()) missing.push('display image (hero)');
-    const slugError = validateSlug(slug);
+
+    // Always normalize — slug field is easy to miss under extra settings
+    const finalSlug = slugify(slug.trim() || title);
+    const slugError = validateSlug(finalSlug);
     if (slugError) missing.push('slug');
 
     if (missing.length) {
@@ -159,11 +162,13 @@ export default function AdminBlogEditor() {
       return;
     }
 
+    if (finalSlug !== slug) setSlug(finalSlug);
+
     setSaving(true);
 
     const input = {
       brand,
-      slug: slug.trim(),
+      slug: finalSlug,
       category_label: categoryLabel.trim() || brandDefaultLabel(brand),
       title: title.trim(),
       description: description.trim(),
@@ -290,6 +295,25 @@ export default function AdminBlogEditor() {
             />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1.5">URL slug</label>
+            <input
+              value={slug}
+              onChange={(e) => {
+                setSlugTouched(true);
+                setSlug(slugify(e.target.value));
+              }}
+              className="w-full px-4 py-2.5 rounded-[10px] border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#0C69B6]/20 focus:border-[#0C69B6]"
+              placeholder="my-blog-post"
+            />
+            <p className="mt-1 text-xs text-slate-400">
+              Auto-fills from the title. Live URL: {blogPath(slug || '…')}
+            </p>
+            {slug && validateSlug(slug) && (
+              <p className="mt-1 text-xs text-red-600">{validateSlug(slug)}</p>
+            )}
+          </div>
+
           <ImageUpload
             label="Display image (hero)"
             kind="hero"
@@ -355,24 +379,11 @@ export default function AdminBlogEditor() {
             onClick={() => setShowMoreSettings((v) => !v)}
             className="text-sm font-medium text-[#0C69B6] hover:underline"
           >
-            {showMoreSettings ? 'Hide extra settings' : 'Show extra settings (URL, date, author, tags…)'}
+            {showMoreSettings ? 'Hide extra settings' : 'Show extra settings (date, author, tags…)'}
           </button>
 
           {showMoreSettings && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2 border-t border-gray-100">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">URL slug</label>
-                <input
-                  value={slug}
-                  onChange={(e) => {
-                    setSlugTouched(true);
-                    setSlug(slugify(e.target.value));
-                  }}
-                  className="w-full px-4 py-2.5 rounded-[10px] border border-gray-200"
-                  placeholder="my-blog-post"
-                />
-                <p className="mt-1 text-xs text-slate-400">Live URL: {blogPath(slug || '…')}</p>
-              </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1.5">Display image alt text</label>
                 <input

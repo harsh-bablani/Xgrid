@@ -11,7 +11,8 @@ export function slugify(text: string): string {
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
-    .slice(0, 80);
+    .slice(0, 80)
+    .replace(/^-+|-+$/g, '');
 }
 
 export function absoluteUrl(pathOrUrl: string): string {
