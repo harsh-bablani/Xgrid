@@ -2,6 +2,7 @@ import { Check, X, ChevronRight } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { modules } from '../data/productMatrix';
 import ProductRelatedArticles from '../components/ProductRelatedArticles';
+import CompanyLogosSection from '../components/CompanyLogosSection';
 import { Link } from 'react-router-dom';
 
 export default function XJewelERP() {
@@ -23,34 +24,33 @@ function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-white">
       {/*
-        Phone + tablet + small laptop (<1280): stacked
-        MacBook / 27–32" / 4K (≥1280): 50/50 grid — text always left half, laptop right half
+        Phone + tablet + small laptop (<1280): one hero with copy over image
+        Desktop (≥1280): 50/50 — text left, laptop right (new jewel hero art)
       */}
 
-      {/* —— Mobile / tablet (<1280): one hero — copy over the image —— */}
+      {/* —— Mobile / tablet (<1280) —— */}
       <div className="relative xl:hidden">
-        <div className="relative min-h-[min(640px,calc(100svh-var(--site-header-height)))] overflow-hidden">
+        <div className="relative min-h-[min(560px,calc(100svh-var(--site-header-height)))] overflow-hidden sm:min-h-[min(620px,calc(100svh-var(--site-header-height)))]">
           <img
             src="/jewelbiz-hero-bg-1920.webp"
             alt=""
             width={1920}
-            height={825}
+            height={789}
             decoding="async"
             fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-[78%_center]"
+            className="absolute inset-0 h-full w-full object-cover object-[88%_42%]"
             aria-hidden
           />
 
-          {/* Keep type readable over the photo */}
           <div
             className="absolute inset-0 z-[1]"
             style={{
               background:
-                'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0.55) 68%, rgba(255,255,255,0.2) 100%)',
+                'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.88) 48%, rgba(255,255,255,0.45) 72%, rgba(255,255,255,0.15) 100%)',
             }}
           />
 
-          <div className="relative z-10 mx-auto flex min-h-[min(640px,calc(100svh-var(--site-header-height)))] max-w-xl flex-col justify-center px-4 py-12 text-center sm:max-w-2xl sm:px-6 sm:py-14">
+          <div className="relative z-10 mx-auto flex min-h-[min(560px,calc(100svh-var(--site-header-height)))] max-w-xl flex-col justify-center px-4 py-12 text-center sm:min-h-[min(620px,calc(100svh-var(--site-header-height)))] sm:max-w-2xl sm:px-6 sm:py-14">
             <span className="mx-auto inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/95 px-3.5 py-1.5 text-[12px] font-medium text-[#0C69B6] shadow-sm sm:text-[13px]">
               JewelBiz ERP
             </span>
@@ -88,18 +88,16 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* —— Desktop grid (≥1280px): left copy / right product, same ratio every size —— */}
-      <div
-        className="relative hidden min-h-[min(820px,calc(100svh-var(--site-header-height)))] xl:grid xl:grid-cols-2"
-      >
+      {/* —— Desktop (≥1280): keep full laptop analytics in frame —— */}
+      <div className="relative hidden min-h-[min(700px,calc(100svh-var(--site-header-height)))] xl:grid xl:grid-cols-2 2xl:min-h-[min(760px,calc(100svh-var(--site-header-height)))]">
         <img
           src="/jewelbiz-hero-bg.webp"
           alt=""
-          width={2560}
-          height={1100}
+          width={1956}
+          height={804}
           decoding="async"
           fetchPriority="high"
-          className="absolute inset-0 h-full w-full object-cover object-right"
+          className="absolute inset-0 h-full w-full object-cover object-[100%_45%]"
           aria-hidden
         />
 
@@ -167,57 +165,9 @@ function HeroSection() {
           </div>
         </div>
 
-        {/* Right half reserved for the product visual (image shows through) */}
         <div className="relative z-10" aria-hidden />
       </div>
     </section>
-  );
-}
-
-function CompanyLogosSection() {
-  const logos = [
-    '/hissaria gems private limited.webp',
-    '/Mahalaxmi.webp',
-    '/BTR.webp',
-    '/b l hissaria jewellers.webp',
-    '/Bhagwati Ayurveda & Panchakarma Research Centre.webp',
-    '/Parmeshwari Newborn & Children Hospital - Abohar.webp',
-    '/Skyy High Placement.webp',
-    '/Shiv General Store.webp',
-  ];
-
-  return (
-    <div className="relative z-20 py-12 bg-white w-full overflow-hidden">
-      <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
-        Trusted by 17,000+ founders & business owners
-      </p>
-      <div className="overflow-hidden">
-        <div className="company-marquee gap-12 items-center">
-          {logos.map((src, idx) => (
-            <div key={`jewel-logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
-            </div>
-          ))}
-          {logos.map((src, idx) => (
-            <div key={`jewel-logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .company-marquee {
-          display: inline-flex;
-          animation: marquee 22s linear infinite;
-          will-change: transform;
-        }
-      `}</style>
-    </div>
   );
 }
 
@@ -425,7 +375,7 @@ function BusinessModelSectionWithImages() {
   ];
 
   return (
-    <section className="w-full bg-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-10 lg:px-8">
       <div className="mx-auto max-w-[980px]">
         <div className="mb-10 text-center sm:mb-16">
           <span className="mb-5 inline-block rounded-full border border-slate-200 bg-[#F3F4F6] px-4 py-1.5 text-[12px] font-medium tracking-wide text-slate-700 sm:mb-6 sm:text-[13px]">

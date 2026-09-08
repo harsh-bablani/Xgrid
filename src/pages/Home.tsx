@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
+import CompanyLogosSection from '../components/CompanyLogosSection';
 
 export default function Home() {
   return (
     <div className="min-h-screen w-full">
       <HeroSection />
-      <CompanyLogosSection />
+      <CompanyLogosSection className="bg-[#F7F7F5]" />
       <WhyWeExistSection />
       <ProductsSection />
       <FoundationSection />
@@ -65,56 +66,9 @@ function HeroSection() {
   );
 }
 
-function CompanyLogosSection() {
-  const logos = [
-    '/hissaria gems private limited.webp',
-    '/Mahalaxmi.webp',
-    '/BTR.webp',
-    '/b l hissaria jewellers.webp',
-    '/Bhagwati Ayurveda & Panchakarma Research Centre.webp',
-    '/Parmeshwari Newborn & Children Hospital - Abohar.webp',
-    '/Skyy High Placement.webp',
-    '/Shiv General Store.webp',
-  ];
-
-  return (
-    <div className="relative z-20 py-12 bg-[#F7F7F5] w-full overflow-hidden">
-      <p className="text-center text-xs font-semibold text-gray-500 uppercase tracking-widest mb-8">
-        Trusted by 17,000+ founders & business owners
-      </p>
-      <div className="overflow-hidden">
-        <div className="company-marquee gap-12 items-center">
-          {logos.map((src, idx) => (
-            <div key={`logo-a-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
-            </div>
-          ))}
-          {logos.map((src, idx) => (
-            <div key={`logo-b-${idx}`} className="flex items-center justify-center shrink-0 p-3 w-40 h-20">
-              <img src={src} alt="Client logo" loading="lazy" decoding="async" width={160} height={80} className="max-w-full max-h-full object-contain mix-blend-multiply" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .company-marquee {
-          display: inline-flex;
-          animation: marquee 22s linear infinite;
-          will-change: transform;
-        }
-      `}</style>
-    </div>
-  );
-}
-
 function WhyWeExistSection() {
   return (
-    <section className="w-full bg-[#F7F7F5] pt-14 pb-16">
+    <section className="w-full bg-[#F7F7F5] pt-8 pb-16 sm:pt-10">
       <div className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-[465px_1fr] gap-10 items-start">
           <img
