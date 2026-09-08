@@ -21,17 +21,77 @@ export default function XJewelERP() {
 
 function HeroSection() {
   return (
-    <section
-      className="relative flex items-center overflow-hidden bg-[#F7F8FA]"
-      style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
-    >
-      {/* Laptop anchored to the right — blank left is for copy, not empty margin */}
-      <picture>
-        <source
-          media="(max-width: 768px)"
-          srcSet="/jewelbiz-hero-bg-1920.webp"
-          type="image/webp"
-        />
+    <section className="relative overflow-hidden bg-white">
+      {/*
+        Phone + tablet + small laptop (<1280): stacked
+        MacBook / 27–32" / 4K (≥1280): 50/50 grid — text always left half, laptop right half
+      */}
+
+      {/* —— Mobile / tablet (<1280): one hero — copy over the image —— */}
+      <div className="relative xl:hidden">
+        <div className="relative min-h-[min(640px,calc(100svh-var(--site-header-height)))] overflow-hidden">
+          <img
+            src="/jewelbiz-hero-bg-1920.webp"
+            alt=""
+            width={1920}
+            height={825}
+            decoding="async"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-[78%_center]"
+            aria-hidden
+          />
+
+          {/* Keep type readable over the photo */}
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.88) 42%, rgba(255,255,255,0.55) 68%, rgba(255,255,255,0.2) 100%)',
+            }}
+          />
+
+          <div className="relative z-10 mx-auto flex min-h-[min(640px,calc(100svh-var(--site-header-height)))] max-w-xl flex-col justify-center px-4 py-12 text-center sm:max-w-2xl sm:px-6 sm:py-14">
+            <span className="mx-auto inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/95 px-3.5 py-1.5 text-[12px] font-medium text-[#0C69B6] shadow-sm sm:text-[13px]">
+              JewelBiz ERP
+            </span>
+
+            <h1 className="mt-4 font-serif font-normal tracking-[-0.02em] text-slate-900 sm:mt-5">
+              <span className="block text-[clamp(1.5rem,4.2vw+0.6rem,2.25rem)] leading-[1.15]">
+                Jewellery ERP For Retail, Wholesale,
+              </span>
+              <span className="mt-1 block text-[clamp(1.5rem,4.2vw+0.6rem,2.25rem)] leading-[1.15] italic text-[#FF641F]">
+                And Karigar Operations.
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-4 max-w-[36rem] text-[clamp(0.875rem,0.8rem+0.4vw,1.05rem)] leading-[1.65] text-[#0C69B6] sm:mt-5">
+              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
+              manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
+              Not a generic ERP with jewellery labels.
+            </p>
+
+            <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:justify-center sm:gap-3.5">
+              <Link
+                to="/contact/"
+                className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-[#FF641F] text-[14px] font-semibold text-white transition hover:bg-[#E55A18] sm:h-[50px] sm:w-[182px]"
+              >
+                Get 14 Days Free Trial
+              </Link>
+              <a
+                href="#features"
+                className="inline-flex h-12 w-full items-center justify-center rounded-[10px] border border-slate-800 bg-white text-[14px] font-semibold text-[#0C69B6] transition hover:bg-slate-50 sm:h-[50px] sm:w-[160px]"
+              >
+                Browse all features
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* —— Desktop grid (≥1280px): left copy / right product, same ratio every size —— */}
+      <div
+        className="relative hidden min-h-[min(820px,calc(100svh-var(--site-header-height)))] xl:grid xl:grid-cols-2"
+      >
         <img
           src="/jewelbiz-hero-bg.webp"
           alt=""
@@ -42,54 +102,73 @@ function HeroSection() {
           className="absolute inset-0 h-full w-full object-cover object-right"
           aria-hidden
         />
-      </picture>
 
-      {/* Soft fill only behind the text band */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-full max-w-[640px] lg:max-w-[46%] xl:max-w-[42%]"
-        style={{
-          background:
-            'linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.72) 55%, rgba(255,255,255,0.2) 85%, rgba(255,255,255,0) 100%)',
-        }}
-      />
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-1/2"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.28) 58%, rgba(255,255,255,0) 100%)',
+          }}
+        />
 
-      {/* Text sits left on desktop so the open side isn’t empty */}
-      <div className="relative z-10 flex w-full items-center px-4 py-14 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-20 lg:py-16">
-        <div className="w-full max-w-[480px] text-center sm:max-w-[500px] lg:max-w-[520px] lg:text-left">
-          <span className="inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/90 px-4 py-1.5 text-[13px] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
-            JewelBiz ERP
-          </span>
-
-          <h1 className="mt-5 font-serif font-normal leading-[1.12] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px]">
-              Jewellery ERP For Retail, Wholesale,
+        <div
+          className="relative z-10 flex items-center"
+          style={{
+            padding:
+              'clamp(2.5rem, 5vh, 4.5rem) clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 5vh, 4.5rem) clamp(1.5rem, 4vw, 3.5rem)',
+          }}
+        >
+          <div className="w-full max-w-[min(100%,34rem)] 2xl:max-w-[min(100%,38rem)] 3xl:max-w-[min(100%,42rem)] 4xl:max-w-[min(100%,46rem)]">
+            <span className="inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/90 px-4 py-1.5 text-[clamp(0.8125rem,0.7rem+0.2vw,1.05rem)] font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm">
+              JewelBiz ERP
             </span>
-            <span className="mt-1 block text-[22px] sm:text-[28px] md:text-[34px] lg:text-[38px] italic text-[#FF641F]">
-              And Karigar Operations.
-            </span>
-          </h1>
 
-          <p className="mx-auto mt-5 max-w-[500px] text-[14px] leading-[1.65] text-[#0C69B6] md:text-[15px] lg:mx-0">
-            JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
-            manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
-            Not a generic ERP with jewellery labels.
-          </p>
+            <h1 className="mt-[clamp(1rem,1.5vw,1.75rem)] font-serif font-normal tracking-[-0.025em] text-slate-900">
+              <span
+                className="block leading-[1.1]"
+                style={{ fontSize: 'clamp(2.125rem, 1.15rem + 1.35vw, 4rem)' }}
+              >
+                Jewellery ERP For Retail, Wholesale,
+              </span>
+              <span
+                className="mt-1 block leading-[1.1] italic text-[#FF641F]"
+                style={{ fontSize: 'clamp(2.125rem, 1.15rem + 1.35vw, 4rem)' }}
+              >
+                And Karigar Operations.
+              </span>
+            </h1>
 
-          <div className="mt-7 flex flex-col items-center gap-3.5 sm:flex-row lg:justify-start">
-            <Link
-              to="/contact/"
-              className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] bg-[#FF641F] text-[14px] font-semibold text-white transition hover:bg-[#E55A18] sm:w-[182px]"
+            <p
+              className="mt-[clamp(1rem,1.4vw,1.75rem)] leading-[1.65] text-[#0C69B6]"
+              style={{
+                fontSize: 'clamp(0.9375rem, 0.82rem + 0.28vw, 1.25rem)',
+                maxWidth: '36rem',
+              }}
             >
-              Get 14 Days Free Trial
-            </Link>
-            <a
-              href="#features"
-              className="inline-flex h-[50px] w-full items-center justify-center rounded-[10px] border border-slate-800 bg-white text-[14px] font-semibold text-[#0C69B6] transition hover:bg-slate-50 sm:w-[160px]"
-            >
-              Browse all features
-            </a>
+              JewelBiz is purpose-built for Indian jewellers — fine weight, purity, Jangad,
+              manufacturing, GST e-invoicing, and multi-branch stock on a single connected system.
+              Not a generic ERP with jewellery labels.
+            </p>
+
+            <div className="mt-[clamp(1.25rem,2vw,2.25rem)] flex flex-row flex-wrap gap-3 2xl:gap-4">
+              <Link
+                to="/contact/"
+                className="inline-flex h-[clamp(2.875rem,2.4rem+0.5vw,3.75rem)] min-w-[11.5rem] items-center justify-center rounded-[10px] bg-[#FF641F] px-5 text-[clamp(0.875rem,0.8rem+0.15vw,1.05rem)] font-semibold text-white transition hover:bg-[#E55A18] 2xl:min-w-[13rem]"
+              >
+                Get 14 Days Free Trial
+              </Link>
+              <a
+                href="#features"
+                className="inline-flex h-[clamp(2.875rem,2.4rem+0.5vw,3.75rem)] min-w-[10rem] items-center justify-center rounded-[10px] border border-slate-800 bg-white px-5 text-[clamp(0.875rem,0.8rem+0.15vw,1.05rem)] font-semibold text-[#0C69B6] transition hover:bg-slate-50 2xl:min-w-[11.5rem]"
+              >
+                Browse all features
+              </a>
+            </div>
           </div>
         </div>
+
+        {/* Right half reserved for the product visual (image shows through) */}
+        <div className="relative z-10" aria-hidden />
       </div>
     </section>
   );
@@ -150,10 +229,10 @@ function ComparisonSection() {
         {/* Heading */}
         <div className="text-center mb-10">
           <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[34px] md:text-[40px] lg:text-[44px]">
+            <span className="block text-[26px] sm:text-[34px] md:text-[40px] lg:text-[44px]">
               Generic ERP versus
             </span>
-            <span className="block text-[34px] md:text-[40px] lg:text-[44px] italic text-[#FF641F]">
+            <span className="block text-[26px] sm:text-[34px] md:text-[40px] lg:text-[44px] italic text-[#FF641F]">
               JewelBiz ERP
             </span>
           </h2>
@@ -346,17 +425,17 @@ function BusinessModelSectionWithImages() {
   ];
 
   return (
-    <section className="w-full bg-white py-20 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-[980px]">
-        <div className="mb-14 text-center sm:mb-16">
-          <span className="mb-6 inline-block rounded-full border border-slate-200 bg-[#F3F4F6] px-4 py-1.5 text-[13px] font-medium tracking-wide text-slate-700">
+        <div className="mb-10 text-center sm:mb-16">
+          <span className="mb-5 inline-block rounded-full border border-slate-200 bg-[#F3F4F6] px-4 py-1.5 text-[12px] font-medium tracking-wide text-slate-700 sm:mb-6 sm:text-[13px]">
             Built for the trade
           </span>
           <h2 className="font-serif font-normal leading-[1.08] tracking-[-0.02em] text-slate-900">
-            <span className="block text-[32px] md:text-[38px] lg:text-[42px]">
+            <span className="block text-[26px] sm:text-[32px] md:text-[38px] lg:text-[42px]">
               From metal purchase to signed
             </span>
-            <span className="block text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
+            <span className="block text-[26px] sm:text-[32px] md:text-[38px] lg:text-[42px] italic text-[#FF641F]">
               GST invoice — nothing entered twice.
             </span>
           </h2>
@@ -483,16 +562,16 @@ function AccreditationSection() {
   };
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#EAECEF] pt-16 pb-20">
-      <div className="max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-16">
+    <section ref={sectionRef} className="w-full bg-[#EAECEF] pt-12 pb-14 sm:pt-16 sm:pb-20">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-10 lg:px-16">
         <span className="inline-block mb-6 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
           Accreditation
         </span>
         <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-          <span className="block text-[38px] md:text-[46px] lg:text-[54px]">
+          <span className="block text-[26px] sm:text-[34px] md:text-[46px] lg:text-[54px]">
             Track jewellery orders
           </span>
-          <span className="block text-[38px] md:text-[46px] lg:text-[54px] italic text-[#FF641F]">
+          <span className="block text-[26px] sm:text-[34px] md:text-[46px] lg:text-[54px] italic text-[#FF641F]">
             process by process.
           </span>
         </h2>
@@ -573,32 +652,32 @@ function AccreditationSection() {
 function CTASection() {
   return (
     <section
-      className="relative w-full overflow-hidden bg-[url('/herobg.webp')] bg-cover bg-center bg-no-repeat min-h-[620px] md:min-h-[720px] flex items-center justify-center"
+      className="relative flex w-full items-center justify-center overflow-hidden bg-[url('/herobg.webp')] bg-cover bg-center bg-no-repeat min-h-[480px] py-16 sm:min-h-[560px] sm:py-20 md:min-h-[720px] md:py-24"
     >
-      <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-          <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
+      <div className="relative z-10 mx-auto w-full max-w-[1180px] px-4 text-center sm:px-6 lg:px-8">
+        <h2 className="font-serif font-normal leading-[1.1] tracking-[-0.02em] text-slate-900">
+          <span className="block text-[26px] sm:text-[36px] md:text-[52px] lg:text-[62px]">
             Your business runs on precision.
           </span>
-          <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
+          <span className="block text-[26px] sm:text-[36px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
             Your software should too.
           </span>
         </h2>
 
-        <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
+        <p className="mx-auto mt-5 max-w-3xl text-[14px] leading-[1.7] text-slate-600 sm:mt-6 sm:text-[16px] md:text-[17px]">
           Book a demo today. We configure it on your stock, your rates, and your industry — so you see exactly what changes before you commit.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-3.5">
           <Link
             to="/contact/#contact-form"
-            className="w-full sm:w-[182px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-[#FF641F] text-white text-[14px] font-semibold hover:bg-[#E55A18] transition-colors"
+            className="inline-flex h-12 w-full items-center justify-center rounded-[10px] bg-[#FF641F] text-[14px] font-semibold text-white transition-colors hover:bg-[#E55A18] sm:h-[50px] sm:w-[182px]"
           >
             Get 14 Days Free Trial
           </Link>
           <Link
             to="/contact/#contact-form"
-            className="w-full sm:w-[160px] h-[50px] inline-flex items-center justify-center rounded-[10px] bg-white border border-slate-900 text-slate-900 text-[14px] font-semibold hover:bg-slate-50 transition-colors"
+            className="inline-flex h-12 w-full items-center justify-center rounded-[10px] border border-slate-900 bg-white text-[14px] font-semibold text-slate-900 transition-colors hover:bg-slate-50 sm:h-[50px] sm:w-[160px]"
           >
             Book A Free Demo
           </Link>
