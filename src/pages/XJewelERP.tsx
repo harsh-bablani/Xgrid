@@ -25,17 +25,23 @@ function HeroSection() {
       className="relative flex items-center overflow-hidden"
       style={{ minHeight: 'calc(100svh - var(--site-header-height))' }}
     >
-      {/* Full hero image as background */}
-      <img
-        src="/jewelbiz-hero-laptop.webp"
-        alt=""
-        width={1920}
-        height={1080}
-        decoding="async"
-        fetchPriority="high"
-        className="absolute inset-0 h-full w-full object-cover object-right"
-        aria-hidden
-      />
+      <picture>
+        <source
+          media="(max-width: 768px)"
+          srcSet="/jewelbiz-hero-bg-1920.webp"
+          type="image/webp"
+        />
+        <img
+          src="/jewelbiz-hero-bg.webp"
+          alt=""
+          width={2560}
+          height={1100}
+          decoding="async"
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-right"
+          aria-hidden
+        />
+      </picture>
 
       {/* Soft fade on left for mobile readability */}
       <div
