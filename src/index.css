@@ -184,3 +184,56 @@
   color: #0f172a;
   font-weight: 600;
 }
+
+/* Comparison / data tables in blog HTML */
+.blog-html-content {
+  overflow-x: auto;
+}
+.blog-html-content table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5rem 0 1.75rem;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #334155;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.blog-html-content thead {
+  background: #f1f5f9;
+}
+.blog-html-content th {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0f172a;
+  border-bottom: 1px solid #cbd5e1;
+  border-right: 1px solid #e2e8f0;
+  vertical-align: top;
+}
+.blog-html-content th:last-child,
+.blog-html-content td:last-child {
+  border-right: none;
+}
+.blog-html-content td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  border-right: 1px solid #e2e8f0;
+  vertical-align: top;
+  color: #475569;
+}
+.blog-html-content tbody tr:last-child td {
+  border-bottom: none;
+}
+.blog-html-content tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+.blog-html-content tbody tr:hover {
+  background: #eff6ff;
+}

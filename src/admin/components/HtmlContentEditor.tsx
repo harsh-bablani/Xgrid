@@ -17,6 +17,12 @@ const TAG_SNIPPETS: { label: string; snippet: string; cursorOffset?: number }[] 
   { label: 'Link', snippet: '<a href="/jewelbiz/">link text</a>', cursorOffset: 9 },
   { label: 'Image', snippet: '<img src="https://[PROJECT-REF].supabase.co/storage/v1/object/public/blog-images/blogs/example.png" alt="" />\n', cursorOffset: 9 },
   { label: 'List', snippet: '<ul>\n  <li></li>\n</ul>\n', cursorOffset: 11 },
+  {
+    label: 'Table',
+    snippet:
+      '<table>\n  <thead>\n    <tr>\n      <th>Column</th>\n      <th>Column</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td></td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>\n',
+    cursorOffset: 55,
+  },
 ];
 
 export default function HtmlContentEditor({ value, onChange }: Props) {
