@@ -3,6 +3,8 @@ const DEFAULT_LOGOS = [
   '/Mahalaxmi.webp',
   '/BTR.webp',
   '/b l hissaria jewellers.webp',
+  '/Hissaria Art Palace Private Limited.png',
+  '/Cris.png',
   '/Bhagwati Ayurveda & Panchakarma Research Centre.webp',
   '/Parmeshwari Newborn & Children Hospital - Abohar.webp',
   '/Skyy High Placement.webp',
