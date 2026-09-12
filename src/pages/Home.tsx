@@ -469,29 +469,27 @@ useLayoutEffect(() => {
 function FoundationSection() {
   const cards = [
     {
-      image: '/industry-specific-erp.webp',
+      image: '/industry-specific-erp-v2.webp',
       title: 'Industry-specific ERP',
       desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.',
-      featured: true,
     },
     {
       image: '/data-migration.webp',
       title: 'Data migration',
       desc: 'Opening stock, party ledgers, and historical records migrated before go-live.',
-      featured: true,
     },
     {
-      image: '/empowering.webp',
+      image: '/empowering-v2.webp',
       title: 'On-site training',
       desc: 'Counter staff, accountant, and manager trained by role — included in every deployment.',
     },
     {
-      image: '/always.webp',
+      image: '/always-v2.webp',
       title: 'Dedicated support',
       desc: 'Named account support over phone, email, and WhatsApp when operations cannot wait.',
     },
     {
-      image: '/stay.webp',
+      image: '/stay-v2.webp',
       title: 'Compliance updates',
       desc: 'GST, e-invoice, and HUID regulatory changes tracked and pushed into your system.',
     },
@@ -526,25 +524,15 @@ function FoundationSection() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
           {cards.map((card, i) => (
             <div key={`${card.title}-${i}`}>
-              {card.featured ? (
-                <div className="overflow-hidden rounded-[20px] bg-[#F3EFFF] p-2 sm:p-2.5">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-auto w-full rounded-[14px] object-contain"
-                  />
-                </div>
-              ) : (
+              <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-slate-100 bg-[#F7F8FC] shadow-[0_8px_24px_rgba(15,25,35,0.05)]">
                 <img
                   src={card.image}
                   alt={card.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-[280px] w-full rounded-2xl object-contain md:h-[340px]"
+                  className="h-full w-full object-cover scale-[1.08] origin-center"
                 />
-              )}
+              </div>
               <h3 className="mt-5 text-[14px] font-bold text-[#171717]">{card.title}</h3>
               <p className="mt-2 text-[12px] leading-[1.5] text-[#4B5563]">{card.desc}</p>
             </div>
