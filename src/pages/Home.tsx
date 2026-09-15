@@ -73,7 +73,7 @@ function WhyWeExistSection() {
         <div className="grid grid-cols-1 md:grid-cols-[465px_1fr] gap-10 items-start">
           <img
             src="/why-we-exist.webp"
-            alt="Healthcare team using SlateBiz"
+            alt="JewelBiz on-site training in a jewellery showroom"
             width={465}
             height={550}
             decoding="async"
