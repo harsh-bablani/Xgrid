@@ -105,10 +105,10 @@ function WhyWeExistSection() {
               <div className="relative overflow-hidden bg-[#F5F6F7] rounded-xl py-5 px-6 pl-[26px]">
                 <div className="absolute left-0 top-0 h-full w-[3px] bg-[#FF641F]" />
                 <span className="block font-sans text-[11px] font-normal tracking-[0.15em] uppercase text-[#0C69B6] mb-3">
-                  Vision
+                  Mission
                 </span>
                 <h3 className="text-[14px] font-semibold leading-[1.3] text-[#171717] mb-2">
-                  Put enterprise technology in every Indian business's hands
+                  Put enterprise technology in every Indian business&apos;s hands
                 </h3>
                 <p className="text-[12px] leading-[1.4] text-[#4B5563]">
                   We build software that is purpose-built — not a generic platform with a skin on top. JewelBiz cannot be run as a hospital system. CuraBiz cannot manage a karigar workshop. That is not a limitation. That is the point.
@@ -118,13 +118,13 @@ function WhyWeExistSection() {
               <div className="relative overflow-hidden bg-[#F5F6F7] rounded-xl py-5 px-6 pl-[26px]">
                 <div className="absolute left-0 top-0 h-full w-[3px] bg-[#FF641F]" />
                 <span className="block font-sans text-[11px] font-normal tracking-[0.15em] uppercase text-[#0C69B6] mb-3">
-                  Mission
+                  Vision
                 </span>
                 <h3 className="text-[14px] font-semibold leading-[1.3] text-[#171717] mb-2">
-                  Put enterprise technology in every Indian business's hands
+                  A future where no Indian SMB runs on notebooks and guesswork
                 </h3>
                 <p className="text-[12px] leading-[1.4] text-[#4B5563]">
-                  We build software that is purpose-built — not a generic platform with a skin on top. JewelBiz cannot be run as a hospital system. CuraBiz cannot manage a karigar workshop. That is not a limitation. That is the point.
+                  We envision an India where the corner jeweller has the same stock precision as a large chain, and the independent hospital has the same patient data integrity as a corporate group — starting from the day they go live, in 24 hours.
                 </p>
               </div>
             </div>

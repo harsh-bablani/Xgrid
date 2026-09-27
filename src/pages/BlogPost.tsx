@@ -149,7 +149,7 @@ export default function BlogPost() {
           </h1>
 
           {post.description ? (
-            <p className="mt-4 text-[15px] sm:text-[16px] leading-[1.7] text-slate-600 max-w-[640px]">
+            <p className="mt-4 text-[15px] sm:text-[16px] leading-[1.7] text-slate-600">
               {post.description}
             </p>
           ) : null}
