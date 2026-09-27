@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { asset } from '../lib/asset';
 
 export default function XCuraHMS() {
   return (
@@ -46,83 +47,166 @@ export default function XCuraHMS() {
   );
 }
 
+const curaHeroDemoHref =
+  'https://wa.me/919257373668?text=Hi%20SlateBiz%2C%20I%27d%20like%20to%20watch%20a%20CuraBiz%20demo.';
+
+const btnMobile = 'h-12 w-full px-5 text-[14px] sm:h-[50px] sm:w-auto sm:min-w-[160px]';
+const btnDesktop =
+  'h-[clamp(2.875rem,2.4rem+0.5vw,3.75rem)] px-5 text-[clamp(0.875rem,0.8rem+0.15vw,1.05rem)]';
+
+function HeroCopy({ align }: Readonly<{ align: 'center' | 'left' }>) {
+  const centered = align === 'center';
+  return (
+    <>
+      <span
+        className={`inline-flex items-center rounded-full border border-[#0C69B6]/40 bg-white/90 px-4 py-1.5 font-medium text-[#0C69B6] shadow-sm backdrop-blur-sm ${
+          centered ? 'mx-auto text-[12px] sm:text-[13px]' : 'text-[clamp(0.8125rem,0.7rem+0.2vw,1.05rem)]'
+        }`}
+      >
+        CuraBiz HIMS
+      </span>
+
+      <h1
+        className={`font-serif font-normal text-slate-900 ${
+          centered ? 'mt-4 tracking-[-0.02em] sm:mt-5' : 'mt-[clamp(1rem,1.5vw,1.75rem)] tracking-[-0.025em]'
+        }`}
+      >
+        <span
+          className={`block ${centered ? 'text-[clamp(1.5rem,4.2vw+0.6rem,2.25rem)] leading-[1.15]' : 'leading-[1.1]'}`}
+          style={centered ? undefined : { fontSize: 'clamp(2.125rem, 1.15rem + 1.35vw, 4rem)' }}
+        >
+          HIMS for clinics, nursing homes, and hospitals.
+        </span>
+        <span
+          className={`mt-1 block italic text-[#0C69B6] ${
+            centered ? 'text-[clamp(1.5rem,4.2vw+0.6rem,2.25rem)] leading-[1.15]' : 'leading-[1.1]'
+          }`}
+          style={centered ? undefined : { fontSize: 'clamp(2.125rem, 1.15rem + 1.35vw, 4rem)' }}
+        >
+          One patient journey. Registration to discharge.
+        </span>
+      </h1>
+
+      <p
+        className={`leading-[1.65] text-slate-600 ${
+          centered
+            ? 'mx-auto mt-4 max-w-[36rem] text-[clamp(0.875rem,0.8rem+0.4vw,1.05rem)] sm:mt-5'
+            : 'mt-[clamp(1rem,1.4vw,1.75rem)] max-w-[36rem] text-[clamp(0.9375rem,0.82rem+0.28vw,1.25rem)]'
+        }`}
+      >
+        CuraBiz connects OPD, IPD, e-prescription, pharmacy, lab, and billing on a single hospital record —
+        built for Indian care teams, not a generic ERP with medical labels.
+      </p>
+
+      <div className={`mt-5 flex flex-wrap gap-2 ${centered ? 'justify-center' : ''}`}>
+        {curaBizFacilityTypes.map((label) => (
+          <span
+            key={label}
+            className="rounded-full border border-[#0C69B6]/20 bg-white/85 px-3 py-1 text-xs font-medium text-slate-700 backdrop-blur-sm"
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+
+      <div
+        className={
+          centered
+            ? 'mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3.5'
+            : 'mt-[clamp(1.25rem,2vw,2.25rem)] flex flex-row flex-wrap gap-3 2xl:gap-4'
+        }
+      >
+        <Link
+          to="/contact"
+          className={`inline-flex items-center justify-center rounded-[10px] bg-[#0C69B6] font-semibold text-white transition hover:bg-[#095a9d] ${
+            centered ? btnMobile : `${btnDesktop} min-w-[11.5rem] 2xl:min-w-[13rem]`
+          }`}
+        >
+          Book a free demo
+        </Link>
+        <a
+          href="#features"
+          className={`inline-flex items-center justify-center rounded-[10px] border border-slate-800 bg-white font-semibold text-[#0C69B6] transition hover:bg-slate-50 ${
+            centered ? btnMobile : `${btnDesktop} min-w-[10rem] 2xl:min-w-[11.5rem]`
+          }`}
+        >
+          Browse all features
+        </a>
+        <a
+          href={curaHeroDemoHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center justify-center rounded-[10px] border-[1.5px] border-[#0C69B6] bg-blue-50 font-semibold text-[#0C69B6] transition hover:bg-[#0C69B6] hover:text-white ${
+            centered ? btnMobile : `${btnDesktop} min-w-[10rem] 2xl:min-w-[11.5rem]`
+          }`}
+        >
+          Watch Free demo
+        </a>
+      </div>
+    </>
+  );
+}
+
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-gray-100 bg-white py-16 lg:py-20">
-      <div
-        className="pointer-events-none absolute inset-y-0 right-0 hidden w-[50%] bg-blue-50/90 lg:block"
-        style={{ clipPath: 'polygon(14% 0, 100% 0, 100% 100%, 0% 100%)' }}
-      />
-
-      <div className="relative mx-auto grid max-w-[1120px] items-center gap-12 px-4 sm:px-6 lg:px-8 lg:grid-cols-2">
-        <div>
-          <div className="mb-4 flex items-center gap-2.5">
-            <span className="h-0.5 w-7 rounded bg-[#0C69B6]" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0C69B6]">
-              CuraBiz HIMS
-            </span>
-          </div>
-
-          <h1 className="font-serif font-normal text-[clamp(2rem,4.5vw,3.2rem)] leading-[1.12] tracking-[-0.02em] text-slate-900">
-            HIMS for clinics, nursing homes, and hospitals.
-            <em className="mt-2 block font-serif italic text-[#0C69B6]">
-              One patient journey. Registration to discharge.
-            </em>
-          </h1>
-
-          <p className="mt-5 max-w-[520px] text-[15px] md:text-[17px] leading-relaxed text-slate-600">
-            CuraBiz connects OPD, IPD, e-prescription, pharmacy, lab, and billing on a single hospital record —
-            built for Indian care teams, not a generic ERP with medical labels.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {curaBizFacilityTypes.map((label) => (
-              <span
-                key={label}
-                className="rounded-full border border-[#0C69B6]/20 bg-blue-50 px-3 py-1 text-xs font-medium text-slate-700"
-              >
-                {label}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              to="/contact"
-              className="rounded-[10px] bg-[#0C69B6] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#095a9d]"
-            >
-              Book a free demo
-            </Link>
-            <a
-              href="#features"
-              className="rounded-[10px] border-[1.5px] border-gray-200 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-400"
-            >
-              Browse all features
-            </a>
-            <a
-              href="https://wa.me/919257373668?text=Hi%20SlateBiz%2C%20I%27d%20like%20to%20watch%20a%20CuraBiz%20demo."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-[10px] border-[1.5px] border-[#0C69B6] bg-blue-50 px-5 py-3 text-sm font-semibold text-[#0C69B6] transition hover:bg-[#0C69B6] hover:text-white"
-            >
-              Watch Free demo
-            </a>
+    <section className="relative overflow-hidden border-b border-gray-100 bg-white">
+      {/* Mobile / tablet (<1280): copy over image */}
+      <div className="relative xl:hidden">
+        <div className="relative min-h-[min(620px,calc(100svh-var(--site-header-height)))] overflow-hidden sm:min-h-[min(680px,calc(100svh-var(--site-header-height)))]">
+          <img
+            src={asset('/curabiz-hero-bg-mobile.webp')}
+            alt=""
+            width={1280}
+            height={720}
+            decoding="async"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover object-[72%_50%]"
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.88) 52%, rgba(255,255,255,0.5) 76%, rgba(255,255,255,0.2) 100%)',
+            }}
+          />
+          <div className="relative z-10 mx-auto flex min-h-[min(620px,calc(100svh-var(--site-header-height)))] max-w-xl flex-col justify-center px-4 py-12 text-center sm:min-h-[min(680px,calc(100svh-var(--site-header-height)))] sm:max-w-2xl sm:px-6 sm:py-14">
+            <HeroCopy align="center" />
           </div>
         </div>
+      </div>
 
-        <div className="relative">
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_24px_60px_rgba(15,25,35,0.1)]">
-            <img
-              src="/curabiz-dashboard.webp"
-              alt="CuraBiz hospital command center dashboard"
-              width={1400}
-              height={900}
-              decoding="async"
-              fetchPriority="high"
-              className="h-auto w-full object-cover"
-            />
+      {/* Desktop (≥1280): text left, laptop right */}
+      <div className="relative hidden min-h-[min(700px,calc(100svh-var(--site-header-height)))] xl:grid xl:grid-cols-2 2xl:min-h-[min(760px,calc(100svh-var(--site-header-height)))]">
+        <img
+          src={asset('/curabiz-hero-wide.webp')}
+          alt=""
+          width={2305}
+          height={941}
+          decoding="async"
+          fetchPriority="high"
+          className="absolute inset-0 h-full w-full object-cover object-[100%_50%]"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 z-[1] w-1/2"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.35) 58%, rgba(255,255,255,0) 100%)',
+          }}
+        />
+        <div
+          className="relative z-10 flex items-center"
+          style={{
+            padding:
+              'clamp(2.5rem, 5vh, 4.5rem) clamp(1.25rem, 2.5vw, 2rem) clamp(2.5rem, 5vh, 4.5rem) clamp(1.5rem, 4vw, 3.5rem)',
+          }}
+        >
+          <div className="w-full max-w-[min(100%,34rem)] 2xl:max-w-[min(100%,38rem)] 3xl:max-w-[min(100%,42rem)] 4xl:max-w-[min(100%,46rem)]">
+            <HeroCopy align="left" />
           </div>
         </div>
+        <div className="relative z-10" aria-hidden />
       </div>
     </section>
   );
