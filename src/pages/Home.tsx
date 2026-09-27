@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CompanyLogosSection from '../components/CompanyLogosSection';
 import { asset } from '../lib/asset';
@@ -207,11 +207,6 @@ function ProductsSection() {
 
   type Product = (typeof products)[number];
 
-  const scrollViewportRef = useRef<HTMLDivElement>(null);
-  const cardViewportRef = useRef<HTMLDivElement>(null);
-  const productsHeaderRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
   const Card = ({
     product,
     className,
@@ -282,140 +277,10 @@ function ProductsSection() {
     </div>
   );
 
-useLayoutEffect(() => {
-  const viewport = scrollViewportRef.current;
-  const header = productsHeaderRef.current;
-  const cardViewport = cardViewportRef.current;
-
-  if (!viewport || !header || !cardViewport) return;
-
-  const cards = cardRefs.current.filter(
-    Boolean
-  ) as HTMLDivElement[];
-
-  if (cards.length !== 3) return;
-
-  const getHeaderOffset = () => {
-    const siteHeader = document.querySelector('header');
-    return siteHeader?.offsetHeight ?? 96;
-  };
-
-  let ctx: { revert: () => void } | undefined;
-  let cancelled = false;
-
-  void (async () => {
-    const gsap = (await import('gsap')).default;
-    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-    gsap.registerPlugin(ScrollTrigger);
-    if (cancelled) return;
-
-    ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(min-width: 768px)', () => {
-        gsap.set(cards[0], {
-          yPercent: 0,
-          opacity: 1,
-          scale: 1,
-          zIndex: 10,
-        });
-
-        gsap.set(cards[1], {
-          yPercent: 105,
-          opacity: 0.85,
-          scale: 0.985,
-          zIndex: 20,
-        });
-
-        gsap.set(cards[2], {
-          yPercent: 105,
-          opacity: 0.85,
-          scale: 0.985,
-          zIndex: 30,
-        });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: viewport,
-            start: () => `top top+=${getHeaderOffset()}`,
-            end: () => `+=${window.innerHeight * 3.5}`,
-            pin: true,
-            pinSpacing: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        tl.to(
-          header,
-          {
-            yPercent: -120,
-            opacity: 0,
-            height: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
-            marginBottom: 0,
-            overflow: 'hidden',
-            duration: 0.8,
-            ease: 'power2.inOut',
-          },
-          0
-        );
-
-        tl.to(
-          cardViewport,
-          {
-            height: () => `calc(100svh - ${getHeaderOffset()}px)`,
-            ease: 'power2.inOut',
-            duration: 1,
-          },
-          0.9
-        );
-
-        tl.to(
-          cards[1],
-          {
-            yPercent: 0,
-            opacity: 1,
-            scale: 1,
-            ease: 'power2.out',
-            duration: 1.2,
-          },
-          2.0
-        );
-
-        tl.to(
-          cards[2],
-          {
-            yPercent: 0,
-            opacity: 1,
-            scale: 1,
-            ease: 'power2.out',
-            duration: 1.2,
-          },
-          3.25
-        );
-      });
-    }, viewport);
-  })();
-
-  return () => {
-    cancelled = true;
-    ctx?.revert();
-  };
-}, []);
-
   return (
     <section className="w-full bg-[#EBF0F1]">
-      <div
-        ref={scrollViewportRef}
-        className="products-scroll-viewport w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center md:min-h-[calc(100svh-var(--site-header-height))]"
-      >
-        <div
-          ref={productsHeaderRef}
-          className="products-static-header shrink-0 pt-10 md:pt-14 text-center mb-6 md:mb-8"
-        >
+      <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 pb-12 md:pb-20">
+        <div className="pt-10 md:pt-14 text-center mb-6 md:mb-10">
           <span className="inline-block mb-5 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
             Why we exist
           </span>
@@ -436,30 +301,15 @@ useLayoutEffect(() => {
           </p>
         </div>
 
-        {/* Mobile: stacked cards */}
-        <div className="md:hidden space-y-4 pb-10">
-          {products.map((product) => (
-            <Card key={product.id} product={product} />
-          ))}
-        </div>
-
-        {/* Desktop: GSAP pinned stack */}
-        <div
-          ref={cardViewportRef}
-          className="products-card-viewport relative w-full overflow-hidden h-[480px] shrink-0 hidden md:block"
-        >
+        {/* Cards stack natively with position: sticky (md+); plain list on mobile where cards are taller than the viewport */}
+        <div className="space-y-4 md:space-y-10">
           {products.map((product, index) => (
             <div
               key={product.id}
-              ref={(el) => {
-                cardRefs.current[index] = el;
-              }}
-              className="products-card absolute inset-0 w-full h-full will-change-transform overflow-hidden"
-              style={{
-                zIndex: index + 1,
-              }}
+              className="md:sticky"
+              style={{ top: `calc(var(--site-header-height) + ${16 + index * 18}px)`, zIndex: index + 1 }}
             >
-              <Card product={product} />
+              <Card product={product} className="md:shadow-[0_-10px_30px_rgba(15,25,35,0.08)]" />
             </div>
           ))}
         </div>
@@ -471,7 +321,7 @@ useLayoutEffect(() => {
 function FoundationSection() {
   const cards = [
     {
-      image: asset('/industry-specific-erp-v2.webp'),
+      image: asset('/industry-specific-erp.webp'),
       title: 'Industry-specific ERP',
       desc: 'Purpose-built software for jewellery, healthcare, and specialist retail.',
     },
@@ -481,17 +331,17 @@ function FoundationSection() {
       desc: 'Opening stock, party ledgers, and historical records migrated before go-live.',
     },
     {
-      image: asset('/empowering-v2.webp'),
+      image: asset('/empowering.webp'),
       title: 'On-site training',
       desc: 'Counter staff, accountant, and manager trained by role — included in every deployment.',
     },
     {
-      image: asset('/always-v2.webp'),
+      image: asset('/always.webp'),
       title: 'Dedicated support',
       desc: 'Named account support over phone, email, and WhatsApp when operations cannot wait.',
     },
     {
-      image: asset('/stay-v2.webp'),
+      image: asset('/stay.webp'),
       title: 'Compliance updates',
       desc: 'GST, e-invoice, and HUID regulatory changes tracked and pushed into your system.',
     },
@@ -526,13 +376,13 @@ function FoundationSection() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8">
           {cards.map((card, i) => (
             <div key={`${card.title}-${i}`}>
-              <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-slate-100 bg-[#F7F8FC] shadow-[0_8px_24px_rgba(15,25,35,0.05)]">
+              <div className="flex aspect-[16/9] items-center justify-center">
                 <img
                   src={card.image}
                   alt={card.title}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover scale-[1.08] origin-center"
+                  className="max-h-full max-w-full rounded-2xl object-contain"
                 />
               </div>
               <h3 className="mt-5 text-[14px] font-bold text-[#171717]">{card.title}</h3>

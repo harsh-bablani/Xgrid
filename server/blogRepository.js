@@ -4,6 +4,7 @@ import {
   cleanBlogSlug,
   resolvePublishedSlug,
   normalizeBlogContentLinks,
+  findBrokenBlogLinks,
   upsertRedirect,
   ensureDefaultBlogRedirects,
 } from './blogLinks.js';
@@ -195,7 +196,21 @@ export async function deleteRedirectsForSlug(slug) {
 
 export async function createPost(input) {
   const slug = await ensureUniqueSlug(input.slug);
-  const content = await normalizeBlogContentLinks(input.content);
+  const content = normalizeBlogContentLinks(input.content);
+
+  if (input.published) {
+    const broken = await findBrokenBlogLinks(content, { allowSlug: slug });
+    if (broken.length) {
+      const err = new Error(
+        `Broken blog links — use the exact published URL slug for each link: ${broken
+          .map((s) => `/blog/${s}`)
+          .join(', ')}`
+      );
+      err.status = 400;
+      throw err;
+    }
+  }
+
   const post = await prisma.blogPost.create({
     data: {
       id: crypto.randomUUID(),
@@ -220,7 +235,20 @@ export async function updatePost(id, input, existing) {
   let publishedAt = existing.published_at ? new Date(existing.published_at) : null;
   if (input.published && !publishedAt) publishedAt = new Date();
 
-  const content = await normalizeBlogContentLinks(input.content);
+  const content = normalizeBlogContentLinks(input.content);
+
+  if (input.published) {
+    const broken = await findBrokenBlogLinks(content, { allowSlug: slug });
+    if (broken.length) {
+      const err = new Error(
+        `Broken blog links — use the exact published URL slug for each link: ${broken
+          .map((s) => `/blog/${s}`)
+          .join(', ')}`
+      );
+      err.status = 400;
+      throw err;
+    }
+  }
 
   const post = await prisma.blogPost.update({
     where: { id },

@@ -1,26 +1,6 @@
 import crypto from 'crypto';
 import { prisma } from './prisma.js';
 
-/** Known short SEO slugs → real published slugs (permanent fallback). */
-export const BLOG_SLUG_ALIASES = {
-  'gold-making-charges':
-    'jewellery-billing-software-what-the-counter-actually-needs-to-run-fast-and-stay',
-  'gold-making-charges-explained':
-    'jewellery-billing-software-what-the-counter-actually-needs-to-run-fast-and-stay',
-  'jewellery-billing-software-counter-fast-accurate':
-    'jewellery-billing-software-what-the-counter-actually-needs-to-run-fast-and-stay',
-  'jewellery-management-system-day-inside':
-    'a-day-inside-a-jewellery-management-system-and-what-happens-when-one-piece-is-mi',
-  'jewellery-erp-software-enterprise-level':
-    'jewellery-erp-software-what-enterprise-level-actually-means-beyond-billing',
-  'jewellery-accounting-software-ledger-gap':
-    'jewellery-accounting-software-why-the-ledger-never-quite-adds-up-without-one',
-  'erp-for-jewellery-what-a-complete-system-needs':
-    'erp-for-jewellery-what-a-complete-system-actually-needs-to-cover',
-  'gst-rate-gold-jewellery-2026':
-    'gst-rate-on-gold-jewellery-the-complete-breakdown-for-2026',
-};
-
 export function cleanBlogSlug(slug) {
   return String(slug || '')
     .trim()
@@ -31,23 +11,10 @@ export function cleanBlogSlug(slug) {
     .split(/[?#]/)[0];
 }
 
-function tokenScore(query, candidate) {
-  if (!query || !candidate) return 0;
-  if (candidate === query) return 1000;
-  if (candidate.startsWith(`${query}-`)) return 800;
-  if (candidate.includes(query)) return 600;
-
-  const qTokens = query.split('-').filter((t) => t.length > 2);
-  if (!qTokens.length) return 0;
-  const hits = qTokens.filter((t) => candidate.includes(t)).length;
-  const ratio = hits / qTokens.length;
-  if (ratio < 0.7) return 0;
-  return Math.round(ratio * 200) + hits * 10;
-}
-
 /**
- * Resolve a requested slug to a published post slug.
- * Order: exact → alias map → redirect table → previous_slugs → fuzzy match.
+ * Resolve a requested slug to a published post.
+ * Exact match only, plus intentional redirects / previous slugs (from renames).
+ * No fuzzy guessing.
  */
 export async function resolvePublishedSlug(rawSlug) {
   const slug = cleanBlogSlug(rawSlug);
@@ -58,15 +25,6 @@ export async function resolvePublishedSlug(rawSlug) {
     select: { slug: true },
   });
   if (exact) return { slug: exact.slug, via: 'exact' };
-
-  const alias = BLOG_SLUG_ALIASES[slug];
-  if (alias) {
-    const aliased = await prisma.blogPost.findFirst({
-      where: { slug: alias, published: true },
-      select: { slug: true },
-    });
-    if (aliased) return { slug: aliased.slug, via: 'alias' };
-  }
 
   const redirect = await prisma.blogRedirect.findUnique({ where: { fromSlug: slug } });
   if (redirect?.toSlug) {
@@ -85,19 +43,6 @@ export async function resolvePublishedSlug(rawSlug) {
     select: { slug: true },
   });
   if (viaPrevious) return { slug: viaPrevious.slug, via: 'previous' };
-
-  const published = await prisma.blogPost.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
-  const scored = published
-    .map((p) => ({ slug: p.slug, score: tokenScore(slug, p.slug) }))
-    .filter((x) => x.score >= 150)
-    .sort((a, b) => b.score - a.score);
-
-  if (scored[0] && (!scored[1] || scored[0].score > scored[1].score)) {
-    return { slug: scored[0].slug, via: 'fuzzy' };
-  }
 
   return null;
 }
@@ -126,93 +71,70 @@ export async function upsertRedirect(fromSlug, toSlug) {
   );
 }
 
-/** Ensure built-in aliases exist as DB redirects (safe to call often). */
+/** No-op kept for callers; we no longer seed guessed aliases. */
 export async function ensureDefaultBlogRedirects() {
-  for (const [from, to] of Object.entries(BLOG_SLUG_ALIASES)) {
-    const exists = await prisma.blogPost.findFirst({
-      where: { slug: to, published: true },
-      select: { id: true },
-    });
-    if (exists) await upsertRedirect(from, to);
-  }
+  return;
 }
 
-function rewriteHtmlBlogLinks(html, slugByRequest) {
-  return html.replace(
-    /href=(["'])(\/blog\/[^"'#?\s]+)\1/gi,
-    (full, quote, path) => {
-      const requested = cleanBlogSlug(path);
-      if (!requested) return full;
-      const resolved = slugByRequest.get(requested) || requested;
-      return `href=${quote}/blog/${resolved}${quote}`;
+/** Collect unique /blog/{slug} targets from HTML or structured content. */
+export function extractBlogSlugsFromContent(content) {
+  const found = new Set();
+  const scan = (html) => {
+    for (const m of String(html || '').matchAll(/\/blog\/([a-z0-9-]+)\/?/gi)) {
+      const slug = cleanBlogSlug(m[1]);
+      if (slug) found.add(slug);
     }
-  );
+  };
+
+  if (typeof content === 'string') scan(content);
+  else if (Array.isArray(content)) {
+    for (const block of content) {
+      if (block && typeof block.html === 'string') scan(block.html);
+      else scan(JSON.stringify(block));
+    }
+  } else if (content && typeof content === 'object') {
+    scan(JSON.stringify(content));
+  }
+
+  return [...found];
 }
 
 /**
- * Rewrite /blog/... links in post content to real published slugs,
- * and auto-create redirects for any short forms found.
+ * Returns internal /blog links that do not resolve to a published post
+ * (exact slug, explicit redirect, or previous slug).
  */
-export async function normalizeBlogContentLinks(content) {
-  const published = await prisma.blogPost.findMany({
-    where: { published: true },
-    select: { slug: true },
-  });
-  const publishedSlugs = published.map((p) => p.slug);
+export async function findBrokenBlogLinks(content, { allowSlug } = {}) {
+  const requested = extractBlogSlugsFromContent(content);
+  const broken = [];
 
-  const resolveLocal = (requested) => {
-    if (publishedSlugs.includes(requested)) return requested;
-    if (BLOG_SLUG_ALIASES[requested] && publishedSlugs.includes(BLOG_SLUG_ALIASES[requested])) {
-      return BLOG_SLUG_ALIASES[requested];
-    }
-    const scored = publishedSlugs
-      .map((s) => ({ slug: s, score: tokenScore(requested, s) }))
-      .filter((x) => x.score >= 150)
-      .sort((a, b) => b.score - a.score);
-    if (scored[0] && (!scored[1] || scored[0].score > scored[1].score)) {
-      return scored[0].slug;
-    }
-    return requested;
-  };
-
-  const slugByRequest = new Map();
-  const collectFromHtml = (html) => {
-    const matches = html.matchAll(/\/blog\/([a-z0-9-]+)\/?/gi);
-    for (const m of matches) {
-      const requested = cleanBlogSlug(m[1]);
-      if (!requested || slugByRequest.has(requested)) continue;
-      const resolved = resolveLocal(requested);
-      slugByRequest.set(requested, resolved);
-    }
-  };
-
-  if (typeof content === 'string') collectFromHtml(content);
-  else if (Array.isArray(content)) {
-    for (const block of content) {
-      if (block && typeof block.html === 'string') collectFromHtml(block.html);
-      else collectFromHtml(JSON.stringify(block));
-    }
-  } else if (content && typeof content === 'object') {
-    collectFromHtml(JSON.stringify(content));
+  for (const slug of requested) {
+    if (allowSlug && slug === cleanBlogSlug(allowSlug)) continue;
+    const resolved = await resolvePublishedSlug(slug);
+    if (!resolved) broken.push(slug);
   }
 
-  for (const [from, to] of slugByRequest.entries()) {
-    if (from !== to) await upsertRedirect(from, to);
-  }
+  return broken;
+}
 
-  const rewrite = (html) => rewriteHtmlBlogLinks(html, slugByRequest);
+/** Strip trailing slashes on /blog/... hrefs only — never rewrite to another post. */
+export function normalizeBlogContentLinks(content) {
+  const rewriteHtml = (html) =>
+    String(html || '').replace(
+      /href=(["'])(\/blog\/[a-z0-9-]+)\/+(["'#?\s>])/gi,
+      'href=$1$2$3'
+    );
 
-  if (typeof content === 'string') return rewrite(content);
+  if (typeof content === 'string') return rewriteHtml(content);
   if (Array.isArray(content)) {
     return content.map((block) => {
       if (block && typeof block === 'object' && typeof block.html === 'string') {
-        return { ...block, html: rewrite(block.html) };
+        return { ...block, html: rewriteHtml(block.html) };
       }
       return block;
     });
   }
   if (content && typeof content === 'object') {
-    return JSON.parse(rewrite(JSON.stringify(content)));
+    return JSON.parse(rewriteHtml(JSON.stringify(content)));
   }
   return content;
 }

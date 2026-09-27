@@ -86,6 +86,13 @@ export default function HtmlContentEditor({ value, onChange }: Props) {
         Write only the <strong className="text-slate-800">article body</strong> here — the content that appears below
         the big hero image on the live post.
         <span className="block mt-2">
+          Internal blog links must use the <strong className="text-slate-800">exact published URL slug</strong>
+          {' '}(copy from that post&apos;s URL slug field), e.g.{' '}
+          <code className="text-[11px] bg-white px-1 rounded">&lt;a href=&quot;/blog/exact-post-slug&quot;&gt;</code>
+          — no trailing slash, no shortened SEO slug. Publishing is blocked if a /blog/ link does not match a
+          real published post.
+        </span>
+        <span className="block mt-2">
           For images inside the article, use <strong className="text-slate-800">Upload image</strong> below — the
           image goes to Supabase and an <code className="text-[11px] bg-white px-1 rounded">&lt;img&gt;</code> tag is
           inserted at your cursor. You can also paste any public URL into an existing <code className="text-[11px] bg-white px-1 rounded">&lt;img src=&quot;...&quot;&gt;</code> tag.
