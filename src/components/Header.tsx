@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
+import { asset } from '../lib/asset';
+
+const productLogos = [
+  { path: '/jewelbiz', src: '/jewelbiz-logo.png', alt: 'JewelBiz ERP', height: 190 },
+  { path: '/curabiz', src: '/curabiz-logo.png', alt: 'CuraBiz HIMS', height: 186 },
+];
 
 const productLinks = [
   { to: '/jewelbiz/', title: 'JewelBiz', subtitle: 'Jewellery ERP' },
@@ -14,6 +20,8 @@ export default function Header() {
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const isBlueHeader = false;
+  const { pathname } = useLocation();
+  const productLogo = productLogos.find((logo) => pathname.startsWith(logo.path));
 
   const headerBgClass = isBlueHeader
     ? "bg-[#166C96] border-none shadow-none"
@@ -26,16 +34,28 @@ export default function Header() {
 
           {/* Logo - Clickable and redirects to home */}
           <Link to="/" className="flex items-center">
-            <img
-              src={isBlueHeader ? "/Logo-White.webp" : "/logo.webp"}
-              alt="Slatebiz Logo"
-              width={180}
-              height={50}
-              decoding="async"
-              fetchPriority="high"
-              className={`${isBlueHeader ? 'h-[32px] md:h-[50px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
-              style={{ display: "block" }}
-            />
+            {productLogo ? (
+              <img
+                src={asset(productLogo.src)}
+                alt={productLogo.alt}
+                width={640}
+                height={productLogo.height}
+                decoding="async"
+                fetchPriority="high"
+                className="block h-[38px] w-auto md:h-[52px]"
+              />
+            ) : (
+              <img
+                src={isBlueHeader ? "/Logo-White.webp" : "/logo.webp"}
+                alt="Slatebiz Logo"
+                width={180}
+                height={50}
+                decoding="async"
+                fetchPriority="high"
+                className={`${isBlueHeader ? 'h-[32px] md:h-[50px]' : 'h-[32px] md:h-[50px]'} w-auto ${isBlueHeader ? "" : "mix-blend-multiply"}`}
+                style={{ display: "block" }}
+              />
+            )}
           </Link>
 
           {/* Right-aligned Navigation Items (Desktop) */}
