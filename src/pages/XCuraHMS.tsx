@@ -270,7 +270,7 @@ function CareDeliverySection() {
 function ComparisonSection() {
   const rows = [
     ['Patient file speed', 'Slow pulls; hangs on large databases', 'Seconds across 70–80k+ records'],
-    ['UHID at reception', 'Thick paper register each day', 'Daily UHID auto-reset in software'],
+    ['UHID at reception', 'Thick paper register each day', 'Daily OPD auto-reset in software'],
     ['Doctor follow-ups', 'Retype prescriptions every visit', 'Favourites + copy previous Rx'],
     ['Paediatrics', 'Photocopied growth charts', '0–2yr charts & immunisation log'],
     ['Pharmacy linkage', 'Handwritten Rx re-entered at counter', 'Rx → stock → bill in one loop'],
