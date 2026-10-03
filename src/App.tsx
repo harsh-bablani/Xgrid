@@ -20,6 +20,19 @@ const Careers = lazy(() => import('./pages/Careers'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
+const productSite = (() => {
+  const host = typeof window === 'undefined' ? '' : window.location.hostname.replace(/^www\./, '');
+  if (host === 'jewelbiz.in' || import.meta.env.VITE_SITE === 'jewelbiz') return 'jewelbiz';
+  if (host === 'curabiz.in' || import.meta.env.VITE_SITE === 'curabiz') return 'curabiz';
+  return null;
+})();
+
+function SiteHome() {
+  if (productSite === 'jewelbiz') return <XJewelERP />;
+  if (productSite === 'curabiz') return <XCuraHMS />;
+  return <Home />;
+}
+
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
 const AdminLogin = lazy(() => import('./admin/AdminLogin'));
 const AdminDashboard = lazy(() => import('./admin/AdminDashboard'));
@@ -40,7 +53,7 @@ function MainSite() {
       <main className="flex-grow safe-pb-fab md:pb-0">
         <Suspense fallback={<PageFallback />}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<SiteHome />} />
             <Route path="/products" element={<Products />} />
             <Route path="/services" element={<Services />} />
             <Route path="/about-us/" element={<About />} />
