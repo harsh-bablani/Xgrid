@@ -47,6 +47,32 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/jewelbiz/:path*",
+      "has": [{ "type": "host", "value": "(www\\.)?slatebiz\\.(com|in)" }],
+      "destination": "https://www.jewelbiz.in/",
+      "permanent": true
+    },
+    {
+      "source": "/curabiz/:path*",
+      "has": [{ "type": "host", "value": "(www\\.)?slatebiz\\.(com|in)" }],
+      "destination": "https://www.curabiz.in/",
+      "permanent": true
+    },
+    {
+      "source": "/jewelbiz/:path*",
+      "has": [{ "type": "host", "value": "(www\\.)?jewelbiz\\.in" }],
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/curabiz/:path*",
+      "has": [{ "type": "host", "value": "(www\\.)?curabiz\\.in" }],
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!assets/|api/).*)",

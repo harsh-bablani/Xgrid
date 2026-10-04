@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { asset } from '../lib/asset';
+import { productSite } from '../lib/site';
 
 const productLogos = [
-  { path: '/jewelbiz', src: '/jewelbiz-logo.png', alt: 'JewelBiz ERP', height: 190 },
-  { path: '/curabiz', src: '/curabiz-logo.png', alt: 'CuraBiz HIMS', height: 186 },
+  { site: 'jewelbiz', path: '/jewelbiz', src: '/jewelbiz-logo.png', alt: 'JewelBiz ERP', height: 190 },
+  { site: 'curabiz', path: '/curabiz', src: '/curabiz-logo.png', alt: 'CuraBiz HIMS', height: 186 },
 ];
 
 const productLinks = [
@@ -21,7 +22,9 @@ export default function Header() {
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const isBlueHeader = false;
   const { pathname } = useLocation();
-  const productLogo = productLogos.find((logo) => pathname.startsWith(logo.path));
+  const productLogo = productSite
+    ? productLogos.find((logo) => logo.site === productSite)
+    : productLogos.find((logo) => pathname.startsWith(logo.path));
 
   const headerBgClass = isBlueHeader
     ? "bg-[#166C96] border-none shadow-none"

@@ -1,5 +1,6 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { isProductionHost, PRODUCT_DOMAINS, productSite, type ProductSite } from './lib/site';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -20,17 +21,27 @@ const Careers = lazy(() => import('./pages/Careers'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 
-const productSite = (() => {
-  const host = typeof window === 'undefined' ? '' : window.location.hostname.replace(/^www\./, '');
-  if (host === 'jewelbiz.in' || import.meta.env.VITE_SITE === 'jewelbiz') return 'jewelbiz';
-  if (host === 'curabiz.in' || import.meta.env.VITE_SITE === 'curabiz') return 'curabiz';
-  return null;
-})();
-
 function SiteHome() {
   if (productSite === 'jewelbiz') return <XJewelERP />;
   if (productSite === 'curabiz') return <XCuraHMS />;
   return <Home />;
+}
+
+/**
+ * On the public domains each product lives at the root of its own domain:
+ * /jewelbiz/ on slatebiz.com goes to jewelbiz.in, and /jewelbiz/ on jewelbiz.in goes to /.
+ * Localhost and Vercel previews keep rendering the page in place.
+ */
+function ProductRoute({ product, children }: Readonly<{ product: ProductSite; children: ReactNode }>) {
+  const offDomain = isProductionHost && productSite !== product;
+
+  useEffect(() => {
+    if (offDomain) window.location.replace(`${PRODUCT_DOMAINS[product]}/`);
+  }, [offDomain, product]);
+
+  if (productSite === product) return <Navigate to="/" replace />;
+  if (offDomain) return <PageFallback />;
+  return <>{children}</>;
 }
 
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
@@ -58,8 +69,8 @@ function MainSite() {
             <Route path="/services" element={<Services />} />
             <Route path="/about-us/" element={<About />} />
             <Route path="/contact/" element={<Contact />} />
-            <Route path="/jewelbiz/" element={<XJewelERP />} />
-            <Route path="/curabiz/" element={<XCuraHMS />} />
+            <Route path="/jewelbiz/" element={<ProductRoute product="jewelbiz"><XJewelERP /></ProductRoute>} />
+            <Route path="/curabiz/" element={<ProductRoute product="curabiz"><XCuraHMS /></ProductRoute>} />
             <Route path="/retailbiz/" element={<XRetailERP />} />
             <Route path="/blogs/" element={<Blogs />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
