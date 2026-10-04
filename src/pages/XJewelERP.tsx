@@ -543,7 +543,7 @@ function AccreditationSection() {
 
         <div className="relative lg:-mr-10 xl:-mr-16">
           <img
-            src={asset('/jewelbiz-process-visual.webp')}
+            src={asset('/jewelbiz-process-visual-v2.webp')}
             alt="JewelBiz dashboard on desktop and mobile showing orders, production and dispatch"
             width={640}
             height={682}
