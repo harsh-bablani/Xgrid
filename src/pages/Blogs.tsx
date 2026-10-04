@@ -1,11 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import type { Brand } from '../types/blog';
 import { BLOG_CATEGORIES, brandDisplayTitle } from '../types/blog';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 import SearchBar from '../components/SearchBar';
-import { SITE_URL } from '../lib/seo';
 
 const CATEGORIES: { value: Brand | 'all'; title: string; subtitle?: string }[] = [
   { value: 'all', title: 'All' },
@@ -51,16 +49,6 @@ export default function Blogs() {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-      <Helmet>
-        <title>Blogs | SlateBiz Softwares</title>
-        <meta
-          name="description"
-          content="Explore strategies, guides, and insights on business automation, inventory management, SaaS tools, and scaling operations with modern technology."
-        />
-        <link rel="canonical" href={`${SITE_URL}/blogs/`} />
-        <meta name="robots" content="index, follow" />
-      </Helmet>
-
       {/* Hero — Figma soft pastel gradient */}
       <section
         className="relative overflow-hidden pt-[72px] pb-16 sm:pt-20 sm:pb-[72px] text-center"

@@ -358,8 +358,8 @@ export function countInternalLinks(htmlOrText: string): number {
 export const INTERNAL_LINK_PRESETS: { label: string; href: string }[] = [
   { label: 'Home', href: '/' },
   { label: 'All blogs', href: '/blogs/' },
-  { label: 'JewelBiz', href: '/jewelbiz/' },
-  { label: 'CuraBiz', href: '/curabiz/' },
+  { label: 'JewelBiz', href: 'https://www.jewelbiz.in/' },
+  { label: 'CuraBiz', href: 'https://www.curabiz.in/' },
   { label: 'RetailBiz', href: '/retailbiz/' },
   { label: 'Products', href: '/products' },
   { label: 'Services', href: '/services' },

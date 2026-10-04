@@ -4,6 +4,7 @@ import { isProductionHost, PRODUCT_DOMAINS, productSite, type ProductSite } from
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import RouteSeo from './components/RouteSeo';
 import { AuthProvider } from './context/AuthContext';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -60,6 +61,7 @@ function PageFallback() {
 function MainSite() {
   return (
     <div className="min-h-screen flex flex-col">
+      <RouteSeo />
       <Header />
       <main className="flex-grow safe-pb-fab md:pb-0">
         <Suspense fallback={<PageFallback />}>

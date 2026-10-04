@@ -38,7 +38,8 @@ const ADMIN_USER = {
 };
 
 const SITE_URL = (process.env.SITE_URL || process.env.VITE_SITE_URL || 'https://slatebiz.com').replace(/\/$/, '');
-const SITEMAP_PATH = path.join(ROOT, 'public', 'sitemap.xml');
+// Served per-domain by vercel.json rewrites; product pages live on jewelbiz.in / curabiz.in.
+const SITEMAP_PATH = path.join(ROOT, 'public', 'seo', 'sitemap-slatebiz.xml');
 
 const STATIC_SITEMAP_PATHS = [
   '/',
@@ -46,8 +47,6 @@ const STATIC_SITEMAP_PATHS = [
   '/services',
   '/about-us/',
   '/contact/',
-  '/jewelbiz/',
-  '/curabiz/',
   '/retailbiz/',
   '/blogs/',
   '/terms-of-use',
