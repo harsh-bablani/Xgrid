@@ -1,5 +1,5 @@
 import { Check, X, ChevronRight } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { modules } from '../data/productMatrix';
 import ProductRelatedArticles from '../components/ProductRelatedArticles';
 import CompanyLogosSection from '../components/CompanyLogosSection';
@@ -430,170 +430,135 @@ function BusinessModelSectionWithImages() {
 
 function AccreditationSection() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lineHeight, setLineHeight] = useState(0);
-  const [reduced, setReduced] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const ulRef = useRef<HTMLUListElement>(null);
-  const liRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const complianceItems = [
     {
-      title: 'Sales Order',
+      title: 'Sales order',
       content: 'Manage customer orders efficiently with complete product details, pricing, quantities, delivery timelines, and real-time order status tracking.'
     },
     {
-      title: 'RM Stock In & Out',
+      title: 'RM stock in & out',
       content: 'Track every raw material movement with accurate inward and outward records, ensuring proper material usage and complete transaction visibility.'
     },
     {
-      title: 'RM Inventory',
+      title: 'RM inventory',
       content: 'Maintain a centralized view of raw material inventory, including available quantities, consumption, reorder levels, and current stock status.'
     },
     {
-      title: 'Job Card',
+      title: 'Job card',
       content: 'Create and manage detailed job cards to track jewellery production, assigned work, required materials, processes, and job completion status.'
     },
     {
-      title: 'Finished Goods Stock In & Out',
+      title: 'Finished goods stock in & out',
       content: 'Record finished jewellery movement accurately from production to storage and dispatch, maintaining complete visibility of finished goods transactions.'
     },
     {
-      title: 'Stock In & Out',
+      title: 'Stock in & out',
       content: 'Monitor all inventory movements across departments with organized inward and outward entries, ensuring accurate stock records and accountability.'
     },
     {
-      title: 'Production Planning',
+      title: 'Production planning',
       content: 'Plan production activities efficiently by managing job requirements, material availability, production schedules, workloads, and expected completion timelines.'
     },
     {
-      title: 'Purchase Order',
+      title: 'Purchase order',
       content: 'Create and manage purchase orders with supplier details, material requirements, quantities, pricing, delivery schedules, and complete purchase tracking.'
     },
     {
-      title: 'Quality Management',
+      title: 'Quality management',
       content: 'Track quality inspections and approvals throughout production to ensure every jewellery piece meets defined quality standards before dispatch.'
     },
     {
-      title: 'Reports & Analytics',
+      title: 'Reports & analytics',
       content: 'Access comprehensive reports on sales, inventory, production, purchases, materials, and operations to support faster and smarter business decisions.'
     }
   ];
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
-    if (mq.addEventListener) {
-      mq.addEventListener('change', onChange);
-    } else {
-      mq.addListener(onChange);
-    }
-    return () => {
-      if (mq.removeEventListener) {
-        mq.removeEventListener('change', onChange);
-      } else {
-        mq.removeListener(onChange);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (reduced) {
-      const ul = ulRef.current;
-      if (ul) setLineHeight(ul.clientHeight);
-      return;
-    }
-    const li = liRefs.current[activeIndex];
-    if (!li) return;
-    setLineHeight(li.offsetTop + li.clientHeight);
-  }, [activeIndex, reduced]);
-
-  const handleClick = (i: number) => {
-    setActiveIndex(i === activeIndex ? -1 : i);
-  };
-
   return (
-    <section ref={sectionRef} className="w-full bg-[#EAECEF] pt-12 pb-14 sm:pt-16 sm:pb-20">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-10 lg:px-16">
-        <span className="inline-block mb-6 px-3 py-1.5 bg-white text-[#4B5563] text-[11px] font-medium tracking-wide rounded-full">
-          Accreditation
-        </span>
-        <h2 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
-          <span className="block text-[26px] sm:text-[34px] md:text-[46px] lg:text-[54px]">
-            Track jewellery orders
-          </span>
-          <span className="block text-[26px] sm:text-[34px] md:text-[46px] lg:text-[54px] italic text-[#FF641F]">
-            process by process.
-          </span>
-        </h2>
-        <p className="mt-6 text-[14px] leading-[1.7] text-[#4B5563] max-w-[780px]">
-          From sales order to delivery challan — production visibility for owners who cannot afford silent wastage.
-        </p>
+    <section
+      className="relative w-full overflow-hidden py-14 sm:py-20"
+      style={{ background: 'linear-gradient(115deg, #F7F8FC 0%, #F8F5F3 45%, #F4EEEA 100%)' }}
+    >
+      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-[#0C69B6]/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-80 w-80 rounded-full bg-[#FF641F]/[0.07] blur-3xl" />
 
-        <div className="mt-14 grid grid-cols-1 items-center gap-10 lg:mt-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12 xl:gap-16">
-          <div className="relative">
-            <div className="absolute top-0 bottom-0 left-0 w-[2px] bg-slate-300/40" />
-            <div
-              className="absolute top-0 left-0 w-[2px] bg-[#0C69B6] transition-[height] duration-1000 ease-out"
-              style={{ height: lineHeight }}
-            />
-            <ul
-              ref={ulRef}
-              className="space-y-2 pl-6"
-            >
-              {complianceItems.map((item, i) => {
-                const isActive = reduced || i === activeIndex;
-                return (
-                  <li
-                    key={item.title}
-                    ref={(el) => { liRefs.current[i] = el; }}
-                    className="py-2.5 cursor-pointer"
-                    onClick={() => handleClick(i)}
+      <div className="relative mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-10 px-4 sm:px-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-6 lg:px-16">
+        <div>
+          <span className="mb-6 inline-block rounded-full bg-white px-3.5 py-1.5 text-[11px] font-medium tracking-wide text-[#4B5563] shadow-[0_2px_10px_rgba(15,25,35,0.05)]">
+            Accreditation
+          </span>
+          <h2 className="font-serif font-normal leading-[1.08] tracking-[-0.02em] text-slate-900">
+            <span className="block text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px]">
+              Track jewellery orders
+            </span>
+            <span className="block text-[28px] italic text-[#FF641F] sm:text-[36px] md:text-[44px] lg:text-[48px]">
+              process by process.
+            </span>
+          </h2>
+          <p className="mt-5 max-w-[460px] text-[14px] leading-[1.7] text-[#4B5563]">
+            From sales order to delivery challan — production visibility for owners who cannot afford silent wastage.
+          </p>
+
+          <ol className="mt-9 border-l-2 border-slate-200/90">
+            {complianceItems.map((item, i) => {
+              const isActive = i === activeIndex;
+              return (
+                <li key={item.title} className="relative">
+                  <span
+                    className={`absolute -left-[2px] top-0 h-full w-[2px] origin-top bg-[#FF641F] transition-transform duration-500 ${
+                      isActive ? 'scale-y-100' : 'scale-y-0'
+                    }`}
+                    aria-hidden
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setActiveIndex(isActive ? -1 : i)}
+                    aria-expanded={isActive}
+                    className="group w-full py-[7px] pl-5 text-left"
                   >
-                    <h3 className="text-[15px] font-semibold text-black">
-                      {item.title}
-                    </h3>
-                    <div
-                      className={`mt-2 text-[13px] leading-[1.5] text-black overflow-hidden transition-all duration-1000 ease-out ${
-                        isActive ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                    <span
+                      className={`block font-serif leading-snug transition-colors ${
+                        isActive
+                          ? 'text-[18px] text-slate-900'
+                          : 'text-[16px] text-slate-700 group-hover:text-slate-900'
                       }`}
                     >
-                      {item.content}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                      {i + 1}.&nbsp; {item.title}
+                    </span>
+                    <span
+                      className={`grid transition-all duration-500 ease-out ${
+                        isActive ? 'mt-1.5 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                      }`}
+                    >
+                      <span className="overflow-hidden text-[13px] leading-[1.6] text-[#4B5563]">
+                        {item.content}
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
 
-          <div className="relative lg:sticky lg:top-[calc(var(--site-header-height)+1.5rem)]">
-            <div className="pointer-events-none absolute inset-0 -m-6 rounded-[2rem] bg-gradient-to-br from-[#0C69B6]/10 via-transparent to-[#FF641F]/10 blur-2xl" />
-            <div
-              className="relative mx-auto max-w-[640px]"
-              style={{
-                WebkitMaskImage:
-                  'radial-gradient(ellipse 88% 82% at 50% 45%, #000 52%, transparent 100%)',
-                maskImage:
-                  'radial-gradient(ellipse 88% 82% at 50% 45%, #000 52%, transparent 100%)',
-              }}
-            >
-              <img
-                src={asset('/acc jewelbiz.webp')}
-                alt="JewelBiz order and production tracking"
-                loading="lazy"
-                decoding="async"
-                className="relative z-10 w-full scale-[1.04] object-contain drop-shadow-[0_24px_50px_rgba(15,25,35,0.12)]"
-              />
-            </div>
-            {/* Soft fade into section bg at edges */}
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  'radial-gradient(ellipse 70% 65% at 50% 45%, transparent 40%, #EAECEF 78%)',
-              }}
-            />
-          </div>
+        <div className="relative lg:-mr-10 xl:-mr-16">
+          <img
+            src={asset('/jewelbiz-process-visual.webp')}
+            alt="JewelBiz dashboard on desktop and mobile showing orders, production and dispatch"
+            width={640}
+            height={682}
+            loading="lazy"
+            decoding="async"
+            className="mx-auto w-full max-w-[720px] object-contain"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(90deg, transparent 0%, #000 12%, #000 100%), linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+              WebkitMaskComposite: 'source-in',
+              maskImage:
+                'linear-gradient(90deg, transparent 0%, #000 12%, #000 100%), linear-gradient(180deg, transparent 0%, #000 8%, #000 92%, transparent 100%)',
+              maskComposite: 'intersect',
+            }}
+          />
         </div>
       </div>
     </section>
