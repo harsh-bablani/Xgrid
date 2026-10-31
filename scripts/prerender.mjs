@@ -37,12 +37,41 @@ const fileNameFor = (route) => (route === '/' ? 'index' : route.replace(/^\/|\/$
 const DEFAULT_HEAD_TAGS =
   /\s*<title>[\s\S]*?<\/title>|\s*<meta\s+(?:name="(?:description|twitter:[^"]+)"|property="og:[^"]+")[^>]*>/g;
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Render free tiers often return 502 while waking — retry, then continue without blogs. */
 async function loadPosts() {
-  const res = await fetch(`${API}/api/posts?published=true`, { signal: AbortSignal.timeout(60000) });
-  if (!res.ok) throw new Error(`posts API returned ${res.status}`);
-  const rows = await res.json();
-  if (!Array.isArray(rows)) throw new Error('posts API did not return a list');
-  return rows.filter((post) => post && post.published !== false && !post.no_index && post.slug);
+  const attempts = 5;
+  let lastError = '';
+
+  for (let i = 1; i <= attempts; i += 1) {
+    try {
+      await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(45000) }).catch(() => null);
+      const res = await fetch(`${API}/api/posts?published=true`, {
+        signal: AbortSignal.timeout(90000),
+      });
+      if (!res.ok) {
+        lastError = `posts API returned ${res.status}`;
+        console.warn(`prerender: attempt ${i}/${attempts} failed (${lastError})`);
+        if (i < attempts) await sleep(5000 * i);
+        continue;
+      }
+      const rows = await res.json();
+      if (!Array.isArray(rows)) throw new Error('posts API did not return a list');
+      return rows.filter((post) => post && post.published !== false && !post.no_index && post.slug);
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      console.warn(`prerender: attempt ${i}/${attempts} failed (${lastError})`);
+      if (i < attempts) await sleep(5000 * i);
+    }
+  }
+
+  console.warn(
+    `prerender: could not load posts after ${attempts} attempts (${lastError}). Continuing without blog HTML; app-shell will fetch posts at runtime.`
+  );
+  return [];
 }
 
 function summary(post) {

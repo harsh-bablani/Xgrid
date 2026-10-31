@@ -79,17 +79,38 @@ function blogLoc(post) {
 
 async function blogEntriesFromApi() {
   const api = (process.env.VITE_API_URL || 'https://xgrid.onrender.com').replace(/\/$/, '');
-  const res = await fetch(`${api}/api/posts?published=true`, { signal: AbortSignal.timeout(60000) });
-  if (!res.ok) throw new Error(`posts API returned ${res.status}`);
-  const rows = await res.json();
-  if (!Array.isArray(rows)) throw new Error('posts API did not return a list');
-  return rows
-    .filter((post) => post && post.published !== false && !post.no_index)
-    .map((post) => ({
-      loc: blogLoc(post),
-      lastmod: String(post.updated_at || post.published_at || '').slice(0, 10),
-    }))
-    .filter((entry) => entry.loc);
+  const attempts = 4;
+  let lastError = '';
+
+  for (let i = 1; i <= attempts; i += 1) {
+    try {
+      await fetch(`${api}/api/health`, { signal: AbortSignal.timeout(45000) }).catch(() => null);
+      const res = await fetch(`${api}/api/posts?published=true`, { signal: AbortSignal.timeout(90000) });
+      if (!res.ok) {
+        lastError = `posts API returned ${res.status}`;
+        if (i < attempts) {
+          await new Promise((r) => setTimeout(r, 4000 * i));
+          continue;
+        }
+        throw new Error(lastError);
+      }
+      const rows = await res.json();
+      if (!Array.isArray(rows)) throw new Error('posts API did not return a list');
+      return rows
+        .filter((post) => post && post.published !== false && !post.no_index)
+        .map((post) => ({
+          loc: blogLoc(post),
+          lastmod: String(post.updated_at || post.published_at || '').slice(0, 10),
+        }))
+        .filter((entry) => entry.loc);
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      if (i >= attempts) throw new Error(lastError);
+      await new Promise((r) => setTimeout(r, 4000 * i));
+    }
+  }
+
+  throw new Error(lastError || 'posts API unavailable');
 }
 
 async function blogEntriesFromExistingSitemap() {
