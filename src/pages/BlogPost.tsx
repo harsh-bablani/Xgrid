@@ -103,13 +103,24 @@ export default function BlogPost() {
     return (
       <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center px-4">
         <div className="max-w-md w-full rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
-          <p className="text-slate-600">{error}</p>
-          <Link
-            to="/blogs/"
-            className="mt-6 inline-flex items-center gap-2 text-[#0C69B6] font-semibold text-sm hover:underline"
-          >
-            <ArrowLeft className="w-4 h-4" /> Back to Blogs
-          </Link>
+          <p className="text-slate-600">
+            This article could not be loaded right now. Wait a few seconds and try again.
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              type="button"
+              onClick={() => window.location.reload()}
+              className="inline-flex h-11 items-center justify-center rounded-[10px] bg-[#0C69B6] px-5 text-sm font-semibold text-white hover:bg-[#0A5A9C]"
+            >
+              Try again
+            </button>
+            <Link
+              to="/blogs/"
+              className="inline-flex items-center gap-2 text-[#0C69B6] font-semibold text-sm hover:underline"
+            >
+              <ArrowLeft className="w-4 h-4" /> Back to Blogs
+            </Link>
+          </div>
         </div>
       </div>
     );

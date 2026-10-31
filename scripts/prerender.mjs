@@ -1,7 +1,9 @@
 /**
  * Writes real HTML for each public page, including published blog posts,
  * so crawlers get the article text without running JavaScript.
- * Output: dist/_pages/<site>/*.html and dist/_pages/slatebiz/blog/<slug>.html
+ * Output: dist/_pages/<site>/*.html and dist/blog/<slug>/index.html
+ * Blog files live at /blog/<slug>/ so Vercel serves them as static HTML.
+ * vercel.json falls back to app-shell.html for posts published after a deploy.
  */
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import path from 'node:path';
@@ -58,7 +60,11 @@ console.log(`prerender: ${posts.length} published posts`);
 
 const shell = await readFile(path.join(dist, 'index.html'), 'utf8');
 if (!shell.includes('<div id="root"></div>')) throw new Error('dist/index.html has no empty #root');
-await writeFile(path.join(dist, 'app-shell.html'), shell);
+const apiBootstrap = `<script>window.__SLATEBIZ_API_URL__=${JSON.stringify(API)};</script>`;
+const appShell = shell.includes('__SLATEBIZ_API_URL__')
+  ? shell
+  : shell.replace('<script type="module"', `${apiBootstrap}\n    <script type="module"`);
+await writeFile(path.join(dist, 'app-shell.html'), appShell);
 const bareShell = shell.replace(DEFAULT_HEAD_TAGS, '');
 
 globalThis.__SLATEBIZ_API_URL__ = API;
@@ -89,8 +95,6 @@ for (const [site, routes] of Object.entries(SITES)) {
 
 globalThis.__PRERENDER_SITE__ = undefined;
 const { render: renderSlate } = await import(`${serverEntry}?site=slatebiz-blogs`);
-const blogDir = path.join(dist, '_pages', 'slatebiz', 'blog');
-await mkdir(blogDir, { recursive: true });
 
 for (const post of posts) {
   globalThis.__PRERENDER_BLOG__ = { posts: summaries, post };
@@ -98,7 +102,9 @@ for (const post of posts) {
   if (rendered.html.includes('Loading article') || rendered.html.includes('Blog not found')) {
     throw new Error(`Blog prerender did not include the article for ${post.slug}`);
   }
-  await writePage(path.join(blogDir, `${post.slug}.html`), rendered, { posts: summaries, post });
+  const blogDir = path.join(dist, 'blog', post.slug);
+  await mkdir(blogDir, { recursive: true });
+  await writePage(path.join(blogDir, 'index.html'), rendered, { posts: summaries, post });
   count += 1;
 }
 

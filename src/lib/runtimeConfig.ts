@@ -26,6 +26,15 @@ export async function resolveApiBase(): Promise<string> {
       return fromEnv;
     }
 
+    const fromWindow =
+      typeof window !== 'undefined'
+        ? (window as Window & { __SLATEBIZ_API_URL__?: string }).__SLATEBIZ_API_URL__?.trim().replace(/\/$/, '') || ''
+        : '';
+    if (fromWindow) {
+      cachedBase = fromWindow;
+      return fromWindow;
+    }
+
     if (import.meta.env.DEV) {
       cachedBase = '';
       return '';
@@ -59,4 +68,15 @@ export async function resolveApiBase(): Promise<string> {
 
 export function isApiConfiguredBase(base: string): boolean {
   return import.meta.env.DEV || Boolean(base);
+}
+
+/** Sync peek at a known API base (env, window bootstrap, or prior resolve). */
+export function peekApiBase(): string {
+  if (cachedBase) return cachedBase;
+  const fromEnv = (import.meta.env.VITE_API_URL as string | undefined)?.trim().replace(/\/$/, '') || '';
+  if (fromEnv) return fromEnv;
+  if (typeof window !== 'undefined') {
+    return (window as Window & { __SLATEBIZ_API_URL__?: string }).__SLATEBIZ_API_URL__?.trim().replace(/\/$/, '') || '';
+  }
+  return '';
 }

@@ -1,4 +1,4 @@
-import { isApiConfiguredBase, resetApiBaseCache, resolveApiBase } from './runtimeConfig';
+import { isApiConfiguredBase, peekApiBase, resetApiBaseCache, resolveApiBase } from './runtimeConfig';
 
 const TOKEN_KEY = 'slatebiz_admin_token';
 
@@ -93,7 +93,9 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
     }
     throw new Error(
       import.meta.env.PROD
-        ? 'Cannot reach API server. Set VITE_API_URL on Vercel or public/api-config.json.'
+        ? peekApiBase()
+          ? 'Could not reach the article server. Wait a few seconds and try again.'
+          : 'Cannot reach API server. Set VITE_API_URL on Vercel or public/api-config.json.'
         : 'Cannot reach API server. Run npm run dev (both client and server must start).'
     );
   } finally {

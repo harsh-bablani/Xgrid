@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import type { Brand } from '../types/blog';
 import { BLOG_CATEGORIES, brandDisplayTitle } from '../types/blog';
 import { useBlogPosts } from '../hooks/useBlogPosts';
@@ -145,9 +144,9 @@ export default function Blogs() {
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
                 {pagedPosts.map((post) => (
-                  <Link
+                  <a
                     key={post.id ?? `${post.brand}/${post.slug}`}
-                    to={`/blog/${post.slug}`}
+                    href={`/blog/${post.slug}/`}
                     className="group flex flex-col text-left"
                   >
                     <div className="relative overflow-hidden rounded-[10px] bg-[#F2F4F7] aspect-[16/10]">
@@ -177,7 +176,7 @@ export default function Blogs() {
                       Read More
                       <span className="ml-1.5 transition-transform group-hover:translate-x-0.5">&gt;</span>
                     </span>
-                  </Link>
+                  </a>
                 ))}
               </div>
 

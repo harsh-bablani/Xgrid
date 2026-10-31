@@ -177,10 +177,26 @@ const upload = multer({
 
 const app = express();
 
-const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173,http://127.0.0.1:5173')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
+const DEFAULT_CORS_ORIGINS = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://www.slatebiz.com',
+  'https://slatebiz.com',
+  'https://www.jewelbiz.in',
+  'https://jewelbiz.in',
+  'https://www.curabiz.in',
+  'https://curabiz.in',
+];
+
+const corsOrigins = [
+  ...new Set([
+    ...DEFAULT_CORS_ORIGINS,
+    ...(process.env.CORS_ORIGIN || '')
+      .split(',')
+      .map((o) => o.trim())
+      .filter(Boolean),
+  ]),
+];
 
 app.use(
   cors({
@@ -188,6 +204,14 @@ app.use(
       if (!origin || corsOrigins.includes(origin)) {
         callback(null, true);
         return;
+      }
+      try {
+        if (/\.vercel\.app$/i.test(new URL(origin).hostname)) {
+          callback(null, true);
+          return;
+        }
+      } catch {
+        // ignore invalid Origin
       }
       callback(null, false);
     },
