@@ -2,6 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { DEFAULT_OG_IMAGE, SITE_NAME } from '../lib/seo';
 import { absoluteFor, canonicalFor, jsonLdForPath, seoForPath } from '../lib/pageSeo';
+import { productSite } from '../lib/site';
+
+const SITE_LABEL =
+  productSite === 'jewelbiz' ? 'JewelBiz' : productSite === 'curabiz' ? 'CuraBiz' : SITE_NAME;
+
+const GOOGLE_VERIFICATION = (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined)?.trim();
 
 /** Page-level SEO for static routes. Blog posts render their own tags via SeoHead. */
 export default function RouteSeo() {
@@ -31,9 +37,12 @@ export default function RouteSeo() {
       <meta name="description" content={seo.description} />
       <meta name="robots" content={seo.noIndex ? 'noindex, follow' : 'index, follow'} />
       <link rel="canonical" href={canonical} />
+      {GOOGLE_VERIFICATION ? (
+        <meta name="google-site-verification" content={GOOGLE_VERIFICATION} />
+      ) : null}
 
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:site_name" content={SITE_LABEL} />
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:url" content={canonical} />

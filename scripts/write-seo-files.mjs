@@ -138,11 +138,21 @@ for (const entry of blogEntries) {
   blogs.push(entry.lastmod ? entry : entry.loc);
 }
 
-const slatebizUrls = SLATEBIZ_PATHS.map((pathname) => `${ORIGIN.slatebiz}${pathname === '/' ? '/' : pathname}`);
+const buildDay = new Date().toISOString().slice(0, 10);
+const slatebizUrls = SLATEBIZ_PATHS.map((pathname) => ({
+  loc: `${ORIGIN.slatebiz}${pathname === '/' ? '/' : pathname}`,
+  lastmod: buildDay,
+}));
 
 await writeFile(path.join(seoDir, 'sitemap-slatebiz.xml'), urlset([...slatebizUrls, ...blogs]));
-await writeFile(path.join(seoDir, 'sitemap-jewelbiz.xml'), urlset([`${ORIGIN.jewelbiz}/`]));
-await writeFile(path.join(seoDir, 'sitemap-curabiz.xml'), urlset([`${ORIGIN.curabiz}/`]));
+await writeFile(
+  path.join(seoDir, 'sitemap-jewelbiz.xml'),
+  urlset([{ loc: `${ORIGIN.jewelbiz}/`, lastmod: buildDay }])
+);
+await writeFile(
+  path.join(seoDir, 'sitemap-curabiz.xml'),
+  urlset([{ loc: `${ORIGIN.curabiz}/`, lastmod: buildDay }])
+);
 
 function llmsTxt({ title, summary, pages }) {
   return [`# ${title}`, '', `> ${summary}`, '', '## Pages', ...pages.map((page) => `- [${page.title}](${page.url}): ${page.note}`), ''].join('\n');

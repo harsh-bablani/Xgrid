@@ -49,7 +49,7 @@ const PRODUCT_PAGE_SEO: Record<ProductSite, PageSeoConfig> = {
   jewelbiz: {
     title: 'Jewellery Software in Jaipur | Jewellery ERP & Billing – JewelBiz',
     description:
-      'JewelBiz jewellery software for retail, wholesale & manufacturing jewellers — GST billing, HUID, karigar job work, stock & multi-branch. By SlateBiz, Jaipur.',
+      'Jewellery software in Jaipur for retail, wholesale and manufacturing — GST billing, HUID, karigar job work, stock and multi-branch. JewelBiz by SlateBiz.',
     image: PRODUCT_INFO.jewelbiz.image,
   },
   curabiz: {
@@ -219,6 +219,7 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
           '@id': `${url}#website`,
           name: info.name,
           url,
+          inLanguage: 'en-IN',
           publisher: { '@id': `${SITE_URL}/#organization` },
         },
         ...(product === 'jewelbiz'
@@ -252,6 +253,11 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
           telephone: COMPANY.phone,
           email: COMPANY.email,
           address: COMPANY.address,
+          areaServed: [
+            { '@type': 'City', name: 'Jaipur' },
+            { '@type': 'State', name: 'Rajasthan' },
+            { '@type': 'Country', name: 'India' },
+          ],
           parentOrganization: { '@id': `${SITE_URL}/#organization` },
         },
         {
@@ -259,6 +265,7 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
           '@id': `${SITE_URL}/#website`,
           name: COMPANY.name,
           url: `${SITE_URL}/`,
+          inLanguage: 'en-IN',
           publisher: { '@id': `${SITE_URL}/#organization` },
         },
       ],
