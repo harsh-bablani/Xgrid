@@ -167,7 +167,7 @@ await writeFile(
   llmsTxt({
     title: 'SlateBiz Softwares',
     summary:
-      'SlateBiz Softwares is a Jaipur company. It builds JewelBiz jewellery ERP, CuraBiz hospital software, and RetailBiz. Jewellery and hospital articles are published on this site.',
+      'SlateBiz Softwares is an ERP software company in Jaipur. It builds JewelBiz jewellery ERP, CuraBiz hospital software, and RetailBiz. Jewellery and hospital articles are published on this site.',
     pages: [
       { title: 'Home', url: `${ORIGIN.slatebiz}/`, note: 'ERP software company in Jaipur' },
       { title: 'JewelBiz', url: `${ORIGIN.jewelbiz}/`, note: 'Jewellery ERP, GST billing, HUID, karigar and stock' },

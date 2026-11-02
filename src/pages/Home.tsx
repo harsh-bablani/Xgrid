@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CompanyLogosSection from '../components/CompanyLogosSection';
+import { SLATEBIZ_HOME_FAQ } from '../data/slatebizHomeFaq';
 import { asset } from '../lib/asset';
 
 export default function Home() {
@@ -31,22 +32,22 @@ function HeroSection() {
     >
       <div className="relative z-10 w-full max-w-[1180px] mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <span className="inline-block mb-7 px-4 py-2 bg-blue-50 text-slate-800 text-[13px] font-medium tracking-wide rounded-full">
-          ERP SOFTWARE - PAN INDIA
+          ERP SOFTWARE COMPANY · JAIPUR
         </span>
 
         <h1 className="font-serif font-normal leading-[1.05] tracking-[-0.02em] text-slate-900">
           <span className="block text-[38px] md:text-[52px] lg:text-[62px]">
-            The technology large enterprises run on.
+            ERP software company in Jaipur.
           </span>
           <span className="block text-[38px] md:text-[52px] lg:text-[62px] italic text-[#FF641F]">
-            Built for the businesses that power India.
+            Built for jewellers, hospitals and retailers.
           </span>
         </h1>
 
         <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
-          SlateBiz builds purpose-built ERP software for jewellers, hospitals, and specialist retailers — the
-          industries that form the backbone of India's economy. Robust, secure, and engineered on
-          enterprise-grade technology.
+          SlateBiz Softwares is an ERP software company in Jaipur building JewelBiz, CuraBiz and
+          RetailBiz — purpose-built systems for jewellery, healthcare and specialist retail across
+          India. Enterprise-grade, industry-specific, ready to go live.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5">
@@ -98,7 +99,7 @@ function WhyWeExistSection() {
             </h2>
 
             <p className="mt-8 text-[14px] leading-[1.6] text-[#4B5563] max-w-[550px]">
-              Large retail chains, hospital groups, and jewellery conglomerates run on systems worth crores. The independent jeweller, the clinic, the specialty retailer compete with those players every day. SlateBiz gives them the same backbone.
+              Large retail chains, hospital groups, and jewellery conglomerates run on systems worth crores. The independent jeweller, the clinic, the specialty retailer compete with those players every day. From Jaipur, SlateBiz Softwares builds ERP software that gives them the same backbone.
             </p>
 
             <div className="mt-12 flex flex-col gap-5">
@@ -287,7 +288,7 @@ function ProductsSection() {
 
           <h2 className="font-sans font-medium leading-[1.1] tracking-[-0.01em] text-[#171717]">
             <span className="block text-[26px] sm:text-[31px] whitespace-normal md:whitespace-nowrap">
-              Three ERPs.
+              Three industry ERPs from Jaipur.
             </span>
 
             <span className="block text-[24px] sm:text-[29px] font-medium italic text-[#FF641F] whitespace-normal md:whitespace-nowrap">
@@ -296,7 +297,7 @@ function ProductsSection() {
           </h2>
 
           <p className="mt-5 text-[12px] leading-[1.6] text-[#4B5563] max-w-2xl mx-auto px-2">
-            Each product is built from the ground up for its industry — not a
+            Each SlateBiz product is built from the ground up for its industry — not a
             generic ERP retrofitted with a template.
           </p>
         </div>
@@ -869,28 +870,7 @@ function StepsSection() {
 }
 
 function FAQSection() {
-  const faqs = [
-    {
-      question: "How do you ensure the security of our data?",
-      answer: "Data security is a top priority. We prioritise the security of your information by implementing industry-leading security measures. Additionally, all team members are bound by strict confidentiality agreements to ensure your privacy is always protected."
-    },
-    {
-      question: "Do you provide post-development support and maintenance?",
-      answer: "Absolutely! We understand the importance of ongoing support. We offer flexible maintenance plans to keep your project running smoothly."
-    },
-    {
-      question: "How quickly can you start a new project?",
-      answer: "Initiate your project with ease. Schedule a complimentary consultation through our website. We prioritize prompt communication and will respond within 2-3 business hours to discuss your project confidentially."
-    },
-    {
-      question: "Do you offer refunds?",
-      answer: "Refund policies depend on the terms and conditions of the subscription plan."
-    },
-    {
-      question: "How can I request a product demo?",
-      answer: "You can request a demo by filling out the demo request form on our website. Lets’s talk form"
-    }
-  ];
+  const faqs = SLATEBIZ_HOME_FAQ;
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -907,9 +887,8 @@ function FAQSection() {
               Frequently Asked Questions
             </h2>
             <p className="text-[14px] leading-[1.6] text-[#4B5563] mb-8">
-              Have any questions about our services?
-              <br />
-              You&apos;re in the right place.
+              Common questions about SlateBiz — an ERP software company in Jaipur —
+              our products, go-live and demos.
             </p>
             <Link
               to="/faq"
@@ -967,7 +946,8 @@ function CTASection() {
         </h2>
 
         <p className="mt-6 text-[17px] leading-[1.7] text-slate-600 max-w-3xl mx-auto">
-          Book a demo today. We configure it on your stock, your rates, and your industry — so you see exactly what changes before you commit.
+          Book a demo with SlateBiz in Jaipur. We configure it on your stock, your rates, and your
+          industry — so you see exactly what changes before you commit.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3.5">

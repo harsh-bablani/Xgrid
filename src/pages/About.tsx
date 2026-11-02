@@ -199,16 +199,16 @@ export default function About() {
             </div>
 
             <h1 className="font-serif font-normal text-[clamp(1.85rem,4vw,2.75rem)] leading-[1.15] tracking-[-0.02em] text-slate-900">
-              Intelligent software for
+              ERP software company in Jaipur
               <em className="mt-1 block font-serif italic text-[#0C69B6]">
-                modern businesses.
+                for modern Indian businesses.
               </em>
             </h1>
 
             <p className="mt-4 max-w-[460px] text-[14.5px] leading-relaxed text-slate-600 sm:text-[15.5px]">
-              SlateBiz builds scalable, secure enterprise platforms that simplify operations,
-              sharpen decisions, and accelerate growth — with deep domain expertise in jewellery,
-              healthcare, and retail.
+              SlateBiz Softwares is an ERP software company in Jaipur building JewelBiz, CuraBiz
+              and RetailBiz — scalable, secure platforms that simplify operations for jewellers,
+              hospitals and specialist retailers across India.
             </p>
 
             <div className="mt-8 grid grid-cols-3 gap-4 border-t border-slate-200/80 pt-6">
@@ -277,12 +277,12 @@ export default function About() {
               </span>
             </div>
             <h2 className="font-serif font-normal text-[clamp(1.6rem,3vw,2.1rem)] leading-snug tracking-[-0.02em] text-slate-900">
-              Industry ERPs, built with intent.
+              Industry ERPs, built in Jaipur with intent.
             </h2>
             <p className="mt-4 text-[14.5px] leading-relaxed text-slate-600 sm:text-[15.5px]">
-              We specialize in industry-specific ERP systems and digital platforms. With a strong
-              foundation in innovation and deep domain expertise, SlateBiz creates software
-              ecosystems that help organizations streamline workflows, manage data intelligently,
+              From our base in Jaipur, we specialize in industry-specific ERP systems — not generic
+              platforms with a vertical skin. SlateBiz creates software ecosystems that help
+              jewellers, hospitals and retailers streamline workflows, manage data intelligently,
               and make faster, smarter decisions.
             </p>
           </div>

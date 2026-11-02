@@ -1,5 +1,6 @@
 import { SITE_URL } from './seo';
 import { JEWELBIZ_FAQ } from '../data/jewelbizFaq';
+import { SLATEBIZ_HOME_FAQ } from '../data/slatebizHomeFaq';
 import { PRODUCT_DOMAINS, productSite, type ProductSite } from './site';
 
 export type PageSeoConfig = {
@@ -62,9 +63,9 @@ const PRODUCT_PAGE_SEO: Record<ProductSite, PageSeoConfig> = {
 
 const PAGE_SEO: Record<string, PageSeoConfig> = {
   '/': {
-    title: 'SlateBiz Softwares | ERP Software Company in Jaipur',
+    title: 'ERP Software Company in Jaipur | SlateBiz Softwares',
     description:
-      'SlateBiz builds industry-specific ERP software in Jaipur — JewelBiz jewellery software, CuraBiz hospital management and RetailBiz retail ERP. Book a free demo.',
+      'ERP software company in Jaipur building JewelBiz jewellery software, CuraBiz hospital management and RetailBiz retail ERP. Book a free demo or 14-day trial.',
   },
   '/products': {
     title: 'ERP Products – Jewellery, Hospital & Retail Software | SlateBiz',
@@ -80,9 +81,9 @@ const PAGE_SEO: Record<string, PageSeoConfig> = {
     noIndex: true,
   },
   '/about-us/': {
-    title: 'About SlateBiz Softwares – ERP Software Company, Jaipur',
+    title: 'About Us | ERP Software Company in Jaipur – SlateBiz Softwares',
     description:
-      'SlateBiz Softwares is a Jaipur-based company building purpose-built ERP software for jewellers, hospitals and retailers across India. Our mission and vision.',
+      'About SlateBiz Softwares — an ERP software company in Jaipur building JewelBiz, CuraBiz and RetailBiz for jewellers, hospitals and retailers across India.',
   },
   '/contact/': {
     title: 'Contact SlateBiz – Book a Free ERP Demo | Jaipur',
@@ -168,6 +169,9 @@ const AREA_SERVED = [
   { '@type': 'Country', name: 'India' },
 ];
 
+const COMPANY_DESCRIPTION =
+  'ERP software company in Jaipur building industry-specific ERP for jewellers, hospitals and specialist retailers across India.';
+
 function organizationNode() {
   return {
     '@type': 'Organization',
@@ -178,6 +182,7 @@ function organizationNode() {
     email: COMPANY.email,
     telephone: COMPANY.phone,
     address: COMPANY.address,
+    description: COMPANY_DESCRIPTION,
     brand: (Object.keys(PRODUCT_INFO) as ProductSite[]).map((key) => ({
       '@type': 'Brand',
       name: PRODUCT_INFO[key].name,
@@ -195,6 +200,7 @@ function localBusinessNode(opts: {
   name: string;
   url: string;
   image: string;
+  description?: string;
 }) {
   return {
     '@type': 'LocalBusiness',
@@ -205,6 +211,7 @@ function localBusinessNode(opts: {
     telephone: COMPANY.phone,
     email: COMPANY.email,
     address: COMPANY.address,
+    description: opts.description ?? COMPANY_DESCRIPTION,
     areaServed: AREA_SERVED,
     parentOrganization: { '@id': `${SITE_URL}/#organization` },
   };
@@ -290,6 +297,15 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
           url: `${SITE_URL}/`,
           inLanguage: 'en-IN',
           publisher: { '@id': `${SITE_URL}/#organization` },
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${SITE_URL}/#faq`,
+          mainEntity: SLATEBIZ_HOME_FAQ.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: { '@type': 'Answer', text: item.answer },
+          })),
         },
       ],
     };
