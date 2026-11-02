@@ -162,6 +162,12 @@ export function absoluteFor(pathname: string, asset: string): string {
   return `${origin}${asset.startsWith('/') ? '' : '/'}${asset}`;
 }
 
+const AREA_SERVED = [
+  { '@type': 'City', name: 'Jaipur' },
+  { '@type': 'State', name: 'Rajasthan' },
+  { '@type': 'Country', name: 'India' },
+];
+
 function organizationNode() {
   return {
     '@type': 'Organization',
@@ -184,6 +190,26 @@ function organizationNode() {
   };
 }
 
+function localBusinessNode(opts: {
+  id: string;
+  name: string;
+  url: string;
+  image: string;
+}) {
+  return {
+    '@type': 'LocalBusiness',
+    '@id': opts.id,
+    name: opts.name,
+    url: opts.url,
+    image: opts.image,
+    telephone: COMPANY.phone,
+    email: COMPANY.email,
+    address: COMPANY.address,
+    areaServed: AREA_SERVED,
+    parentOrganization: { '@id': `${SITE_URL}/#organization` },
+  };
+}
+
 export function jsonLdForPath(pathname: string): Record<string, unknown> | null {
   const path = normalizePath(pathname);
   const product = productForPath(path);
@@ -195,6 +221,12 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
       '@context': 'https://schema.org',
       '@graph': [
         organizationNode(),
+        localBusinessNode({
+          id: `${url}#localbusiness`,
+          name: `${info.name} by ${COMPANY.name}`,
+          url,
+          image: `${PRODUCT_DOMAINS[product]}${info.image}`,
+        }),
         {
           '@type': 'SoftwareApplication',
           '@id': `${url}#software`,
@@ -207,6 +239,7 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
           image: `${PRODUCT_DOMAINS[product]}${info.image}`,
           brand: { '@type': 'Brand', name: info.name, logo: `${PRODUCT_DOMAINS[product]}${info.logo}` },
           publisher: { '@id': `${SITE_URL}/#organization` },
+          areaServed: AREA_SERVED,
           offers: {
             '@type': 'Offer',
             description: '14-day free trial',
@@ -244,22 +277,12 @@ export function jsonLdForPath(pathname: string): Record<string, unknown> | null 
       '@context': 'https://schema.org',
       '@graph': [
         organizationNode(),
-        {
-          '@type': 'LocalBusiness',
-          '@id': `${SITE_URL}/#localbusiness`,
+        localBusinessNode({
+          id: `${SITE_URL}/#localbusiness`,
           name: COMPANY.name,
           url: `${SITE_URL}/`,
           image: `${SITE_URL}/logo.webp`,
-          telephone: COMPANY.phone,
-          email: COMPANY.email,
-          address: COMPANY.address,
-          areaServed: [
-            { '@type': 'City', name: 'Jaipur' },
-            { '@type': 'State', name: 'Rajasthan' },
-            { '@type': 'Country', name: 'India' },
-          ],
-          parentOrganization: { '@id': `${SITE_URL}/#organization` },
-        },
+        }),
         {
           '@type': 'WebSite',
           '@id': `${SITE_URL}/#website`,
