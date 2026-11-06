@@ -16,11 +16,12 @@ const ORIGIN = {
   curabiz: 'https://www.curabiz.in',
 };
 
-/** Indexable SlateBiz pages. Placeholder routes (products, services, retailbiz) stay out. */
+/** Indexable SlateBiz pages. Placeholder routes (products, retailbiz) stay out. */
 const SLATEBIZ_PATHS = [
   '/',
   '/about-us/',
   '/contact/',
+  '/services',
   '/blogs/',
   '/terms-of-use',
   '/privacy-policy/',

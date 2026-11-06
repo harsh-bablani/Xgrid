@@ -75,10 +75,9 @@ const PAGE_SEO: Record<string, PageSeoConfig> = {
     noIndex: true,
   },
   '/services': {
-    title: 'ERP Implementation, Data Migration & Support Services | SlateBiz',
+    title: 'Hospital Websites, Apps, Ecommerce & Chatbots | SlateBiz Services',
     description:
-      'SlateBiz handles ERP setup, data migration, on-site training, compliance updates and dedicated support so your team goes live without disruption.',
-    noIndex: true,
+      'SlateBiz builds hospital websites and apps, ecommerce and branding sites, chatbots, plus ERP implementation and support from Jaipur.',
   },
   '/about-us/': {
     title: 'About Us | ERP Software Company in Jaipur – SlateBiz Softwares',

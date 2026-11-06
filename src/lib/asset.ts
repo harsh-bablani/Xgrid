@@ -1,5 +1,5 @@
 /** Bump when replacing files under /public so browsers fetch the new asset. */
-export const ASSET_VERSION = '20260927a';
+export const ASSET_VERSION = '20261107j';
 
 /**
  * Cache-bust a public asset path. Hashed Vite /assets/* URLs are left alone.
