@@ -1,3 +1,4 @@
+import { config as loadEnv } from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
@@ -22,9 +23,12 @@ import { createSession, deleteSession, getSession } from './sessionRepository.js
 import { isSupabaseStorageConfigured } from './supabase.js';
 import { ensureStorageBucket, uploadBlogImage } from './storage.js';
 import { createCaptchaChallenge, verifyCaptchaChallenge } from './captcha.js';
+import { handleChat, emptyIntent, emptyLead } from './chat/engine.js';
+import { llmStatus } from './chat/llm.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
+loadEnv({ path: path.join(ROOT, '.env') });
 const API_PUBLIC_URL = (process.env.API_PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || '').replace(/\/$/, '');
 
 const PORT = process.env.PORT || 3001;
@@ -224,11 +228,15 @@ app.get('/api/health', async (_req, res) => {
     await connectDatabase();
     // Keep short SEO URLs working after deploys / DB restores
     ensureDefaultBlogRedirects().catch(() => {});
+    const llm = llmStatus();
     res.json({
       ok: true,
       mode: process.env.NODE_ENV === 'production' ? 'production' : 'local',
       database: 'supabase-postgres',
       storage: isSupabaseStorageConfigured ? 'supabase-storage' : 'not-configured',
+      llm: llm.configured
+        ? { configured: true, provider: llm.provider, model: llm.model }
+        : { configured: false, hint: 'Set GEMINI_API_KEY for natural chat' },
     });
   } catch (err) {
     res.status(503).json({
@@ -236,6 +244,84 @@ app.get('/api/health', async (_req, res) => {
       error: err.message || 'Database unavailable. Set DATABASE_URL and DIRECT_URL.',
     });
   }
+});
+
+/** Lightweight per-IP throttle for public chat. */
+const chatHits = new Map();
+function chatRateOk(ip) {
+  const now = Date.now();
+  const windowMs = 60_000;
+  const max = 40;
+  const row = chatHits.get(ip) || { t: now, n: 0 };
+  if (now - row.t > windowMs) {
+    row.t = now;
+    row.n = 0;
+  }
+  row.n += 1;
+  chatHits.set(ip, row);
+  return row.n <= max;
+}
+
+app.post('/api/chat', async (req, res) => {
+  const ip = req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() || req.ip || 'unknown';
+  if (!chatRateOk(ip)) {
+    return res.status(429).json({ error: 'Too many messages. Please wait a minute.' });
+  }
+
+  try {
+    const body = req.body || {};
+    const message = String(body.message || '').trim();
+    if (!message || message.length > 2000) {
+      return res.status(400).json({ error: 'Message required (max 2000 chars).' });
+    }
+
+    const history = Array.isArray(body.history)
+      ? body.history
+          .slice(-40)
+          .map((t) => ({
+            role: t?.role === 'assistant' ? 'assistant' : 'user',
+            content: String(t?.content || '').slice(0, 4000),
+          }))
+          .filter((t) => t.content)
+      : [];
+
+    const leadIn = body.lead && typeof body.lead === 'object' ? body.lead : emptyLead();
+    const intentIn = body.intent && typeof body.intent === 'object' ? body.intent : emptyIntent();
+    const stepIn = ['chat', 'interest', 'timeline', 'name', 'phone', 'done'].includes(body.step)
+      ? body.step
+      : 'chat';
+
+    const result = await handleChat({
+      message,
+      history,
+      lead: {
+        name: leadIn.name ? String(leadIn.name).slice(0, 80) : undefined,
+        phone: leadIn.phone ? String(leadIn.phone).slice(0, 20) : undefined,
+        interest: leadIn.interest ? String(leadIn.interest).slice(0, 200) : undefined,
+        timeline: leadIn.timeline ? String(leadIn.timeline).slice(0, 120) : undefined,
+        notes: Array.isArray(leadIn.notes)
+          ? leadIn.notes.map((n) => String(n).slice(0, 200)).slice(0, 30)
+          : [],
+      },
+      intent: {
+        score: Number(intentIn.score) || 0,
+        browsingFlags: Number(intentIn.browsingFlags) || 0,
+        label: ['genuine', 'browsing', 'unclear'].includes(intentIn.label)
+          ? intentIn.label
+          : 'unclear',
+      },
+      step: stepIn,
+    });
+
+    res.json(result);
+  } catch (err) {
+    console.error('chat failed', err);
+    res.status(500).json({ error: 'Chat failed' });
+  }
+});
+
+app.get('/api/chat/health', (_req, res) => {
+  res.json({ ok: true, service: 'slate', ...llmStatus() });
 });
 
 app.get('/api/auth/captcha', (_req, res) => {
@@ -432,6 +518,12 @@ async function start() {
     console.log(`API running on port ${PORT} (${process.env.NODE_ENV === 'production' ? 'production' : 'local'})`);
     console.log('Database: Supabase Postgres via Prisma');
     console.log('Storage: Supabase Storage (blog-images bucket)');
+    const llm = llmStatus();
+    console.log(
+      llm.configured
+        ? `LLM: ${llm.provider} (${llm.model})`
+        : 'LLM: disabled — rule fallback (set GEMINI_API_KEY)',
+    );
     if (API_PUBLIC_URL) console.log(`Public URL: ${API_PUBLIC_URL}`);
     if (process.env.NODE_ENV !== 'production') {
       console.log(`Admin login: ${ADMIN_USER.email} / ${ADMIN_USER.password}`);
